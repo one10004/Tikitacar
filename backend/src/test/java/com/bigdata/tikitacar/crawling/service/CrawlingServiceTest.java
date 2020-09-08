@@ -17,7 +17,7 @@ class CrawlingServiceTest {
     CrawlingService crawlingService;
 
     @Test
-    public void crwal(){
+    public void crawl(){
         crawlingService.crawlingEncar();
     }
 }
