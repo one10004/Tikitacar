@@ -1,6 +1,12 @@
 package com.bigdata.tikitacar.crawling.service;
 
+import org.jsoup.nodes.Document;
+
+import java.io.BufferedWriter;
+
 public interface CrawlingService {
 
-    public void crawlingEncar();
+    public void crawlingCarHtml();
+    public void initCsv(BufferedWriter bufferedWriter) throws Exception;
+    public void addToCsv(Document html, BufferedWriter bufferedWriter) throws Exception;
 }

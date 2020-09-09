@@ -18,6 +18,6 @@ class CrawlingServiceTest {
 
     @Test
     public void crawl(){
-        crawlingService.crawlingEncar();
+        crawlingService.crawlingCarHtml();
     }
 }
