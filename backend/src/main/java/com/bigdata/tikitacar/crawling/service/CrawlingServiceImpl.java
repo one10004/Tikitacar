@@ -29,6 +29,8 @@ public class CrawlingServiceImpl implements CrawlingService {
                 addToCsv(document,bufferedWriter);
             }
 
+            bufferedWriter.close();
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
