@@ -3,6 +3,7 @@ package com.bigdata.tikitacar.crawling.service;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedWriter;
@@ -20,7 +21,7 @@ public class CrawlingServiceImpl implements CrawlingService {
         BufferedWriter bufferedWriter = null;
 
         try {
-            bufferedWriter = Files.newBufferedWriter(Paths.get("C:\\Users\\multicampus\\Desktop\\data.csv"), Charset.forName("UTF-8"));
+            bufferedWriter = Files.newBufferedWriter(Paths.get("C:\\Users\\one10004\\Desktop\\data.csv"), Charset.forName("UTF-8"));
             initCsv(bufferedWriter);
 
             for (int i = 17023; i <= 17023; i++) {
@@ -76,6 +77,12 @@ public class CrawlingServiceImpl implements CrawlingService {
 
     @Override
     public void addToCsv(Document html, BufferedWriter bufferedWriter) throws Exception {
-
+        Element element = null;
+        String text = null;
+        element = html.select("dl.car_info dt").first();
+        text = element.text();
+        int idx = text.indexOf("등급");
+        text = text.substring(0, idx - 1);
+        System.out.println(text);
     }
 }
