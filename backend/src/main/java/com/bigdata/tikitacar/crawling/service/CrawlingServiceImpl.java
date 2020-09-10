@@ -143,7 +143,7 @@ public class CrawlingServiceImpl implements CrawlingService {
                     break;
             }
             if(index == 5){
-                bufferedWriter.write(str[0]);
+                bufferedWriter.write(str[0].replace(" ",""));
                 bufferedWriter.write(",");
                 bufferedWriter.write(str[1].substring(1));
                 bufferedWriter.write(",");
