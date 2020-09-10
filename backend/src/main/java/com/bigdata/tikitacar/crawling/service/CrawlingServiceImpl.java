@@ -32,7 +32,7 @@ public class CrawlingServiceImpl implements CrawlingService {
                 url = "https://www.bobaedream.co.kr/mycar/mycar_view.php?no=" + index;
                 document = Jsoup.connect(url).get();
                 if (document.select("div.info-util.box").first().text().contains("준비중") == false) {
-                    addToCsv(no, index ,document, bufferedWriter);
+                    addToCsv(no, index ,0 ,document, bufferedWriter);
                     no++;
                 }
             }
@@ -45,48 +45,48 @@ public class CrawlingServiceImpl implements CrawlingService {
 
     @Override
     public void initCsv(BufferedWriter bufferedWriter) throws Exception {
-        bufferedWriter.write("no");         //인덱스
-        bufferedWriter.write(",");
-        bufferedWriter.write("name");       //차이름
-        bufferedWriter.write(",");
-        bufferedWriter.write("subname");    //상세이름
-        bufferedWriter.write(",");
-        bufferedWriter.write("price");      //가격
-        bufferedWriter.write(",");
-        bufferedWriter.write("year");       //연식
-        bufferedWriter.write(",");
-        bufferedWriter.write("distance");   //주행거리
-        bufferedWriter.write(",");
-        bufferedWriter.write("cc");         //배기량관리
-        bufferedWriter.write(",");
-        bufferedWriter.write("color");      //색상
-        bufferedWriter.write(",");
-        bufferedWriter.write("gear");       //변속기
-        bufferedWriter.write(",");
-        bufferedWriter.write("fuel");       //연료
-        bufferedWriter.write(",");
-        bufferedWriter.write("seat");       //인승
-        bufferedWriter.write(",");
-        bufferedWriter.write("release");    //신차가격
-        bufferedWriter.write(",");
-        bufferedWriter.write("mortgage");   //압류,저당
-        bufferedWriter.write(",");
-        bufferedWriter.write("option");     //옵션총개수
-        bufferedWriter.write(",");
-        bufferedWriter.write("insurance");  //보험
-        bufferedWriter.write(",");
-        bufferedWriter.write("management"); //관리이력
-        bufferedWriter.write(",");
-        bufferedWriter.write("flooding");      //침수이력
+        bufferedWriter.write("no");         bufferedWriter.write(",");      //인덱스
+        bufferedWriter.write("name");       bufferedWriter.write(",");      //브랜드,차종
+        bufferedWriter.write("year");       bufferedWriter.write(",");      //연식
+        bufferedWriter.write("distance");   bufferedWriter.write(",");      //주행거리
+        bufferedWriter.write("gear");       bufferedWriter.write(",");      //변속기
+        bufferedWriter.write("fuel");       bufferedWriter.write(",");      //연료
+        bufferedWriter.write("cc");         bufferedWriter.write(",");      //배기량
+        bufferedWriter.write("color");      bufferedWriter.write(",");      //색상
+        bufferedWriter.write("option");     bufferedWriter.write(",");      //옵션총개수
+        bufferedWriter.write("seat");       bufferedWriter.write(",");      //인승
+        bufferedWriter.write("flooding");   bufferedWriter.write(",");      //침수이력
+        bufferedWriter.write("insurance");  bufferedWriter.write(",");      //보험횟수
+        bufferedWriter.write("release");    bufferedWriter.write(",");      //출고가
+        bufferedWriter.write("price");                                          //중고가
         bufferedWriter.newLine();
     }
 
     @Override
-    public void addToCsv(int no,int index,Document html, BufferedWriter bufferedWriter) throws Exception {
+    public void addToCsv(int no,int index,int seat,Document html, BufferedWriter bufferedWriter) throws Exception {
         Element element = null;
         Elements elements = null;
         String text = null;
         StringTokenizer st = null;
+
+
+
+        //인덱스
+        //브랜드,차종
+        //연식
+        //주행거리
+        //변속기
+        //연료
+        //배기량
+        //색상
+        //옵션총개수
+        //인승
+        //침수이력
+        //보험횟수
+        //출고가
+        //중고가
+
+
 
         bufferedWriter.newLine();
     }
