@@ -9,9 +9,12 @@ import org.springframework.stereotype.Service;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.StringTokenizer;
 
 @Service
@@ -22,21 +25,24 @@ public class CrawlingServiceImpl implements CrawlingService {
         Document document = null;
         BufferedWriter bufferedWriter = null;
         String path = "C:\\data.csv";
+        ArrayList<int[]> car_info = null;
 
         try {
-            bufferedWriter = Files.newBufferedWriter(Paths.get(path), Charset.forName("UTF-8"));
-            initCsv(bufferedWriter);
+            car_info = carNumAndSeat();
 
-            int order=1;
-            for (int no = 2074130; no <= 2074130; no++) {
-                url = "https://www.bobaedream.co.kr/mycar/mycar_view.php?no=" + no;
-                document = Jsoup.connect(url).get();
-                if (document.select("div.info-util.box").first().text().contains("준비중") == false) {
-                    addToCsv(order, no ,0 ,document, bufferedWriter);
-                    order++;
-                }
-            }
-            bufferedWriter.close();
+//            bufferedWriter = Files.newBufferedWriter(Paths.get(path), Charset.forName("UTF-8"));
+//            initCsv(bufferedWriter);
+//
+//            int order=1;
+//            for (int no = 2074130; no <= 2074130; no++) {
+//                url = "https://www.bobaedream.co.kr/mycar/mycar_view.php?no=" + no;
+//                document = Jsoup.connect(url).get();
+//                if (document.select("div.info-util.box").first().text().contains("준비중") == false) {
+//                    addToCsv(order, no ,0 ,document, bufferedWriter);
+//                    order++;
+//                }
+//            }
+//            bufferedWriter.close();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -89,5 +95,44 @@ public class CrawlingServiceImpl implements CrawlingService {
 
 
         bufferedWriter.newLine();
+    }
+
+    @Override
+    public ArrayList<int[]> carNumAndSeat() throws Exception{
+        ArrayList<int[]> ret = new ArrayList<>();
+
+        for(int i=8; i<=8; i++){
+            String url_ko = "https://www.bobaedream.co.kr/mycar/mycar_list.php?gubun=K&page=" + Integer.toString(i) + "&order=S11&view_size=20";
+            String url_for = "https://www.bobaedream.co.kr/mycar/mycar_list.php?gubun=I&page=" + Integer.toString(i) + "&order=S11&view_size=20";
+            Document document_ko = Jsoup.connect(url_ko).get();
+            Document document_for = Jsoup.connect(url_for).get();
+            Elements elements_ko = document_ko.select("li.product-item div.list-inner div.mode-cell.title dl.data.is-list");
+            Elements elements_for = document_for.select("li.product-item div.list-inner div.mode-cell.title dl.data.is-list");
+
+            for(Element e : elements_ko){
+                int index_start = e.text().indexOf(" ");
+                int index = e.text().indexOf("인승");
+                if(index == -1)
+                    continue;
+                int seat = Integer.parseInt(e.text().substring(index_start + 1, index));
+                int start = e.html().indexOf("php?no=") + 7;
+                int end = e.html().indexOf("gubun") - 5;
+                int car_no = Integer.parseInt(e.html().substring(start, end));
+                ret.add(new int[] {car_no, seat});
+            }
+
+            for(Element e : elements_for){
+                int index = e.text().indexOf("인승");
+                if(index == -1)
+                    continue;
+                int seat = e.text().charAt(index - 1) - '0';
+                int start = e.html().indexOf("php?no=") + 7;
+                int end = e.html().indexOf("gubun") - 5;
+                int car_no = Integer.parseInt(e.html().substring(start, end));
+                ret.add(new int[] {car_no, seat});
+            }
+        }
+
+        return ret;
     }
 }
