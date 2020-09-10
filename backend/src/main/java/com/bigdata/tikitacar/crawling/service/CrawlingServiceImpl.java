@@ -113,7 +113,7 @@ public class CrawlingServiceImpl implements CrawlingService {
 
 
         // 연식 ~ 압류/저당
-        Elements elements = html.select("div.box_gray dl dd");
+        elements = html.select("div.box_gray dl dd");
         int index = 1;
         for(Element e : elements){
             if(index == 7 || index == 8 || index == 10 || index == 12){
