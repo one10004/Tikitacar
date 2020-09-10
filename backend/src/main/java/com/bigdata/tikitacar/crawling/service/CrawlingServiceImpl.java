@@ -28,11 +28,12 @@ public class CrawlingServiceImpl implements CrawlingService {
             initCsv(bufferedWriter);
 
             int no=1;
-            for (int i = 16731; i <= 16731; i++,no++) {
+            for (int i = 16700; i <= 16731; i++) {
                 url = "https://certifiedcar.hyundaicapital.com/hcsfront/ms/carView?xc_vcl_cd=HCL" + i;
                 document = Jsoup.connect(url).get();
                 if(document.text().contains("페이지 주소가 잘못 입력")==false){
                     addToCsv(no,document, bufferedWriter);
+                    no++;
                 }
             }
 
@@ -107,6 +108,9 @@ public class CrawlingServiceImpl implements CrawlingService {
 
         //가격
         element=html.select("p.sale").first();
+        if(element==null){
+            element=html.select("div.price_info").first();
+        }
         String price = element.text()
                 .replace(",","")
                 .replace("만원","");
@@ -130,7 +134,6 @@ public class CrawlingServiceImpl implements CrawlingService {
                 case 2: // 주행 거리
                     text = text.replace("Km","");
                     text = text.replace(",","");
-                    System.out.println("distance : " + text);
                     break;
                 case 3: // 배기량
                     text = text.replace("cc","");
