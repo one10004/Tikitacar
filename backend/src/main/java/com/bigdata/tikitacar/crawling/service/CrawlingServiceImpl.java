@@ -28,10 +28,12 @@ public class CrawlingServiceImpl implements CrawlingService {
             initCsv(bufferedWriter);
 
             int no=1;
-            for (int i = 17023; i <= 17023; i++,no++) {
+            for (int i = 16731; i <= 16731; i++,no++) {
                 url = "https://certifiedcar.hyundaicapital.com/hcsfront/ms/carView?xc_vcl_cd=HCL" + i;
                 document = Jsoup.connect(url).get();
-                addToCsv(no,document, bufferedWriter);
+                if(document.text().contains("페이지 주소가 잘못 입력")==false){
+                    addToCsv(no,document, bufferedWriter);
+                }
             }
 
             bufferedWriter.close();
