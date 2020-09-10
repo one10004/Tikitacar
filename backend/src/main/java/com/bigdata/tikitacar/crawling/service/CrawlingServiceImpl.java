@@ -84,6 +84,7 @@ public class CrawlingServiceImpl implements CrawlingService {
         Element element = null;
         Elements elements = null;
         String text = null;
+        String[] str = new String[2];
 
         //인덱스
         bufferedWriter.write(no+"");
@@ -110,23 +111,49 @@ public class CrawlingServiceImpl implements CrawlingService {
         bufferedWriter.write(price);
         bufferedWriter.write(",");
 
-        //연식
 
-        //주행거리
-
-        //배기량관리
-
-        //색상
-
-        //변속기
-
-        //연료
-
-        //인승
-
-        //신차가격
-
-        //압류,저당
+        // 연식 ~ 압류/저당
+        Elements elements = html.select("div.box_gray dl dd");
+        int index = 1;
+        for(Element e : elements){
+            if(index == 7 || index == 8 || index == 10 || index == 12){
+                index++;
+                continue;
+            }
+            text = e.text();
+            switch (index){ // 색상(4), 인승(6), 압류/저당(11)은 text 따로 처리 x
+                case 1: // 연식
+                    text = text.substring(0, 4);
+                    break;
+                case 2: // 주행 거리
+                    text = text.replace("Km","");
+                    text = text.replace(",","");
+                    System.out.println("distance : " + text);
+                    break;
+                case 3: // 배기량
+                    text = text.replace("cc","");
+                    text = text.replace(",","");
+                    break;
+                case 5: // 변속기 / 연료
+                    str = text.split("/");
+                    break;
+                case 9: // 신차 가격
+                    text = text.replace("만원", "");
+                    text = text.replace(",","");
+                    break;
+            }
+            if(index == 5){
+                bufferedWriter.write(str[0]);
+                bufferedWriter.write(",");
+                bufferedWriter.write(str[1].substring(1));
+                bufferedWriter.write(",");
+                index++;
+                continue;
+            }
+            index++;
+            bufferedWriter.write(text);
+            bufferedWriter.write(",");
+        }
 
         //옵션총개수
         elements=html.select("div#option_info span.sum");
