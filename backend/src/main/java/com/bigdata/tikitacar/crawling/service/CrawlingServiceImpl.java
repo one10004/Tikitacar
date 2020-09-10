@@ -37,15 +37,18 @@ public class CrawlingServiceImpl implements CrawlingService {
                 int no = car[0];
                 int seat = car[1];
 
+                System.out.println(no);
                 url = "https://www.bobaedream.co.kr/mycar/mycar_view.php?no=" + no;
                 document = Jsoup.connect(url).get();
 
                 //신차가격 준비중인것은 패스, 보험정보 미공개는 패스
-                if (document.select("div.info-util.box").first().text().contains("준비중") == false
-                || document.select("div.info-util.box").first().text().contains("미공개") ==false) {
-                    addToCsv(order, no ,seat ,document, bufferedWriter);
-                    order++;
+                if (document.select("div.info-util.box").first().text().contains("준비중")
+                ||document.select("div.info-util.box").first().text().contains("미공개")){
+                    continue;
                 }
+
+                addToCsv(order, no ,seat ,document, bufferedWriter);
+                order++;
             }
             bufferedWriter.close();
 
