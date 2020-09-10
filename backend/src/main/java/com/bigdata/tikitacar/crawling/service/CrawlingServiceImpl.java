@@ -4,6 +4,7 @@ import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedWriter;
@@ -11,6 +12,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.StringTokenizer;
 
 @Service
 public class CrawlingServiceImpl implements CrawlingService {
@@ -19,9 +21,10 @@ public class CrawlingServiceImpl implements CrawlingService {
         String url = null;
         Document document = null;
         BufferedWriter bufferedWriter = null;
+        String path = "C:\\Users\\multicampus\\Desktop\\data.csv";
 
         try {
-            bufferedWriter = Files.newBufferedWriter(Paths.get("C:\\Users\\one10004\\Desktop\\data.csv"), Charset.forName("UTF-8"));
+            bufferedWriter = Files.newBufferedWriter(Paths.get(path), Charset.forName("UTF-8"));
             initCsv(bufferedWriter);
 
             int no=1;
@@ -79,10 +82,11 @@ public class CrawlingServiceImpl implements CrawlingService {
     @Override
     public void addToCsv(int no,Document html, BufferedWriter bufferedWriter) throws Exception {
         Element element = null;
+        Elements elements = null;
         String text = null;
 
         //인덱스
-        bufferedWriter.write(no);
+        bufferedWriter.write(no+"");
         bufferedWriter.write(",");
 
         //차이름
@@ -94,8 +98,17 @@ public class CrawlingServiceImpl implements CrawlingService {
         bufferedWriter.write(",");
 
         //상세이름
+        element = html.select("dl.car_info dd").first();
+        bufferedWriter.write(element.text());
+        bufferedWriter.write(",");
 
         //가격
+        element=html.select("p.sale").first();
+        String price = element.text()
+                .replace(",","")
+                .replace("만원","");
+        bufferedWriter.write(price);
+        bufferedWriter.write(",");
 
         //연식
 
@@ -116,13 +129,28 @@ public class CrawlingServiceImpl implements CrawlingService {
         //압류,저당
 
         //옵션총개수
+        elements=html.select("div#option_info span.sum");
+        int optSum=0;
+        StringTokenizer st = new StringTokenizer(elements.text());
+        while(st.hasMoreTokens()){
+            optSum+=Integer.parseInt(st.nextToken());
+        }
+        bufferedWriter.write(optSum+"");
+        bufferedWriter.write(",");
 
         //보험
+        element=html.select("li.accident_info strong").first();
+        bufferedWriter.write(element.text());
+        bufferedWriter.write(",");
 
         //관리이력
+        element=html.select("li.management_info strong").first();
+        bufferedWriter.write(element.text());
+        bufferedWriter.write(",");
 
         //침수이력
-
+        element=html.select("li.flooding_info strong").first();
+        bufferedWriter.write(element.text());
         bufferedWriter.newLine();
     }
 }
