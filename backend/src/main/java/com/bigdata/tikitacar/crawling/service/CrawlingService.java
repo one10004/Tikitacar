@@ -8,5 +8,5 @@ public interface CrawlingService {
 
     public void crawlingCarHtml();
     public void initCsv(BufferedWriter bufferedWriter) throws Exception;
-    public void addToCsv(int no,int index,int seat, Document html, BufferedWriter bufferedWriter) throws Exception;
+    public void addToCsv(int order,int no,int seat, Document html, BufferedWriter bufferedWriter) throws Exception;
 }

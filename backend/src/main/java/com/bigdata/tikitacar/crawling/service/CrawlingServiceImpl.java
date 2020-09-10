@@ -27,13 +27,13 @@ public class CrawlingServiceImpl implements CrawlingService {
             bufferedWriter = Files.newBufferedWriter(Paths.get(path), Charset.forName("UTF-8"));
             initCsv(bufferedWriter);
 
-            int no=1;
-            for (int index = 2074130; index <= 2074130; index++) {
-                url = "https://www.bobaedream.co.kr/mycar/mycar_view.php?no=" + index;
+            int order=1;
+            for (int no = 2074130; no <= 2074130; no++) {
+                url = "https://www.bobaedream.co.kr/mycar/mycar_view.php?no=" + no;
                 document = Jsoup.connect(url).get();
                 if (document.select("div.info-util.box").first().text().contains("준비중") == false) {
-                    addToCsv(no, index ,0 ,document, bufferedWriter);
-                    no++;
+                    addToCsv(order, no ,0 ,document, bufferedWriter);
+                    order++;
                 }
             }
             bufferedWriter.close();
@@ -63,7 +63,7 @@ public class CrawlingServiceImpl implements CrawlingService {
     }
 
     @Override
-    public void addToCsv(int no,int index,int seat,Document html, BufferedWriter bufferedWriter) throws Exception {
+    public void addToCsv(int order,int no,int seat,Document html, BufferedWriter bufferedWriter) throws Exception {
         Element element = null;
         Elements elements = null;
         String text = null;
