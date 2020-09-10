@@ -21,22 +21,21 @@ public class CrawlingServiceImpl implements CrawlingService {
         String url = null;
         Document document = null;
         BufferedWriter bufferedWriter = null;
-        String path = "C:\\Users\\multicampus\\Desktop\\data.csv";
+        String path = "C:\\data.csv";
 
         try {
             bufferedWriter = Files.newBufferedWriter(Paths.get(path), Charset.forName("UTF-8"));
             initCsv(bufferedWriter);
 
             int no=1;
-            for (int i = 16700; i <= 16731; i++) {
-                url = "https://certifiedcar.hyundaicapital.com/hcsfront/ms/carView?xc_vcl_cd=HCL" + i;
+            for (int index = 2074130; index <= 2074130; index++) {
+                url = "https://www.bobaedream.co.kr/mycar/mycar_view.php?no=" + index;
                 document = Jsoup.connect(url).get();
-                if(document.text().contains("페이지 주소가 잘못 입력")==false){
-                    addToCsv(no,document, bufferedWriter);
+                if (document.select("div.info-util.box").first().text().contains("준비중") == false) {
+                    addToCsv(no, index ,document, bufferedWriter);
                     no++;
                 }
             }
-
             bufferedWriter.close();
 
         } catch (Exception e) {
@@ -83,106 +82,12 @@ public class CrawlingServiceImpl implements CrawlingService {
     }
 
     @Override
-    public void addToCsv(int no,Document html, BufferedWriter bufferedWriter) throws Exception {
+    public void addToCsv(int no,int index,Document html, BufferedWriter bufferedWriter) throws Exception {
         Element element = null;
         Elements elements = null;
         String text = null;
-        String[] str = new String[2];
+        StringTokenizer st = null;
 
-        //인덱스
-        bufferedWriter.write(no+"");
-        bufferedWriter.write(",");
-
-        //차이름
-        element = html.select("dl.car_info dt").first();
-        text = element.text();
-        int idx = text.indexOf("등급");
-        text = text.substring(0, idx - 1);
-        bufferedWriter.write(text);
-        bufferedWriter.write(",");
-
-        //상세이름
-        element = html.select("dl.car_info dd").first();
-        bufferedWriter.write(element.text());
-        bufferedWriter.write(",");
-
-        //가격
-        element=html.select("p.sale").first();
-        if(element==null){
-            element=html.select("div.price_info").first();
-        }
-        String price = element.text()
-                .replace(",","")
-                .replace("만원","");
-        bufferedWriter.write(price);
-        bufferedWriter.write(",");
-
-
-        // 연식 ~ 압류/저당
-        elements = html.select("div.box_gray dl dd");
-        int index = 1;
-        for(Element e : elements){
-            if(index == 7 || index == 8 || index == 10 || index == 12){
-                index++;
-                continue;
-            }
-            text = e.text();
-            switch (index){ // 색상(4), 인승(6), 압류/저당(11)은 text 따로 처리 x
-                case 1: // 연식
-                    text = text.substring(0, 4);
-                    break;
-                case 2: // 주행 거리
-                    text = text.replace("Km","");
-                    text = text.replace(",","");
-                    break;
-                case 3: // 배기량
-                    text = text.replace("cc","");
-                    text = text.replace(",","");
-                    break;
-                case 5: // 변속기 / 연료
-                    str = text.split("/");
-                    break;
-                case 9: // 신차 가격
-                    text = text.replace("만원", "");
-                    text = text.replace(",","");
-                    break;
-            }
-            if(index == 5){
-                bufferedWriter.write(str[0].replace(" ",""));
-                bufferedWriter.write(",");
-                bufferedWriter.write(str[1].substring(1));
-                bufferedWriter.write(",");
-                index++;
-                continue;
-            }
-            index++;
-            bufferedWriter.write(text);
-            bufferedWriter.write(",");
-        }
-
-        //옵션총개수
-        elements=html.select("div#option_info span.sum");
-        int optSum=0;
-        StringTokenizer st = new StringTokenizer(elements.text());
-        while(st.hasMoreTokens()){
-            optSum+=Integer.parseInt(st.nextToken());
-        }
-        bufferedWriter.write(optSum+"");
-        bufferedWriter.write(",");
-
-        //보험
-        element=html.select("li.accident_info strong").first();
-        bufferedWriter.write(element.text());
-        bufferedWriter.write(",");
-
-        //관리이력
-        element=html.select("li.management_info strong").first();
-        bufferedWriter.write(element.text());
-        bufferedWriter.write(",");
-
-        //침수이력
-        element=html.select("li.flooding_info strong").first();
-        bufferedWriter.write(element.text());
         bufferedWriter.newLine();
     }
 }
