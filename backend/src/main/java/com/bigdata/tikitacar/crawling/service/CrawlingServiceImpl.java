@@ -31,35 +31,23 @@ public class CrawlingServiceImpl implements CrawlingService {
         try {
             bufferedWriter = Files.newBufferedWriter(Paths.get(path), Charset.forName("UTF-8"));
             initCsv(bufferedWriter);
-
+            car_info = carNumAndSeat();
             int order=1;
-            for (int no = 2075670; no <= 2075670; no++) {
+            for (int[] car : car_info) {
+                int no = car[0];
+                int seat = car[1];
+
                 url = "https://www.bobaedream.co.kr/mycar/mycar_view.php?no=" + no;
                 document = Jsoup.connect(url).get();
 
                 //신차가격 준비중인것은 패스, 보험정보 미공개는 패스
                 if (document.select("div.info-util.box").first().text().contains("준비중") == false
                 || document.select("div.info-util.box").first().text().contains("미공개") ==false) {
-                    addToCsv(order, no ,0 ,document, bufferedWriter);
+                    addToCsv(order, no ,seat ,document, bufferedWriter);
                     order++;
                 }
             }
             bufferedWriter.close();
-            car_info = carNumAndSeat();
-
-//            bufferedWriter = Files.newBufferedWriter(Paths.get(path), Charset.forName("UTF-8"));
-//            initCsv(bufferedWriter);
-//
-//            int order=1;
-//            for (int no = 2074130; no <= 2074130; no++) {
-//                url = "https://www.bobaedream.co.kr/mycar/mycar_view.php?no=" + no;
-//                document = Jsoup.connect(url).get();
-//                if (document.select("div.info-util.box").first().text().contains("준비중") == false) {
-//                    addToCsv(order, no ,0 ,document, bufferedWriter);
-//                    order++;
-//                }
-//            }
-//            bufferedWriter.close();
 
         } catch (Exception e) {
             e.printStackTrace();
