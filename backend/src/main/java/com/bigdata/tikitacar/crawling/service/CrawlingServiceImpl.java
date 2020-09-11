@@ -25,8 +25,10 @@ public class CrawlingServiceImpl implements CrawlingService {
         String url = null;
         Document document = null;
         BufferedWriter bufferedWriter = null;
-        String path = "C:\\data.csv";
+        String path = "C:\\car\\data.csv";
         ArrayList<int[]> car_info = null;
+
+        System.setProperty("https.protocols", "TLSv1,TLSv1.1,TLSv1.2");
 
         try {
             bufferedWriter = Files.newBufferedWriter(Paths.get(path), Charset.forName("UTF-8"));
@@ -49,7 +51,6 @@ public class CrawlingServiceImpl implements CrawlingService {
 
                 addToCsv(order, no ,seat ,document, bufferedWriter);
                 order++;
-                Thread.sleep(1000);
             }
         } catch (Exception e) {
             e.printStackTrace();
