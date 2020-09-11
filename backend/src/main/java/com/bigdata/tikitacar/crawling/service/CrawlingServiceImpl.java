@@ -49,6 +49,7 @@ public class CrawlingServiceImpl implements CrawlingService {
 
                 addToCsv(order, no ,seat ,document, bufferedWriter);
                 order++;
+                
             }
             bufferedWriter.close();
 
