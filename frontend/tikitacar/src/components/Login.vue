@@ -1,33 +1,32 @@
 <template>
-  <v-app id="inspire">
+  <v-app id="login">
     <v-main>
       <v-container
         class="fill-height"
         fluid
+
       >
         <v-row
-          align="center"
+            align="end"
           justify="center"
         >
-          <v-col
-            cols="12"
-            sm="8"
-            md="4"
-          >
-            <v-card class="elevation-12">
+          <v-spacer></v-spacer>
+          <v-col lg7>
+            <v-card class="elevation-0">
               <v-toolbar
-                color="primary"
+                color="cyan"
                 dark
                 flat
               >
-                <v-toolbar-title>Login form</v-toolbar-title>
+                <v-toolbar-title>로그인</v-toolbar-title>
                 <v-spacer></v-spacer>
               </v-toolbar>
               <v-card-text>
                 <v-form>
                   <v-text-field
-                    label="Login"
-                    name="login"
+                    label="Id"
+                    name="id"
+                    id ="id"
                     prepend-icon="mdi-account"
                     type="text"
                   ></v-text-field>
@@ -43,7 +42,29 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="primary" @click="login">Login</v-btn>
+                <v-btn dark color="cyan" @click="login">로그인</v-btn>
+                <v-btn dark color="cyan" @click="findPassword">비밀번호 찾기</v-btn>
+              </v-card-actions>
+            </v-card>
+
+          </v-col>
+          <v-divider vertical>
+
+          </v-divider>
+          <v-col lg5>
+            <v-card class="elevation-0">
+
+              <v-card-text>
+
+                TIKITACAR 회원으로 가입하시면<br>
+                TIKITACAR의 모든 서비스를<br>
+                이용하실 수 있습니다.
+
+
+              </v-card-text>
+              <v-card-actions>
+
+                <v-btn dark width = "40%" color="cyan" @click="signup">회원 가입</v-btn>
               </v-card-actions>
             </v-card>
           </v-col>
