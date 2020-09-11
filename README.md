@@ -12,6 +12,8 @@
 
 
 
+[버전]
+
 git   version 2.17.1 
 
 nodejs   v12.18.3 npm  6.14.8 
