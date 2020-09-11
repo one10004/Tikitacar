@@ -32,7 +32,7 @@ public class CrawlingServiceImpl implements CrawlingService {
 
         try {
             bufferedWriter = Files.newBufferedWriter(Paths.get(path), Charset.forName("UTF-8"));
-            initCsv(bufferedWriter);
+//            initCsv(bufferedWriter);
             car_info = carNumAndSeat();
             int order=1;
             for (int[] car : car_info) {
