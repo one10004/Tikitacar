@@ -128,7 +128,7 @@ public class CrawlingServiceImpl implements CrawlingService {
         bufferedWriter.write(seat+""); bufferedWriter.write(",");
 
         //침수이력, 보험횟수
-        element =html.select("div.info-insurance tbody").first();
+        element =html.select("div.info-insurance").first();
         st= new StringTokenizer(element.text());
 
         int flooding=0;
