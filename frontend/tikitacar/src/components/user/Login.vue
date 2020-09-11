@@ -27,7 +27,7 @@
                     label="Id"
                     name="id"
                     id ="id"
-                    prepend-icon="mdi-account"
+                    prepend-icon="mdi-account-circle"
                     type="text"
                   ></v-text-field>
 
@@ -36,14 +36,16 @@
                     label="Password"
                     name="password"
                     prepend-icon="mdi-lock"
-                    type="password"
+                    :append-icon="showPassword? 'mdi-eye' : 'mdi-eye-off'"
+                    :type="showPassword? 'text' : 'password'"
+                    @click:append="showPassword = ! showPassword"
                   ></v-text-field>
                 </v-form>
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn dark color="cyan" @click="login">로그인</v-btn>
-                <v-btn dark color="cyan" @click="findPassword">비밀번호 찾기</v-btn>
+                <v-btn dark color="success" @click="login">로그인</v-btn>
+                <v-btn dark color="info" @click="findPassword">비밀번호 찾기</v-btn>
               </v-card-actions>
             </v-card>
 
@@ -77,11 +79,16 @@
 <script>
 import { mapActions } from "vuex";
   export default {
+    data: () => ({
+        showPassword : false
+      })
+    ,
     props: {
       source: String,
     },
     methods: {
       ...mapActions(["login"]),
+
     }
   }
   
