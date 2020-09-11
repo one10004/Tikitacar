@@ -49,12 +49,16 @@ public class CrawlingServiceImpl implements CrawlingService {
 
                 addToCsv(order, no ,seat ,document, bufferedWriter);
                 order++;
-                
+                Thread.sleep(1000);
             }
-            bufferedWriter.close();
-
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            try {
+                bufferedWriter.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
