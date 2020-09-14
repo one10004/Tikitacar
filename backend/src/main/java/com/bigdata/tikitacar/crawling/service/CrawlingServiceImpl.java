@@ -145,13 +145,13 @@ public class CrawlingServiceImpl implements CrawlingService {
             if(str.contains("침수")){
                 st.nextToken();
                 str=st.nextToken();
-                if(str.contains("/"))
+                if(str.contains("/")||str.equals(""))
                     flooding+=0;
                 else
                     flooding+=Integer.parseInt(str);
             }else if(str.contains("보험사고")){
                 str=st.nextToken();
-                if(str.contains("/"))
+                if(str.contains("/")||str.equals(""))
                     insurance+=0;
                 else
                     insurance+=Integer.parseInt(str.replace("회",""));
