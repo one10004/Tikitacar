@@ -37,8 +37,10 @@ public class CrawlingServiceImpl implements CrawlingService {
             for (int[] car : car_info) {
                 int no = car[0];
                 int seat = car[1];
+                int page = car[2];
 
 //                System.out.println(no);
+                System.out.println("page : " + page);
                 url = "https://www.bobaedream.co.kr/mycar/mycar_view.php?no=" + no;
                 document = Jsoup.connect(url).get();
 
@@ -203,7 +205,7 @@ public class CrawlingServiceImpl implements CrawlingService {
                 int start = e.html().indexOf("php?no=") + 7;
                 int end = e.html().indexOf("gubun") - 5;
                 int car_no = Integer.parseInt(e.html().substring(start, end));
-                ret.add(new int[] {car_no, seat});
+                ret.add(new int[] {car_no, seat, i});
             }
 
             for(Element e : elements_for){
@@ -214,7 +216,7 @@ public class CrawlingServiceImpl implements CrawlingService {
                 int start = e.html().indexOf("php?no=") + 7;
                 int end = e.html().indexOf("gubun") - 5;
                 int car_no = Integer.parseInt(e.html().substring(start, end));
-                ret.add(new int[] {car_no, seat});
+                ret.add(new int[] {car_no, seat, i});
             }
         }
 
