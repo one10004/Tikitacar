@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '../components/Login.vue'
 import Main from '../components/Main.vue'
+import Detail from '../components/Detail.vue'
 
 Vue.use(VueRouter)
 
@@ -16,6 +17,14 @@ const routes = [
     name: 'Main',
     component: Main
   },
+  {
+    path: '/detail/:id',
+    name: 'Detail',
+    component: Detail,
+    props: route => ({
+      id: Number(route.params.id)
+    })
+  }
 ]
 
 const router = new VueRouter({
