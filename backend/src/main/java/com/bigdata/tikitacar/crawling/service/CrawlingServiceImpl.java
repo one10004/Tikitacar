@@ -46,7 +46,9 @@ public class CrawlingServiceImpl implements CrawlingService {
 
                 //신차가격 준비중인것은 패스, 보험정보 미공개는 패스
                 if (document.select("div.info-util.box").first().text().contains("준비중")
-                ||document.select("div.info-util.box").first().text().contains("미공개")){
+                        ||document.select("div.info-util.box").first().text().contains("미공개")
+                        ||document.select("div.info-util.box").first().text().contains("만기")
+                        ||document.select("div.info-util.box").first().text().contains("리스")){
                     continue;
                 }
 
@@ -187,7 +189,7 @@ public class CrawlingServiceImpl implements CrawlingService {
     public ArrayList<int[]> carNumAndSeat() throws Exception{
         ArrayList<int[]> ret = new ArrayList<>();
 
-        for(int i=1; i<=100; i++){
+        for(int i=49; i<=100; i++){
             System.out.println(i);
             String url_ko = "https://www.bobaedream.co.kr/mycar/mycar_list.php?gubun=K&page=" + Integer.toString(i) + "&order=S11&view_size=20";
             String url_for = "https://www.bobaedream.co.kr/mycar/mycar_list.php?gubun=I&page=" + Integer.toString(i) + "&order=S11&view_size=20";
