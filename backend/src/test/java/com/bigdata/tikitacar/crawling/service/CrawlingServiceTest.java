@@ -19,23 +19,10 @@ class CrawlingServiceTest {
     @Autowired
     CrawlingService crawlingService;
 
-    @DisplayName("false 로 실행")
-    @RepeatedTest(10)
+    @Test
     public void crawl(){
-
         System.setProperty("jsse.enableSNIExtension", "false");
-        assertDoesNotThrow(()->{
-            crawlingService.crawlingCarHtml();
-
-        });
-    }
-
-    @DisplayName("true 로 실행")
-    @RepeatedTest(10)
-    public void crawl2(){
-        System.setProperty("jsse.enableSNIExtension", "true");
-
-        assertDoesNotThrow(()->{
+        assertDoesNotThrow(()->{/**/
             crawlingService.crawlingCarHtml();
 
         });

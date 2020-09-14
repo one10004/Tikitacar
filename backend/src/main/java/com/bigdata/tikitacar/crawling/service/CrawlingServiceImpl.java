@@ -29,7 +29,6 @@ public class CrawlingServiceImpl implements CrawlingService {
         ArrayList<int[]> car_info = null;
 
         System.setProperty("https.protocols", "TLSv1,TLSv1.1,TLSv1.2");
-
         try {
             bufferedWriter = Files.newBufferedWriter(Paths.get(path), Charset.forName("UTF-8"));
 //            initCsv(bufferedWriter);
@@ -39,7 +38,7 @@ public class CrawlingServiceImpl implements CrawlingService {
                 int no = car[0];
                 int seat = car[1];
 
-                System.out.println(no);
+//                System.out.println(no);
                 url = "https://www.bobaedream.co.kr/mycar/mycar_view.php?no=" + no;
                 document = Jsoup.connect(url).get();
 
@@ -144,10 +143,16 @@ public class CrawlingServiceImpl implements CrawlingService {
             if(str.contains("침수")){
                 st.nextToken();
                 str=st.nextToken();
-                flooding+=Integer.parseInt(str);
+                if(str.contains("/"))
+                    flooding+=0;
+                else
+                    flooding+=Integer.parseInt(str);
             }else if(str.contains("보험사고")){
                 str=st.nextToken();
-                insurance+=Integer.parseInt(str.replace("회",""));
+                if(str.contains("/"))
+                    insurance+=0;
+                else
+                    insurance+=Integer.parseInt(str.replace("회",""));
             }
         }
         bufferedWriter.write(flooding+""); bufferedWriter.write(",");
@@ -180,7 +185,8 @@ public class CrawlingServiceImpl implements CrawlingService {
     public ArrayList<int[]> carNumAndSeat() throws Exception{
         ArrayList<int[]> ret = new ArrayList<>();
 
-        for(int i=8; i<=8; i++){
+        for(int i=1; i<=100; i++){
+            System.out.println(i);
             String url_ko = "https://www.bobaedream.co.kr/mycar/mycar_list.php?gubun=K&page=" + Integer.toString(i) + "&order=S11&view_size=20";
             String url_for = "https://www.bobaedream.co.kr/mycar/mycar_list.php?gubun=I&page=" + Integer.toString(i) + "&order=S11&view_size=20";
             Document document_ko = Jsoup.connect(url_ko).get();
