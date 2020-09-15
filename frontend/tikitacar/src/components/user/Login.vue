@@ -16,8 +16,7 @@
               <v-toolbar
                 color="cyan"
                 dark
-                flat
-              >
+                flat>
                 <v-toolbar-title>로그인</v-toolbar-title>
                 <v-spacer></v-spacer>
               </v-toolbar>
@@ -45,7 +44,7 @@
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn dark color="success" @click="login">로그인</v-btn>
-                <v-btn dark color="info" @click="findPassword">비밀번호 찾기</v-btn>
+                <v-btn dark color="info" router-link :to="{name  : 'PwInquiry'}">비밀번호 찾기</v-btn>
               </v-card-actions>
             </v-card>
 
@@ -66,7 +65,7 @@
               </v-card-text>
               <v-card-actions>
 
-                <v-btn dark width = "40%" color="cyan" @click="signup">회원 가입</v-btn>
+                <v-btn dark width = "40%" color="cyan" router-link :to="{name  : 'SignUp'}">회원 가입</v-btn>
               </v-card-actions>
             </v-card>
           </v-col>

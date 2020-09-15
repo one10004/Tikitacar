@@ -52,31 +52,32 @@
                 <v-select
                     label="성별"
                 :items="['여자', '남자']"
+                    id="gender"
                 >
 
                 </v-select>
                 <v-text-field
                     label="핸드폰번호(0000000000)"
-                    name="dob"
-                    id ="dob"
+                    name="phoneNum"
+                    id ="phoneNum"
                     type="text"
                 >
                 </v-text-field>
 
                 <v-text-field
                     label="주소"
-                    name="dob"
-                    id ="dob"
+                    name="address"
+                    id ="address"
                     :placeholder="address"
                     :readonly = true
                     type="text"
-                    v-on:click="stop = true"
+                    v-on:click="popAddress = true"
                 >
                 </v-text-field>
                 <v-text-field
                     label="상세주소"
-                    name="dob"
-                    id ="dob"
+                    name="addressDetail"
+                    id ="addressDetail"
                     type="text"
                 >
                 </v-text-field>
@@ -85,7 +86,7 @@
                 <v-spacer></v-spacer>
                 <v-btn color="cyan" >회원가입</v-btn>
                 <v-dialog
-                v-model="stop">
+                v-model="popAddress">
                   <vue-daum-postcode @complete="handleAddress"></vue-daum-postcode>
                 </v-dialog>
                </v-card-actions>
@@ -108,7 +109,7 @@
 export default{
   data(){
     return {
-      stop : false,
+      popAddress : false,
       result : "",
       address : ""
     }
@@ -116,9 +117,13 @@ export default{
   methods : {
     handleAddress : function(data){
       this.address = data.address;
-      this.stop = false;
+      this.popAddress = false;
     }
+  },
+  computed :{
+
   }
+
 }
 
 
