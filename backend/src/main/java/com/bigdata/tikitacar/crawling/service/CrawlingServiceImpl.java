@@ -193,7 +193,7 @@ public class CrawlingServiceImpl implements CrawlingService {
         StringTokenizer st = null;
         String info = null;
 
-        for(int i=1; i<=5; i++){
+        for(int i=240; i<=250; i++){
             System.out.println(i);
 //            String url_ko = "https://www.bobaedream.co.kr/mycar/mycar_list.php?gubun=K&page=" + Integer.toString(i) + "&order=S11&view_size=20";
 //            String url_for = "https://www.bobaedream.co.kr/mycar/mycar_list.php?gubun=I&page=" + Integer.toString(i) + "&order=S11&view_size=20";
