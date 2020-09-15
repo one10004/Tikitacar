@@ -41,7 +41,8 @@ public class CrawlingServiceImpl implements CrawlingService {
 
 //                System.out.println(no);
                 System.out.println("page : " + page);
-                url = "https://www.bobaedream.co.kr/mycar/mycar_view.php?no=" + no;
+//                url = "https://www.bobaedream.co.kr/mycar/mycar_view.php?no=" + no;
+                url="https://www.bobaedream.co.kr/cyber/CyberCar_view.php?no="+no;
                 document = Jsoup.connect(url).get();
 
                 //신차가격 준비중인것은 패스, 보험정보 미공개는 패스
@@ -163,7 +164,8 @@ public class CrawlingServiceImpl implements CrawlingService {
         bufferedWriter.write(insurance+""); bufferedWriter.write(",");
 
         //출고가, 중고가
-        String url = "https://www.bobaedream.co.kr/mycar/popup/newCarCompare.php?tb=mycar&no=" + no;
+//        String url = "https://www.bobaedream.co.kr/mycar/popup/newCarCompare.php?tb=mycar&no=" + no;
+        String url = "https://www.bobaedream.co.kr/mycar/popup/newCarCompare.php?tb=cyber&no=" + no;
         Document document = Jsoup.connect(url).get();
         element =document.select("div.tbl-simulation tbody").first();
         st= new StringTokenizer(element.text());
@@ -189,7 +191,7 @@ public class CrawlingServiceImpl implements CrawlingService {
     public ArrayList<int[]> carNumAndSeat() throws Exception{
         ArrayList<int[]> ret = new ArrayList<>();
 
-        for(int i=49; i<=100; i++){
+        for(int i=198; i<=199; i++){
             System.out.println(i);
             String url_ko = "https://www.bobaedream.co.kr/mycar/mycar_list.php?gubun=K&page=" + Integer.toString(i) + "&order=S11&view_size=20";
             String url_for = "https://www.bobaedream.co.kr/mycar/mycar_list.php?gubun=I&page=" + Integer.toString(i) + "&order=S11&view_size=20";
