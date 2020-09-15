@@ -40,20 +40,20 @@ public class CrawlingServiceImpl implements CrawlingService {
                 int page = car[2];
 
 //                System.out.println(no);
-                System.out.println("page : " + page);
-                url = "https://www.bobaedream.co.kr/mycar/mycar_view.php?no=" + no;
-                document = Jsoup.connect(url).get();
-
-                //신차가격 준비중인것은 패스, 보험정보 미공개는 패스
-                if (document.select("div.info-util.box").first().text().contains("준비중")
-                        ||document.select("div.info-util.box").first().text().contains("미공개")
-                        ||document.select("div.info-util.box").first().text().contains("만기")
-                        ||document.select("div.info-util.box").first().text().contains("리스")){
-                    continue;
-                }
-
-                addToCsv(order, no ,seat ,document, bufferedWriter);
-                order++;
+                System.out.println("page : " + page + ", no : " + no);
+//                url = "https://www.bobaedream.co.kr/mycar/mycar_view.php?no=" + no;
+//                document = Jsoup.connect(url).get();
+//
+//                //신차가격 준비중인것은 패스, 보험정보 미공개는 패스
+//                if (document.select("div.info-util.box").first().text().contains("준비중")
+//                        ||document.select("div.info-util.box").first().text().contains("미공개")
+//                        ||document.select("div.info-util.box").first().text().contains("만기")
+//                        ||document.select("div.info-util.box").first().text().contains("리스")){
+//                    continue;
+//                }
+//
+//                addToCsv(order, no ,seat ,document, bufferedWriter);
+//                order++;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -188,38 +188,60 @@ public class CrawlingServiceImpl implements CrawlingService {
     @Override
     public ArrayList<int[]> carNumAndSeat() throws Exception{
         ArrayList<int[]> ret = new ArrayList<>();
+        StringTokenizer st = null;
+        String info = null;
 
-        for(int i=49; i<=100; i++){
+        for(int i=1; i<=5; i++){
             System.out.println(i);
-            String url_ko = "https://www.bobaedream.co.kr/mycar/mycar_list.php?gubun=K&page=" + Integer.toString(i) + "&order=S11&view_size=20";
-            String url_for = "https://www.bobaedream.co.kr/mycar/mycar_list.php?gubun=I&page=" + Integer.toString(i) + "&order=S11&view_size=20";
-            Document document_ko = Jsoup.connect(url_ko).get();
-            Document document_for = Jsoup.connect(url_for).get();
-            Elements elements_ko = document_ko.select("li.product-item div.list-inner div.mode-cell.title dl.data.is-list");
-            Elements elements_for = document_for.select("li.product-item div.list-inner div.mode-cell.title dl.data.is-list");
+//            String url_ko = "https://www.bobaedream.co.kr/mycar/mycar_list.php?gubun=K&page=" + Integer.toString(i) + "&order=S11&view_size=20";
+//            String url_for = "https://www.bobaedream.co.kr/mycar/mycar_list.php?gubun=I&page=" + Integer.toString(i) + "&order=S11&view_size=20";
+            String url_cyber = "https://www.bobaedream.co.kr/cyber/CyberCar.php?gubun=K&page=" + Integer.toString(i) + "&order=S11&view_size=70";
+//            Document document_ko = Jsoup.connect(url_ko).get();
+//            Document document_for = Jsoup.connect(url_for).get();
+            Document document_cyber = Jsoup.connect(url_cyber).get();
+//            Elements elements_ko = document_ko.select("li.product-item div.list-inner div.mode-cell.title dl.data.is-list");
+//            Elements elements_for = document_for.select("li.product-item div.list-inner div.mode-cell.title dl.data.is-list");
+            Elements elements_cyber = document_cyber.select("li.product-item div.list-inner div.mode-cell.title dl.data");
 
-            for(Element e : elements_ko){
-                int index_start = e.text().indexOf(" ");
-                int index = e.text().indexOf("인승");
+            for(Element e : elements_cyber){
+                st = new StringTokenizer(e.text());
+                while(st.hasMoreTokens()){
+                    info = st.nextToken();
+                    if(info.contains("인승"))
+                        break;
+                }
+                int index = info.indexOf("인승");
                 if(index == -1)
                     continue;
-                int seat = Integer.parseInt(e.text().substring(index_start + 1, index));
+                int seat = Integer.parseInt(info.substring(0, index));
                 int start = e.html().indexOf("php?no=") + 7;
                 int end = e.html().indexOf("gubun") - 5;
                 int car_no = Integer.parseInt(e.html().substring(start, end));
                 ret.add(new int[] {car_no, seat, i});
             }
 
-            for(Element e : elements_for){
-                int index = e.text().indexOf("인승");
-                if(index == -1)
-                    continue;
-                int seat = e.text().charAt(index - 1) - '0';
-                int start = e.html().indexOf("php?no=") + 7;
-                int end = e.html().indexOf("gubun") - 5;
-                int car_no = Integer.parseInt(e.html().substring(start, end));
-                ret.add(new int[] {car_no, seat, i});
-            }
+//            for(Element e : elements_ko){
+//                int index_start = e.text().indexOf(" ");
+//                int index = e.text().indexOf("인승");
+//                if(index == -1)
+//                    continue;
+//                int seat = Integer.parseInt(e.text().substring(index_start + 1, index));
+//                int start = e.html().indexOf("php?no=") + 7;
+//                int end = e.html().indexOf("gubun") - 5;
+//                int car_no = Integer.parseInt(e.html().substring(start, end));
+//                ret.add(new int[] {car_no, seat, i});
+//            }
+//
+//            for(Element e : elements_for){
+//                int index = e.text().indexOf("인승");
+//                if(index == -1)
+//                    continue;
+//                int seat = e.text().charAt(index - 1) - '0';
+//                int start = e.html().indexOf("php?no=") + 7;
+//                int end = e.html().indexOf("gubun") - 5;
+//                int car_no = Integer.parseInt(e.html().substring(start, end));
+//                ret.add(new int[] {car_no, seat, i});
+//            }
         }
 
         return ret;
