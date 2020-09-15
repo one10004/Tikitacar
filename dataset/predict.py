@@ -54,7 +54,7 @@ for i in range(10) :
 
     # 예제 데이터
     x_test = [
-        [2020,2000,4000,'흰색','자동','가솔린',33,5,0,0,27850]
+        [2000,2000,4000,'흰색','자동','가솔린',33,5,0,0,5000]
     ]
 
     x_test = transformer.transform(pd.DataFrame(x_test,columns=[
