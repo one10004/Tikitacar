@@ -44,8 +44,8 @@ def predict_car(year,cc,distance,color,gear,fuel,option,seat,flooding,insurance,
 
     #테스트 하기 위한 임시변수
     #나중에 이거 평균 계산(정확도 낮은거 내치기)
-    sum=10
-
+    sum=0
+    
     for i in range(10) :
         x = df[['year', 'cc',  'distance', 'color', 'gear', 'fuel',  'option',  'seat',  'flooding',  'insurance',  'release']]
         y = df[['price']]
@@ -94,6 +94,7 @@ def predict_car(year,cc,distance,color,gear,fuel,option,seat,flooding,insurance,
         # print("정확도 : ",metrics.accuracy_score(y_test,y_predict))
 
         y_predict = model.predict(x_test)
+        sum += y_predict
         print(">>",y_predict[0]) 
 
-    return sum
+    return sum/10
