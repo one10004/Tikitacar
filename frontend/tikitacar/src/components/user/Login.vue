@@ -26,6 +26,7 @@
                     label="Id"
                     name="id"
                     id ="id"
+                    v-model="id"
                     prepend-icon="mdi-account-circle"
                     type="text"
                   ></v-text-field>
@@ -35,6 +36,7 @@
                     label="Password"
                     name="password"
                     prepend-icon="mdi-lock"
+                    v-model="pw"
                     :append-icon="showPassword? 'mdi-eye' : 'mdi-eye-off'"
                     :type="showPassword? 'text' : 'password'"
                     @click:append="showPassword = ! showPassword"
@@ -76,17 +78,21 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+//import { mapActions } from "vuex";
   export default {
     data: () => ({
-        showPassword : false
+        showPassword : false,
+        id: "",
+        pw:""
       })
     ,
     props: {
       source: String,
     },
     methods: {
-      ...mapActions(["login"]),
+      login(){
+        alert(this.id + " " + this.pw);
+      }
 
     }
   }
