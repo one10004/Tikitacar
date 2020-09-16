@@ -79,7 +79,7 @@ def predict_car(year,cc,distance,color,gear,fuel,option,seat,flooding,insurance,
         ################################################################################
 
         # 정확도    낮은거 내치기
-        print(model.score(x_test,y_test))
+        # print(model.score(x_test,y_test))
 
         # 파리미터 입력값들
         x_test = [
@@ -91,10 +91,8 @@ def predict_car(year,cc,distance,color,gear,fuel,option,seat,flooding,insurance,
             'year', 'cc',  'distance', 'color', 'gear', 'fuel',  'option',  'seat',  'flooding',  'insurance',  'release'
         ]))
         
-        # print("정확도 : ",metrics.accuracy_score(y_test,y_predict))
-
         y_predict = model.predict(x_test)
-        sum += y_predict
-        print(">>",y_predict[0]) 
+        sum += y_predict[0]
+        # print(">>",y_predict[0]) 
 
-    return sum/10
+    return sum[0]/10
