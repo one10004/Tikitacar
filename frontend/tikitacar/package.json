@@ -13,7 +13,8 @@
     "vue-router": "^3.4.3",
     "vuetify": "^2.2.11",
     "vuex": "^3.5.1",
-    "vue-daum-postcode": "0.9.0"
+    "vue-daum-postcode": "0.9.0",
+    "axios": "0.20.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
