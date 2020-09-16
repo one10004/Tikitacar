@@ -48,28 +48,22 @@
               ></v-checkbox>
             </div>
             <div class="price">
-              <div style="width: 80px; height: 25px; position: absolute; bottom: 0; margin-left: 30px;">
+              <div style="width: 80px; height: 25px; position: absolute; bottom: 0; margin-left: 20px;">
                 <b>판매가격</b>
               </div>
               <div style="width: 80px; height: 60px; position: absolute; bottom: 0; margin-left: 170px;">
-                <p style="font-size: 50px; color: blue">3,465</p>
+                <p style="font-size: 50px; color: blue">{{this.price}}</p>
               </div>
-              <div style="width: 80px; height: 25px; position: absolute; bottom: 0; margin-left: 270px;">
+              <div style="width: 80px; height: 25px; position: absolute; bottom: 0; margin-left: 300px;">
                 <b>만원</b>
               </div>
-              <!-- <p style="margin-right: 50px;">판매가격</p>
-              <p style="font-size: 50px; color: blue;">3,265</p>
               <v-btn
-                style="margin-left: 100px;"
-              >구매</v-btn> -->
+                large
+                color="primary"
+                style="position: absolute; bottom: 0; margin-left: 430px;"
+                @click="buyCar(model)"
+              >구매</v-btn>
             </div>
-            <v-btn
-              color="primary"
-              absolute
-              right
-              large
-              style="margin: 75px 150px 70px 0px;"
-            >구매</v-btn>
           </div>
         </div>
       </div>
@@ -88,13 +82,67 @@
             <p>연료: 전기</p>
             <p>연비: 8.1km</p>
           </v-col>
+          <v-col cols="12" sm="4">
+            <p>전손이력: 없음</p>
+            <p>침수이력: 없음</p>
+            <p>용도이력: 있음</p>
+            <p>소유자변경: 없음</p>
+          </v-col>
         </v-row>
+      </div>
+      <div>
+        <h3>주행거리 분석</h3>
+        <p>주행 거리는 총 <span style="font-size: 30px; color: blue; padding-left: 8px;">{{this.km}} km</span> 로 일반적인 연평균 주행거리 대비 [<span style="color: green; font-weight: bold;">적음</span>] 입니다.</p>
+      </div>
+      <div>
+        <h3>주요옵션</h3>
+        <div style="display: flex;">
+          <v-icon size="60px" style="margin-right: 30px;">mdi-map-marker</v-icon>
+          <v-icon size="60px" style="margin-right: 30px;">mdi-car-key</v-icon>
+          <v-icon size="60px" style="margin-right: 30px;">mdi-car-light-high</v-icon>
+          <v-icon size="60px" style="margin-right: 30px;">mdi-car-electric</v-icon>
+        </div>
+      </div>
+      <div>
+        <h3>판매자 정보</h3>
+      </div>
+      <div>
+        <h3>동급 차량 추천</h3>
+        <!-- <v-container> -->
+          <v-row class="recommend">
+            <v-col cols="12" sm="4">
+              <router-link :to="{ name: 'Detail', params: { id: 1 } }" style="text-decoration: none;">
+                <v-card style="height: 500px;">
+                  <v-card-title class="headline">제네시스 G70</v-card-title>
+                </v-card>
+              </router-link>
+              
+            </v-col>
+            <v-col cols="12" sm="4">
+              <router-link :to="{ name: 'Detail', params: { id: 2 } }" style="text-decoration: none;">
+                <v-card style="height: 500px;">
+                  <v-card-title class="headline">테슬라 모델 s</v-card-title>
+                </v-card>
+              </router-link>
+            </v-col>
+            <v-col cols="12" sm="4">
+              <router-link :to="{ name: 'Detail', params: { id: 3 } }" style="text-decoration: none;">
+                <v-card style="height: 500px;">
+                  <v-card-title class="headline">코나 EV</v-card-title>
+                </v-card>
+              </router-link>
+            </v-col>
+            
+          </v-row>
+        <!-- </v-container> -->
       </div>
     </v-main>
   </v-app>
 </template>
 
 <script>
+import {mapActions} from "vuex";
+
   export default {
     props: {
       source: String,
@@ -104,7 +152,11 @@
       year: 2019,
       km: "8,000",
       accident: true,
-    })
+      price: "3,645",
+    }),
+    methods: {
+      ...mapActions(["buyCar"])
+    }
   }
 </script>
 
@@ -157,5 +209,9 @@
   }
   .detailInfo {
     margin-top: 100px;
+  }
+  .recommend {
+    margin-right: 60px;
+    left: 0;
   }
 </style>
