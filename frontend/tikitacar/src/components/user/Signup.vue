@@ -4,7 +4,7 @@
       <v-container class="fill-height" fluid>
         <v-row justify="start">
 
-          <v-col lg6>
+          <v-col offset="4">
             <v-card class="elevation-20">
               <v-card-title>
                 TIKITACAR LOGO
@@ -71,7 +71,7 @@
                     :placeholder="address"
                     :readonly = true
                     type="text"
-                    v-on:click="popAddress = true"
+                    v-on:click="addressModal = true"
                 >
                 </v-text-field>
                 <v-text-field
@@ -86,13 +86,13 @@
                 <v-spacer></v-spacer>
                 <v-btn color="cyan" >회원가입</v-btn>
                 <v-dialog
-                v-model="popAddress">
+                v-model="addressModal">
                   <vue-daum-postcode @complete="handleAddress"></vue-daum-postcode>
                 </v-dialog>
                </v-card-actions>
             </v-card>
           </v-col>
-         =
+
         </v-row>
 
      </v-container>
@@ -109,7 +109,7 @@
 export default{
   data(){
     return {
-      popAddress : false,
+      addressModal : false,
       result : "",
       address : ""
     }
@@ -117,7 +117,7 @@ export default{
   methods : {
     handleAddress : function(data){
       this.address = data.address;
-      this.popAddress = false;
+      this.addressModal = false;
     }
   },
   computed :{
