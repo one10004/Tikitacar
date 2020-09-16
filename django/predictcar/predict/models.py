@@ -13,5 +13,4 @@ class Car(models.Model):
     insurance = models.IntegerField()
     release = models.IntegerField()
 
-    def __str__self():
-        return self.title
+    
