@@ -3,11 +3,9 @@ import VueRouter from 'vue-router'
 import Login from '../components/user/Login.vue'
 import Signup from '../components/user/Signup.vue'
 import Main from '../components/Main.vue'
-<<<<<<< HEAD
 import MyPage from '../components/user/MyPage.vue'
-=======
 import Detail from '../components/Detail.vue'
->>>>>>> frontend-feature-detail
+import Search from '../components/Search.vue'
 
 Vue.use(VueRouter)
 
@@ -18,7 +16,6 @@ const routes = [
     component: Login
   },
   {
-<<<<<<< HEAD
     path : '/user/signup',
     name : 'SignUp',
     component: Signup
@@ -29,15 +26,9 @@ const routes = [
   },
   {
     path: '/main',
-=======
-    path: '/',
->>>>>>> frontend-feature-mainpage
     name: 'Main',
     component: Main
   },
-<<<<<<< HEAD
-
-=======
   {
     path: '/detail/:id',
     name: 'Detail',
@@ -45,8 +36,12 @@ const routes = [
     props: route => ({
       id: Number(route.params.id)
     })
+  },
+  {
+    path: '/search',
+    name: 'Search',
+    component: Search,
   }
->>>>>>> frontend-feature-detail
 ]
 
 const router = new VueRouter({
