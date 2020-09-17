@@ -17,14 +17,9 @@ from sklearn.linear_model import LinearRegression
 @csrf_exempt
 def post_car(request) :
 
-    print("=========================")
-    print(request.POST)
-    print("=========================")
-
-    # data=JSONParser().parse(request.POST)
     data = request.POST
 
-    year=int(data['year'])
+    year=2020-int(data['year'])
     cc=int(data['cc'])
     distance=int(data['distance'])
     color=data['color']
