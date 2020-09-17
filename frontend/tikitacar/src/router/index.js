@@ -9,11 +9,12 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
+    path: '/login',
     name: 'Login',
     component: Login
   },
   {
+<<<<<<< HEAD
     path : '/user/signup',
     name : 'SignUp',
     component: Signup
@@ -24,6 +25,9 @@ const routes = [
   },
   {
     path: '/main',
+=======
+    path: '/',
+>>>>>>> frontend-feature-mainpage
     name: 'Main',
     component: Main
   },
