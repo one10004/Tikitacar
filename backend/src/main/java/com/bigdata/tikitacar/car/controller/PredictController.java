@@ -16,9 +16,6 @@ import java.util.Map;
 @CrossOrigin("*")
 @RequestMapping("/car/predict")
 public class PredictController {
-//
-//    @Autowired
-//    PredictService predictService;
 
     //    @ApiOperation("레시피 상세 조회")
     @PostMapping("")
