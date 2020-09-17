@@ -34,4 +34,9 @@ public class UserServiceImpl implements UserService{
     public int findEmailDuplicate(String email) {
         return userRepository.countByEmail(email);
     }
+
+    @Override
+    public int findNicknameDuplicate(String nickname) {
+        return userRepository.countByNickname(nickname);
+    }
 }

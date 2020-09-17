@@ -91,6 +91,22 @@ public class UserController {
     @ApiOperation("닉네임 중복체크")
     @GetMapping("/nickname/{nickname}")
     public Object checkNickname(@PathVariable("nickname") String nickname){
-        return null;
+
+        ResponseEntity response = null;
+        Map<String, Object> map = new HashMap<>();
+
+        int count = userService.findNicknameDuplicate(nickname);
+
+        if(count == 0){
+            map.put("msg", "성공");
+            map.put("status", "success");
+            response = new ResponseEntity(map, HttpStatus.OK);
+        }else{
+            map.put("msg", "닉네임 중복");
+            map.put("status", "fail");
+            response = new ResponseEntity(map, HttpStatus.BAD_REQUEST);
+        }
+
+        return response;
     }
 }

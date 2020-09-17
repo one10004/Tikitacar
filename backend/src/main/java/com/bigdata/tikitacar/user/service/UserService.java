@@ -9,4 +9,5 @@ public interface UserService {
 
     // Read
     public int findEmailDuplicate(String email);
+    public int findNicknameDuplicate(String nickname);
 }
