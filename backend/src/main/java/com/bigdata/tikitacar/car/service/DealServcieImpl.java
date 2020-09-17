@@ -8,6 +8,7 @@ import com.bigdata.tikitacar.car.entity.Deal;
 import com.bigdata.tikitacar.car.repository.CarRepository;
 import com.bigdata.tikitacar.car.repository.DealRepository;
 import com.bigdata.tikitacar.user.entity.User;
+import com.bigdata.tikitacar.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,10 +23,13 @@ public class DealServcieImpl implements DealService {
     @Autowired
     CarRepository carRepository;
 
+    @Autowired
+    UserRepository userRepository;
+
     //Create
     @Override
     public void registerDeal(DealRegisterRequestDto dealRegisterRequestDto) {
-        User seller= userRepository.findById(dealRegisterRequestDto.getSellerId());
+        User seller= userRepository.findById(dealRegisterRequestDto.getSellerId()).get();
 
         //차등록
         Car car = Car.builder()
