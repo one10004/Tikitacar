@@ -29,4 +29,9 @@ public class UserServiceImpl implements UserService{
         userRepository.save(user);
         return;
     }
+
+    @Override
+    public int findEmailDuplicate(String email) {
+        return userRepository.countByEmail(email);
+    }
 }

@@ -70,7 +70,22 @@ public class UserController {
     @ApiOperation("이메일 중복체크")
     @GetMapping("/email/{email}")
     public Object checkEmail(@PathVariable("email") String email){
-        return null;
+        ResponseEntity response = null;
+        Map<String, Object> map = new HashMap<>();
+
+        int count = userService.findEmailDuplicate(email);
+
+        if(count == 0){
+            map.put("msg", "성공");
+            map.put("status", "success");
+            response = new ResponseEntity(map, HttpStatus.OK);
+        }else{
+            map.put("msg", "이메일 중복");
+            map.put("status", "fail");
+            response = new ResponseEntity(map, HttpStatus.BAD_REQUEST);
+        }
+
+        return response;
     }
 
     @ApiOperation("닉네임 중복체크")

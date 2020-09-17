@@ -6,4 +6,7 @@ public interface UserService {
 
     // Create
     public void registerUser(UserRegisterRequestDto userRegisterRequestDto);
+
+    // Read
+    public int findEmailDuplicate(String email);
 }
