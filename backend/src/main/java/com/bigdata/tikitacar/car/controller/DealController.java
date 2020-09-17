@@ -31,9 +31,9 @@ public class DealController {
         Map<String,Object> map = new HashMap<String, Object>();
 
         //
-        Long sellerId = token.();
+//        Long sellerId = token.();
 
-        dealRegisterRequestDto.updateSellerId(sellerId);
+//        dealRegisterRequestDto.updateSellerId(sellerId);
         dealService.registerDeal(dealRegisterRequestDto);
 
         response = new ResponseEntity(map, HttpStatus.OK);
