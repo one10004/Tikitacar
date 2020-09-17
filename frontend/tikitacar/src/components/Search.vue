@@ -1,6 +1,6 @@
 <template>
   <v-app id="inspire">
-    <v-main style="padding-left: 5%;">
+    <v-main style="padding-left: 5%; margin-top: 50px;">
       <h3>시세 검색</h3>
       <v-card class="carSearch">
         <v-container fluid>
@@ -9,10 +9,11 @@
           >
             <v-col cols="12" sm="2">
               <v-select
-                v-model="value"
+                v-model="this.from"
                 :items="items"
                 chips
                 label="수입/국산"
+                :placeholder="this.from"
                 multiple
                 solo
               ></v-select>
@@ -23,6 +24,7 @@
                 :items="items"
                 chips
                 label="제조사"
+                :placeholder="this.manufacturer"
                 multiple
                 solo
               ></v-select>
@@ -33,6 +35,7 @@
                 :items="items"
                 chips
                 label="모델"
+                :placeholder="this.model"
                 multiple
                 solo
               ></v-select>
@@ -58,57 +61,41 @@
           </v-row>
         </v-container>
       </v-card>
-    <h3>내차 알아보기</h3>
-    <v-container>
-      <v-row>
-        <v-col cols="12" sm="4">
-          <v-text-field
-            solo
-            append-icon="mdi-magnify"
-            label="차량 번호를 입력해주세요."
-            clearable
-            background-color="#C8E8F6"
-          >
-          </v-text-field>
-        </v-col>
-      </v-row>
-    </v-container>
 
-    <h3>추천 차량</h3>
-    <v-container>
+      <h3> 검색 결과 </h3>
+
+      <v-container>
       <v-row class="recommend">
-        <v-col cols="12" sm="4">
-          <router-link :to="{ name: 'Detail', params: { id: 1 } }" style="text-decoration: none;">
-            <v-card style="height: 500px;">
-              <v-card-title class="headline">제네시스 G70</v-card-title>
-            </v-card>
-          </router-link>
-          
-        </v-col>
-        <v-col cols="12" sm="4">
-          <router-link :to="{ name: 'Detail', params: { id: 2 } }" style="text-decoration: none;">
-            <v-card style="height: 500px;">
-              <v-card-title class="headline">테슬라 모델 s</v-card-title>
-            </v-card>
-          </router-link>
-        </v-col>
-        <v-col cols="12" sm="4">
-          <router-link :to="{ name: 'Detail', params: { id: 3 } }" style="text-decoration: none;">
-            <v-card style="height: 500px;">
-              <v-card-title class="headline">코나 EV</v-card-title>
-            </v-card>
-          </router-link>
-        </v-col>
-        
-      </v-row>
-    </v-container>
-
+            <v-col cols="12" sm="4">
+              <router-link :to="{ name: 'Detail', params: { id: 1 } }" style="text-decoration: none;">
+                <v-card style="height: 500px;">
+                  <v-card-title class="headline">제네시스 G70</v-card-title>
+                </v-card>
+              </router-link>
+            </v-col>
+            <v-col cols="12" sm="4">
+              <router-link :to="{ name: 'Detail', params: { id: 2 } }" style="text-decoration: none;">
+                <v-card style="height: 500px;">
+                  <v-card-title class="headline">테슬라 모델 s</v-card-title>
+                </v-card>
+              </router-link>
+            </v-col>
+            <v-col cols="12" sm="4">
+              <router-link :to="{ name: 'Detail', params: { id: 3 } }" style="text-decoration: none;">
+                <v-card style="height: 500px;">
+                  <v-card-title class="headline">코나 EV</v-card-title>
+                </v-card>
+              </router-link>
+            </v-col>            
+          </v-row>
+      </v-container>
     </v-main>
   </v-app>
 </template>
 
 <script>
-import {mapActions} from 'vuex';
+import {mapActions} from "vuex";
+
   export default {
     props: {
       source: String,
@@ -118,15 +105,26 @@ import {mapActions} from 'vuex';
         from: "수입",
         manufacturer: "Tesla",
         model: 'Model 3',
-      }
+      },
+      from: "",
+      manufacturer: "",
+      model: "",
     }),
     methods: {
-      ...mapActions(["search"])
-    }
+      ...mapActions(["fetchData"])
+    },
+    created() {
+      this.from = this.$route.query.from;
+      this.manufacturer = this.$route.query.manufacturer;
+      this.model = this.$route.query.model;
+    },
   }
 </script>
 
 <style scoped>
+  h3 {
+    margin-top: 50px;
+  }
   .carSearch {
     margin-top: 10px;
     width: 90%;
@@ -138,9 +136,5 @@ import {mapActions} from 'vuex';
     position: absolute; 
     top: 30%; 
     right: 5%;
-  }
-  h3 {
-    margin-top: 50px;
-    margin-left: 8px;
   }
 </style>

@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Login from '../components/Login.vue'
 import Main from '../components/Main.vue'
 import Detail from '../components/Detail.vue'
+import Search from '../components/Search.vue'
 
 Vue.use(VueRouter)
 
@@ -24,6 +25,11 @@ const routes = [
     props: route => ({
       id: Number(route.params.id)
     })
+  },
+  {
+    path: '/search',
+    name: 'Search',
+    component: Search,
   }
 ]
 
