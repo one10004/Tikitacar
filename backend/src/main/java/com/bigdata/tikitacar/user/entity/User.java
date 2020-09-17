@@ -48,4 +48,7 @@ public class User {
     @ColumnDefault("0")
     private int auth;
 
+    public void updateUserAuth(){
+        this.auth = 1;
+    }
 }
