@@ -6,7 +6,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
-public class RequestCarPredict {
+public class PredictCarRequestDto {
     private String name;
     private int year;
     private int cc;

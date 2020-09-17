@@ -1,6 +1,6 @@
 package com.bigdata.tikitacar.car.controller;
 
-import com.bigdata.tikitacar.car.dto.request.RequestCarPredict;
+import com.bigdata.tikitacar.car.dto.request.PredictCarRequestDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
@@ -19,7 +19,7 @@ public class PredictController {
 
     //    @ApiOperation("레시피 상세 조회")
     @PostMapping("")
-    public Object getPredictPrice(@RequestBody RequestCarPredict requestCarPredict, HttpServletRequest request) throws Exception {
+    public Object getPredictPrice(@RequestBody PredictCarRequestDto requestCarPredict, HttpServletRequest request) throws Exception {
         ResponseEntity response = null;
         Map<String,Object> map = new HashMap<String, Object>();
 
