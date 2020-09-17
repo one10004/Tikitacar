@@ -1,4 +1,13 @@
 package com.bigdata.tikitacar.user.service;
 
-public class UserService {
+import com.bigdata.tikitacar.user.dto.request.UserRegisterRequestDto;
+
+public interface UserService {
+
+    // Create
+    public void registerUser(UserRegisterRequestDto userRegisterRequestDto);
+
+    // Read
+    public int findEmailDuplicate(String email);
+    public int findNicknameDuplicate(String nickname);
 }
