@@ -42,4 +42,10 @@ public class Deal {
     @Column(name="content")
     private String content;
 
+    public void updateDeal(String title,String content){
+        this.title=title;
+        this.content=content;
+    }
+
+
 }
