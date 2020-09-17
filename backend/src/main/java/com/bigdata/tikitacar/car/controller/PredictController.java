@@ -46,7 +46,10 @@ public class PredictController {
             map.put("msg", "중고차 예측 가격 조회를 성공했습니다.");
             map.put("status", "success");
             map.put("car_name", requestCarPredict.getName());
-            map.put("price", responseEntity.getBody().get("result"));
+            int price = (int) Math.round((double) responseEntity.getBody().get("result"));
+            if(price > requestCarPredict.getReleasePrice()*0.9) price =  (int) Math.round(requestCarPredict.getReleasePrice() * 0.9);
+            else if(price < 150) price = 150;
+            map.put("price", price);
             response = new ResponseEntity(map, HttpStatus.OK);
         }else {
             map.put("msg", "중고차 가격 예측에 실패했습니다.");
