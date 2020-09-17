@@ -12,7 +12,7 @@ export default {
         },
         AUTH : {
             loginURL : "auth/login",
-            logoutRequest : "auth/logout"
+            logoutURL : "auth/logout"
         }
     }
 
