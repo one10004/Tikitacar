@@ -16,6 +16,8 @@ from sklearn.linear_model import LinearRegression
 
 @csrf_exempt
 def post_car(request) :
+
+    print(request)
     data=JSONParser().parse(request)
 
     year=int(data['year'])
@@ -39,7 +41,7 @@ def post_car(request) :
 def predict_car(year,cc,distance,color,gear,fuel,option,seat,flooding,insurance,release) :
 
     df=pd.read_csv("./predict/data.csv")
-    print(df.head())
+    # print(df.head())
 
 
     #테스트 하기 위한 임시변수
