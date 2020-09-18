@@ -1,6 +1,8 @@
 package com.bigdata.tikitacar.user.service;
 
+import com.bigdata.tikitacar.user.dto.request.UserLoginRequestDto;
 import com.bigdata.tikitacar.user.dto.request.UserRegisterRequestDto;
+import com.bigdata.tikitacar.user.dto.response.UserLoginResponseDto;
 import com.bigdata.tikitacar.user.entity.User;
 import com.bigdata.tikitacar.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +43,27 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public UserLoginResponseDto login(UserLoginRequestDto userLoginRequestDto) {
+        String email = userLoginRequestDto.getEmail();
+        String password = userLoginRequestDto.getPassword();
+        User user = userRepository.findByEmailAndPassword(email, password).orElse(null);
+
+        UserLoginResponseDto userLoginResponseDto = null;
+
+
+        if(user != null)
+            userLoginResponseDto = UserLoginResponseDto.builder()
+                    .email(email)
+                    .nickname(user.getNickname())
+                    .id(user.getId())
+                    .auth(user.getAuth())
+                    .build();
+
+        return userLoginResponseDto;
+    }
+
+    @Override
     public User findUserByEmail(String email) {
-        return userRepository.findByEmail(email);
+        return userRepository.findByEmail(email).orElse(null);
     }
 }
