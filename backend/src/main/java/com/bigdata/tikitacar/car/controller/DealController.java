@@ -4,6 +4,9 @@ import com.bigdata.tikitacar.car.dto.request.DealRegisterRequestDto;
 import com.bigdata.tikitacar.car.dto.request.DealUpdateRequestDto;
 import com.bigdata.tikitacar.car.dto.response.DealSearchResponseDto;
 import com.bigdata.tikitacar.car.service.DealService;
+import com.bigdata.tikitacar.user.entity.User;
+import com.bigdata.tikitacar.user.service.UserService;
+import com.bigdata.tikitacar.util.JwtService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,17 +24,21 @@ public class DealController {
     @Autowired
     DealService dealService;
 
+    @Autowired
+    JwtService jwtService;
+
+    @Autowired
+    UserService userService;
 
     //Create
     @ApiOperation("거래 등록")
     @PostMapping("")
-    public Object dealRegister(/*@RequestHeader(value="Authorization") String token,*/
+    public Object dealRegister(@RequestHeader(value="Authorization") String token,
                                @RequestBody DealRegisterRequestDto dealRegisterRequestDto){
         ResponseEntity response = null;
         Map<String,Object> map = new HashMap<String, Object>();
 
-//        Long sellerId = token.();
-//        dealRegisterRequestDto.updateSellerId(sellerId);
+        dealRegisterRequestDto.updateSellerId(userService.findUserByEmail(jwtService.getEmailFromToken(token)).getId());
         dealService.registerDeal(dealRegisterRequestDto);
 
         response = new ResponseEntity(map, HttpStatus.OK);
@@ -67,7 +74,6 @@ public class DealController {
 
         return response;
     }
-
 
     //Delete
     @ApiOperation("거래 삭제")
