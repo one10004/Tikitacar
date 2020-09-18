@@ -1,10 +1,23 @@
 <template>
   <v-app id="inspire">
     <v-navigation-drawer
-      v-model="drawer"
       app
-      right
+      left
     >
+      <router-link :to="{name: 'Main'}" style="text-decoration: none;">
+        <h1>tikitaCAR</h1>
+      </router-link>
+
+      
+        <div style="text-align: center;">
+          <router-link :to="{name: 'Login'}" style="text-decoration: none;">
+            <v-icon
+              style="margin-top:15px;font-size:65px;padding-bottom:0px;"
+            >mdi-account-circle</v-icon>
+          </router-link>
+        </div>
+        
+      
       <v-list dense>
         <v-list-item link>
           <v-list-item-action>
@@ -28,47 +41,31 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar
-      app
-      color="cyan"
-      dark
-    >
-      <v-spacer></v-spacer>
-
-      <v-toolbar-title>tikitaCAR!</v-toolbar-title>
-
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-    </v-app-bar>
-
     <v-main>
       <router-view :key="$route.fullPath" />
     </v-main>
 
     <v-footer
-      color="cyan"
+      color="#6DCEF5"
       app
     >
       <v-spacer></v-spacer>
 
-      <span class="white--text">&copy; {{ new Date().getFullYear() }} tikitacar</span>
+      <span class="white--text">&copy; {{ new Date().getFullYear() }} tikitaCAR</span>
     </v-footer>
   </v-app>
 </template>
 
 <script>
-// import HelloWorld from './components/HelloWorld.vue'
-
 export default {
   props: {
       source: String,
   },
   data: () => ({
-    drawer: null,
+
   }),
   name: 'App',
-  components: {
-    // HelloWorld
-  }
+  components: {}
 }
 </script>
 
@@ -78,7 +75,13 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #6DCEF5;
   margin-top: 60px;
+}
+h1 {
+  margin-top:15px;
+  font-size:50px;
+  padding-bottom:0px;
+  text-align: center;
 }
 </style>
