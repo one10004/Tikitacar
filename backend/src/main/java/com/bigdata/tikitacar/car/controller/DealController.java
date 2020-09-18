@@ -25,14 +25,12 @@ public class DealController {
     //Create
     @ApiOperation("거래 등록")
     @PostMapping("")
-    public Object dealRegister(@RequestHeader(value="Authorization") String token,
+    public Object dealRegister(/*@RequestHeader(value="Authorization") String token,*/
                                @RequestBody DealRegisterRequestDto dealRegisterRequestDto){
         ResponseEntity response = null;
         Map<String,Object> map = new HashMap<String, Object>();
 
-        //
 //        Long sellerId = token.();
-
 //        dealRegisterRequestDto.updateSellerId(sellerId);
         dealService.registerDeal(dealRegisterRequestDto);
 
