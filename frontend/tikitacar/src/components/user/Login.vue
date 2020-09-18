@@ -16,8 +16,7 @@
               <v-toolbar
                 color="cyan"
                 dark
-                flat
-              >
+                flat>
                 <v-toolbar-title>로그인</v-toolbar-title>
                 <v-spacer></v-spacer>
               </v-toolbar>
@@ -27,6 +26,7 @@
                     label="Id"
                     name="id"
                     id ="id"
+                    v-model="loginRequest.id"
                     prepend-icon="mdi-account-circle"
                     type="text"
                   ></v-text-field>
@@ -36,6 +36,7 @@
                     label="Password"
                     name="password"
                     prepend-icon="mdi-lock"
+                    v-model="loginRequest.pw"
                     :append-icon="showPassword? 'mdi-eye' : 'mdi-eye-off'"
                     :type="showPassword? 'text' : 'password'"
                     @click:append="showPassword = ! showPassword"
@@ -45,7 +46,7 @@
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn dark color="success" @click="login">로그인</v-btn>
-                <v-btn dark color="info" @click="findPassword">비밀번호 찾기</v-btn>
+                <v-btn dark color="info" router-link :to="{name  : 'PwInquiry'}">비밀번호 찾기</v-btn>
               </v-card-actions>
             </v-card>
 
@@ -66,7 +67,7 @@
               </v-card-text>
               <v-card-actions>
 
-                <v-btn dark width = "40%" color="cyan" @click="signup">회원 가입</v-btn>
+                <v-btn dark width = "40%" color="cyan" router-link :to="{name  : 'SignUp'}">회원 가입</v-btn>
               </v-card-actions>
             </v-card>
           </v-col>
@@ -77,17 +78,35 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+//import { mapActions } from "vuex";
+import axios from 'axios';
+import api from '@/api/api'
+
   export default {
     data: () => ({
-        showPassword : false
+        showPassword : false,
+        id: "",
+        loginRequest : {
+          id : "",
+          pw : ""
+        }
       })
     ,
     props: {
       source: String,
     },
     methods: {
-      ...mapActions(["login"]),
+      login(){
+        let URL = api.ROOT_URL + api.ROUTES.AUTH.loginURL;
+
+       axios.post(URL,this.loginRequest).then(
+           function(){
+             alert("로그인에 성공했습니다.");
+           }
+       ).catch(function(error){
+         alert(error);
+       });
+      }
 
     }
   }
