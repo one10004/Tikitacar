@@ -9,8 +9,8 @@ import com.bigdata.tikitacar.user.entity.User;
 import com.bigdata.tikitacar.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -20,6 +20,7 @@ public class UserServiceImpl implements UserService{
 
     // Create
     @Override
+    @Transactional
     public void registerUser(UserRegisterRequestDto userRegisterRequestDto) {
         User user = User.builder()
                 .password(userRegisterRequestDto.getPassword())
@@ -96,6 +97,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    @Transactional
     public void modifyUserInfo(UserModifyRequestDto userModifyRequestDto) {
         User user = userRepository.findById(userModifyRequestDto.getId()).orElse(null);
 
