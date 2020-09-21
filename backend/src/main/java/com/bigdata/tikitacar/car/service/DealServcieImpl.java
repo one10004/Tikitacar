@@ -7,6 +7,8 @@ import com.bigdata.tikitacar.car.entity.Car;
 import com.bigdata.tikitacar.car.entity.Deal;
 import com.bigdata.tikitacar.car.repository.CarRepository;
 import com.bigdata.tikitacar.car.repository.DealRepository;
+import com.bigdata.tikitacar.img.entity.Img;
+import com.bigdata.tikitacar.img.repository.ImgRepository;
 import com.bigdata.tikitacar.user.entity.User;
 import com.bigdata.tikitacar.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,9 @@ public class DealServcieImpl implements DealService {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    ImgRepository imgRepository;
 
     //Create
     @Override
@@ -64,6 +69,15 @@ public class DealServcieImpl implements DealService {
                 .build();
 
         dealRepository.save(deal);
+
+        //이미지 업로드
+        for(String s :dealRegisterRequestDto.getSrc()){
+            Img img = Img.builder()
+                    .deal(deal)
+                    .src(s)
+                    .build();
+            imgRepository.save(img);
+        }
     }
 
     //Read
@@ -100,6 +114,9 @@ public class DealServcieImpl implements DealService {
     public void updateDeal(DealUpdateRequestDto dealUpdateRequestDto) {
         Deal deal = dealRepository.findById(dealUpdateRequestDto.getId()).get();
 
+        //이전 이미지 다지우기
+        imgRepository.deleteByDeal_Id(deal.getId());
+
         Car car =deal.getCar();
 
         car.updateCar(dealUpdateRequestDto.getName(),
@@ -113,11 +130,20 @@ public class DealServcieImpl implements DealService {
                 dealUpdateRequestDto.getFlooding(),
                 dealUpdateRequestDto.getInsurance(),
                 dealUpdateRequestDto.getReleasePrice(),
-                dealUpdateRequestDto.getPrice()
-                );
+                dealUpdateRequestDto.getPrice());
 
         deal.updateDeal(dealUpdateRequestDto.getTitle(),
                 dealUpdateRequestDto.getContent());
+
+        //이미지 새로추가
+        for(String s :dealUpdateRequestDto.getSrc()){
+            Img img = Img.builder()
+                    .deal(deal)
+                    .src(s)
+                    .build();
+            imgRepository.save(img);
+        }
+        
     }
 
     //Delete
