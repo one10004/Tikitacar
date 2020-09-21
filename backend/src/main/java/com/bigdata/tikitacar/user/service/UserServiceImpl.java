@@ -73,6 +73,7 @@ public class UserServiceImpl implements UserService{
 
         if(user != null){
             userFindResponseDto = userFindResponseDto.builder()
+                .id(user.getId())
                 .email(user.getEmail())
                 .nickanme(user.getNickname())
                 .birth(user.getBirth())

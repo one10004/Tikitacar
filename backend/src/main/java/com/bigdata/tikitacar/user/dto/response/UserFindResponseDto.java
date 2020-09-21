@@ -12,6 +12,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @ToString
 public class UserFindResponseDto {
+    private Long id;
     private String email;
     private String nickanme;
     private LocalDate birth;

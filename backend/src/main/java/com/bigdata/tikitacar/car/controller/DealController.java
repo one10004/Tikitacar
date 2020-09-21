@@ -38,6 +38,7 @@ public class DealController {
         ResponseEntity response = null;
         Map<String,Object> map = new HashMap<String, Object>();
 
+        //유저정보 dto에 등록
         dealRegisterRequestDto.updateSellerId(userService.findUserByEmail(jwtService.getEmailFromToken(token)).getId());
         dealService.registerDeal(dealRegisterRequestDto);
 
@@ -64,12 +65,12 @@ public class DealController {
 
     //Update
     @ApiOperation("거래 업데이트")
-    @PutMapping("/{id}")
-    public Object dealUpdate(@PathVariable Long id, @RequestBody DealUpdateRequestDto dealUpdateRequestDto){
+    @PutMapping("/")
+    public Object dealUpdate(@RequestBody DealUpdateRequestDto dealUpdateRequestDto){
         ResponseEntity response = null;
         Map<String,Object> map = new HashMap<String, Object>();
 
-        dealService.updateDeal(id,dealUpdateRequestDto);
+        dealService.updateDeal(dealUpdateRequestDto);
         response = new ResponseEntity(map,HttpStatus.OK);
 
         return response;

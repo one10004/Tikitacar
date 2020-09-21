@@ -93,8 +93,8 @@ public class DealServcieImpl implements DealService {
     //Update
     @Override
     @Transactional
-    public void updateDeal(Long id, DealUpdateRequestDto dealUpdateRequestDto) {
-        Deal deal = dealRepository.findById(id).get();
+    public void updateDeal(DealUpdateRequestDto dealUpdateRequestDto) {
+        Deal deal = dealRepository.findById(dealUpdateRequestDto.getId()).get();
 
         Car car =deal.getCar();
 
