@@ -6,7 +6,7 @@ import Main from '../components/Main.vue'
 import MyPage from '../components/user/MyPage.vue'
 import Detail from '../components/Detail.vue'
 import Search from '../components/Search.vue'
-
+import App from '@/App.vue';
 Vue.use(VueRouter)
 
 const routes = [
@@ -36,6 +36,10 @@ const routes = [
     props: route => ({
       id: Number(route.params.id)
     })
+  },{
+    path : '/',
+    name : "Home",
+    component: App
   },
   {
     path: '/search',

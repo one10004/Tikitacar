@@ -130,17 +130,39 @@
 
 
 <script>
-
+import axios from 'axios';
+import api from '@/api/api'
+import router from "@/router/";
+router;
   export default{
-    data(){
-     // userInfo : {}
-    },
-    method : {
+    data: () => ({
+
       userDeleteRequest : {
-
+        email : "",
+        password : ""
       },
-      userInfoUpdateRequest : {
+      userUpdateRequest : {
 
+      }
+    })
+
+    ,
+    method : {
+      deleteUser() {
+        let URL = api.ROOT_URL + api.ROUTES.USERS.deleteUserURL;
+        axios.delete(URL,this.userDeleteRequest).then(function(response){
+          alert(response.data.msg);
+        }).catch(function(error){
+          alert(error.response.data.msg);
+        });
+      },
+      updateUser(){
+        let URL = api.ROOT_URL + api.ROUTES.USERS.updateUserURL;
+        axios.delete(URL,this.userUpdateRequest).then(function(response){
+          alert(response.data.msg);
+        }).catch(function(error){
+          alert(error.response.data.msg);
+        });
       }
     }
   }

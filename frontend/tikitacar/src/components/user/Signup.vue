@@ -12,22 +12,30 @@
               <v-form>
                 <v-text-field
                     label="Email"
-                    name="email"
-                    id ="email"
+
                     type="text"
                     v-model="signupData.email"
-                > <template slot="append">
-                  <v-btn outlined style="margin-bottom: 6px" @click="emailDuplicateCheck">
+                    :class ="checking.email"
+
+                ><v-icon slot="prepend" :class="checking.email">
+                  mdi-check-bold
+                </v-icon>
+                  <template slot="append">
+                  <v-btn :class="checking.email" outlined style="margin-bottom: 6px"  @click="emailDuplicateCheck($event)">
                     <v-icon left>mdi-magnify</v-icon>
                     이메일 중복 확인
                   </v-btn>
-                </template></v-text-field>
+
+                </template>
+                </v-text-field>
                 <v-text-field
                     label="닉네임"
                     name="nickname"
                     id ="nickname"
                     type="text"
                     v-model="signupData.nickname"
+                    prepend-icon="mdi-check-bold"
+                    required
                 > <template slot="append">
                   <v-btn outlined style="margin-bottom: 6px" @click="nicknameDuplicateCheck">
                     <v-icon left>mdi-magnify</v-icon>
@@ -40,6 +48,8 @@
                     id ="name"
                     v-model="signupData.name"
                     type="text"
+                    prepend-icon="mdi-check-bold"
+                    required
                 ></v-text-field>
 
                   <v-text-field
@@ -49,35 +59,38 @@
                       type="password"
                       v-model="signupData.password"
                       append-icon="mdi-lock"
-
+                      prepend-icon="mdi-check-bold"
+                      required
                   ></v-text-field>
                     <v-text-field
                         label="비밀번호 확인"
                         name="passwordConfirm"
-                        id ="pwconfirm"
                         type="password"
                         v-model="signupData.passwordConfirm"
                         append-icon="mdi-lock"
-
+                        prepend-icon="mdi-check-bold"
+                        v-on:focusout="passwordCheck($event)"
+                        required
                     >
                 </v-text-field>
-
-q
-
                 <v-text-field
-                    label="생년월일(YYYYMMDD)"
+                    label="생년월일(YYYY-MM-DD)"
                     name="birth"
                     id ="birth"
                     type="text"
                     v-model="signupData.birth"
+                    prepend-icon="mdi-check-bold"
+                    required
                 >
                 </v-text-field>
 
                 <v-select
                     label="성별"
-                   :items="['여자', '남자']"
+                   :items="['남', '녀']"
                     id="gender"
                     v-model="signupData.gender"
+                    prepend-icon="mdi-check-bold"
+                    required
                 >
 
                 </v-select>
@@ -86,7 +99,9 @@ q
                     name="phone"
                     id ="phone"
                     type="text"
-                v-model="signupData.phone"
+                    prepend-icon="mdi-check-bold"
+                    v-model="signupData.phone"
+                required
                 >
                 </v-text-field>
 
@@ -97,11 +112,14 @@ q
                     v-model="signupData.address"
                     :readonly = true
                     type="text"
+                    prepend-icon="mdi-check-bold"
+                    required
                 >
                   <template slot="append">
                     <v-btn outlined style="margin-bottom: 6px" @click="addressModal = true">
                       <v-icon left>mdi-magnify</v-icon>
                       주소 검색
+
                     </v-btn>
                   </template>
                 </v-text-field>
@@ -112,6 +130,7 @@ q
                     id ="addressDetail"
                     type="text"
                     v-model="signupData.address_detail"
+                    prepend-icon="mdi-check-bold"
                 >
                 </v-text-field>
               </v-form>
@@ -140,12 +159,17 @@ q
 <script>
 import api from "@/api/api";
 import axios from 'axios';
-
+import router from '@/router/';
 export default{
   data(){
     return {
       addressModal : false,
       result : "",
+      checking : {
+        email : false
+      },
+      passwordConfirmed : false
+      ,
       signupData : {
         email: "",
         nickname: "",
@@ -155,6 +179,8 @@ export default{
         address: "",
         address_detail: "",
         name: "",
+        password : "",
+        passwordConfirm : "",
 
       }
     }
@@ -164,37 +190,50 @@ export default{
       this.signupData.address = data.address;
       this.addressModal = false;
     },
-    emailDuplicateCheck : function(){
+    emailDuplicateCheck : function(event){
       let URL = api.ROOT_URL + api.ROUTES.USERS.emailDuplicateCheckURL + "/" + this.signupData.email;
+      console.log(URL);
+      axios.get(URL, {}).then(function(response){
+            alert(response.data.msg);
 
-      axios.get(URL, {}).then(function(){
-            alert("사용 가능한 이메일입니다.");
-          }
+            console.dir(event.target);
+        //event.target.class="done";
+      }).catch(function(error){
 
-      ).catch(function(error){
-        alert(error.msg);
+        alert(error.response.data.msg);
       });
     },
     nicknameDuplicateCheck : function(){
       let URL = api.ROOT_URL + api.ROUTES.USERS.nicknameDuplicateCheckURL + "/" + this.signupData.nickname;
 
-      axios.get(URL, {}).then(function(){
-            alert("사용 가능한 이메일입니다.");
-          }
-
-      ).catch(function(error){
-        alert(error.msg);
+      axios.get(URL, {}).then(function(response){
+            alert(response.data.msg);
+      }).catch(function(error){
+        alert(error.response.data.msg);
       });
     },
     userCreateSubmit : function(){
-
+      if(!this.passwordConfirmed){
+        alert("비밀번호가 일치하지 않습니다.");
+        return;
+      }
       let URL = api.ROOT_URL + api.ROUTES.USERS.createUserURL;
       console.dir(this.signupData);
-      axios.post(URL, this.signupData).then(function(){
-
+      axios.post(URL, this.signupData).then(function(response){
+        alert(response.data.msg);
+        router.push({name : "Home"});
       }).catch(function(error){
-        alert(error.msg);
+        alert(error.response.data.msg);
       });
+    },
+    passwordCheck : function(){
+      //event.target.
+       if(this.signupData.password != this.signupData.passwordConfirm){
+          this.signupData.passwordConfirm="";
+          this.passwordConfirmed = false;
+      }else{
+         this.passwordConfirmed = true;
+       }
     }
   },
   computed :{
@@ -210,6 +249,8 @@ export default{
 
 
 <style>
-
+  .done {
+    color : green;
+  }
 
 </style>

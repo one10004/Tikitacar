@@ -23,10 +23,10 @@
               <v-card-text>
                 <v-form>
                   <v-text-field
-                    label="Id"
-                    name="id"
-                    id ="id"
-                    v-model="loginRequest.id"
+                    label="email"
+                    name="email"
+                    id ="email"
+                    v-model="loginRequest.email"
                     prepend-icon="mdi-account-circle"
                     type="text"
                   ></v-text-field>
@@ -36,7 +36,7 @@
                     label="Password"
                     name="password"
                     prepend-icon="mdi-lock"
-                    v-model="loginRequest.pw"
+                    v-model="loginRequest.password"
                     :append-icon="showPassword? 'mdi-eye' : 'mdi-eye-off'"
                     :type="showPassword? 'text' : 'password'"
                     @click:append="showPassword = ! showPassword"
@@ -81,14 +81,14 @@
 //import { mapActions } from "vuex";
 import axios from 'axios';
 import api from '@/api/api'
-
+import router from "@/router/";
   export default {
     data: () => ({
         showPassword : false,
         id: "",
         loginRequest : {
-          id : "",
-          pw : ""
+          email : "",
+          password : ""
         }
       })
     ,
@@ -98,13 +98,13 @@ import api from '@/api/api'
     methods: {
       login(){
         let URL = api.ROOT_URL + api.ROUTES.AUTH.loginURL;
-
        axios.post(URL,this.loginRequest).then(
-           function(){
-             alert("로그인에 성공했습니다.");
+           function(data){
+             alert(data.data.msg);
+             router.push({name : "Home"});
            }
        ).catch(function(error){
-         alert(error);
+          alert(error.response.data.msg);
        });
       }
 
