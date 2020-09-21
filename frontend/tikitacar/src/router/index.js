@@ -2,10 +2,11 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '../components/user/Login.vue'
 import Signup from '../components/user/Signup.vue'
-import Main from '../components/Main.vue'
+import Main from '../components/car/Main.vue'
 import MyPage from '../components/user/MyPage.vue'
-import Detail from '../components/Detail.vue'
-import Search from '../components/Search.vue'
+import Detail from '../components/car/Detail.vue'
+import Search from '../components/car/Search.vue'
+import Register from '../components/car/Register.vue'
 
 Vue.use(VueRouter)
 
@@ -41,6 +42,11 @@ const routes = [
     path: '/search',
     name: 'Search',
     component: Search,
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    component: Register,
   }
 ]
 

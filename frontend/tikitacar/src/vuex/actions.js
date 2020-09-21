@@ -23,4 +23,8 @@ export default {
     });
     commit();
   },
+  registerCar({commit}, info) {
+    console.log(info);
+    commit();
+  }
 }

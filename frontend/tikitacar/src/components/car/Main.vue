@@ -64,11 +64,16 @@
         <v-col cols="12" sm="4">
           <v-text-field
             solo
-            append-icon="mdi-magnify"
             label="차량 번호를 입력해주세요."
             clearable
             background-color="#C8E8F6"
           >
+            <!-- <router-link :to="{name: 'Search'}"> -->
+              <v-icon 
+                slot="append"
+                @click="toSearch"
+              >mdi-magnify</v-icon>
+            <!-- </router-link> -->
           </v-text-field>
         </v-col>
       </v-row>
@@ -121,7 +126,10 @@ import {mapActions} from 'vuex';
       }
     }),
     methods: {
-      ...mapActions(["search"])
+      ...mapActions(["search"]),
+      toSearch() {
+        this.$router.push({name: 'Search'});
+      }
     }
   }
 </script>
