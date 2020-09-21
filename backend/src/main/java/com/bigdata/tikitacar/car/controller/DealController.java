@@ -48,7 +48,7 @@ public class DealController {
 
     //Read
     @ApiOperation("거래 한개 조회")
-    @GetMapping("/{id}")
+    @GetMapping("/view/{id}")
     public Object dealGet(@PathVariable Long id){
         ResponseEntity response = null;
         Map<String,Object> map = new HashMap<String, Object>();
