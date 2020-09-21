@@ -79,12 +79,12 @@ public class UserController {
     }
 
     @ApiOperation("회원 정보 업데이트(수정)")
-    @PutMapping("/{id}")
-    public Object updateUserInfo(@PathVariable("id") Long id, @RequestBody UserModifyRequestDto userModifyRequestDto){
+    @PutMapping("")
+    public Object updateUserInfo(@RequestBody UserModifyRequestDto userModifyRequestDto){
         ResponseEntity response = null;
         Map<String, Object> map = new HashMap<String, Object>();
 
-        userService.modifyUserInfo(id, userModifyRequestDto);
+        userService.modifyUserInfo(userModifyRequestDto);
 
         map.put("msg", "회원 정보 수정 성공");
         map.put("status", "success");

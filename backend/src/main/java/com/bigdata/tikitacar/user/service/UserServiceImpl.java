@@ -97,8 +97,8 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public void modifyUserInfo(Long id, UserModifyRequestDto userModifyRequestDto) {
-        User user = userRepository.findById(id).orElse(null);
+    public void modifyUserInfo(UserModifyRequestDto userModifyRequestDto) {
+        User user = userRepository.findById(userModifyRequestDto.getId()).orElse(null);
 
         if(user != null){
             user.updateUserInfo(userModifyRequestDto);
