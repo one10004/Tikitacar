@@ -42,6 +42,10 @@ public class DealController {
         dealRegisterRequestDto.updateSellerId(userService.findUserByEmail(jwtService.getEmailFromToken(token)).getId());
         dealService.registerDeal(dealRegisterRequestDto);
 
+
+
+        map.put("msg","거래 등록에 성공했습니다.");
+        map.put("status","success");
         response = new ResponseEntity(map, HttpStatus.OK);
         return response;
     }
@@ -56,6 +60,8 @@ public class DealController {
 
         DealSearchResponseDto dealSearchResponseDto = dealService.searchDeal(id);
 
+        map.put("msg","거래 조회에 성공했습니다.");
+        map.put("status","success");
         map.put("data",dealSearchResponseDto);
         response = new ResponseEntity(map,HttpStatus.OK);
 
@@ -71,6 +77,9 @@ public class DealController {
         Map<String,Object> map = new HashMap<String, Object>();
 
         dealService.updateDeal(dealUpdateRequestDto);
+
+        map.put("msg","거래 수정에 성공했습니다.");
+        map.put("status","success");
         response = new ResponseEntity(map,HttpStatus.OK);
 
         return response;
@@ -84,6 +93,9 @@ public class DealController {
         Map<String,Object> map = new HashMap<String, Object>();
 
         dealService.removeDeal(id);
+
+        map.put("msg","거래 삭제에 성공했습니다.");
+        map.put("status","success");
         response = new ResponseEntity(map,HttpStatus.OK);
 
         return response;

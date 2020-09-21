@@ -1,4 +1,4 @@
-package com.bigdata.tikitacar.crawling.service;
+package com.bigdata.tikitacar.util;
 
 import org.jsoup.nodes.Document;
 
