@@ -9,11 +9,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
     private static final String[] INCLUDE_PATHS = {
-
-//			"/**"
+			"/**"
     };
     private static final String[] EXCLUDE_PATHS = {
-            "/**"
+            "/deal/view/**",
+
     };
 
     @Autowired

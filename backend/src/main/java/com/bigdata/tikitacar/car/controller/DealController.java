@@ -4,6 +4,9 @@ import com.bigdata.tikitacar.car.dto.request.DealRegisterRequestDto;
 import com.bigdata.tikitacar.car.dto.request.DealUpdateRequestDto;
 import com.bigdata.tikitacar.car.dto.response.DealSearchResponseDto;
 import com.bigdata.tikitacar.car.service.DealService;
+import com.bigdata.tikitacar.user.entity.User;
+import com.bigdata.tikitacar.user.service.UserService;
+import com.bigdata.tikitacar.util.JwtService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,17 +24,22 @@ public class DealController {
     @Autowired
     DealService dealService;
 
+    @Autowired
+    JwtService jwtService;
+
+    @Autowired
+    UserService userService;
 
     //Create
     @ApiOperation("거래 등록")
     @PostMapping("")
-    public Object dealRegister(/*@RequestHeader(value="Authorization") String token,*/
+    public Object dealRegister(@RequestHeader(value="Authorization") String token,
                                @RequestBody DealRegisterRequestDto dealRegisterRequestDto){
         ResponseEntity response = null;
         Map<String,Object> map = new HashMap<String, Object>();
 
-//        Long sellerId = token.();
-//        dealRegisterRequestDto.updateSellerId(sellerId);
+        //유저정보 dto에 등록
+        dealRegisterRequestDto.updateSellerId(userService.findUserByEmail(jwtService.getEmailFromToken(token)).getId());
         dealService.registerDeal(dealRegisterRequestDto);
 
         response = new ResponseEntity(map, HttpStatus.OK);
@@ -41,7 +49,7 @@ public class DealController {
 
     //Read
     @ApiOperation("거래 한개 조회")
-    @GetMapping("/{id}")
+    @GetMapping("/view/{id}")
     public Object dealGet(@PathVariable Long id){
         ResponseEntity response = null;
         Map<String,Object> map = new HashMap<String, Object>();
@@ -57,26 +65,25 @@ public class DealController {
 
     //Update
     @ApiOperation("거래 업데이트")
-    @PutMapping("/{id}")
-    public Object dealUpdate(@PathVariable Long id, @RequestBody DealUpdateRequestDto dealUpdateRequestDto){
+    @PutMapping("/")
+    public Object dealUpdate(@RequestBody DealUpdateRequestDto dealUpdateRequestDto){
         ResponseEntity response = null;
         Map<String,Object> map = new HashMap<String, Object>();
 
-        dealService.updateDeal(id,dealUpdateRequestDto);
+        dealService.updateDeal(dealUpdateRequestDto);
         response = new ResponseEntity(map,HttpStatus.OK);
 
         return response;
     }
 
-
     //Delete
     @ApiOperation("거래 삭제")
     @DeleteMapping("/{id}")
-    public Object dealDelete(@PathVariable Long id,@RequestBody DealUpdateRequestDto dealUpdateRequestDto){
+    public Object dealDelete(@PathVariable Long id){
         ResponseEntity response = null;
         Map<String,Object> map = new HashMap<String, Object>();
 
-        dealService.updateDeal(id,dealUpdateRequestDto);
+        dealService.removeDeal(id);
         response = new ResponseEntity(map,HttpStatus.OK);
 
         return response;
