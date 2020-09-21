@@ -9,6 +9,8 @@ import com.bigdata.tikitacar.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 public class UserServiceImpl implements UserService{
 
@@ -91,4 +93,8 @@ public class UserServiceImpl implements UserService{
             user.updateUserAuth();
         }
     }
+
+    @Override
+    @Transactional
+    public void deleteUser(Long id) { userRepository.deleteById(id); }
 }

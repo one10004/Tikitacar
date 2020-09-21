@@ -91,7 +91,15 @@ public class UserController {
     @ApiOperation("회원 탈퇴")
     @DeleteMapping("/{id}")
     public Object deleteUser(@PathVariable("id") Long id){
-        return null;
+        ResponseEntity response = null;
+        Map<String, Object> map = new HashMap<>();
+
+        userService.deleteUser(id);
+        map.put("msg", "회원탈퇴 성공");
+        map.put("status", "success");
+        response = new ResponseEntity(map, HttpStatus.OK);
+
+        return response;
     }
 
     @ApiOperation("이메일 중복체크")
