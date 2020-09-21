@@ -11,6 +11,7 @@ import com.bigdata.tikitacar.user.entity.User;
 import com.bigdata.tikitacar.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -28,6 +29,7 @@ public class DealServcieImpl implements DealService {
 
     //Create
     @Override
+    @Transactional
     public void registerDeal(DealRegisterRequestDto dealRegisterRequestDto) {
         User seller= userRepository.findById(dealRegisterRequestDto.getSellerId()).get();
 
@@ -90,6 +92,7 @@ public class DealServcieImpl implements DealService {
 
     //Update
     @Override
+    @Transactional
     public void updateDeal(Long id, DealUpdateRequestDto dealUpdateRequestDto) {
         Deal deal = dealRepository.findById(id).get();
 
@@ -115,6 +118,7 @@ public class DealServcieImpl implements DealService {
 
     //Delete
     @Override
+    @Transactional
     public void removeDeal(Long id) {
         dealRepository.deleteById(id);
     }
