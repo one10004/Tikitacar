@@ -1,6 +1,7 @@
 package com.bigdata.tikitacar.user.service;
 
 import com.bigdata.tikitacar.user.dto.request.UserLoginRequestDto;
+import com.bigdata.tikitacar.user.dto.request.UserModifyRequestDto;
 import com.bigdata.tikitacar.user.dto.request.UserRegisterRequestDto;
 import com.bigdata.tikitacar.user.dto.response.UserFindResponseDto;
 import com.bigdata.tikitacar.user.dto.response.UserLoginResponseDto;
@@ -95,6 +96,16 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public void modifyUserInfo(Long id, UserModifyRequestDto userModifyRequestDto) {
+        User user = userRepository.findById(id).orElse(null);
+
+        if(user != null){
+            user.updateUserInfo(userModifyRequestDto);
+        }
+    }
+
+    @Override
     @Transactional
     public void deleteUser(Long id) { userRepository.deleteById(id); }
+
 }
