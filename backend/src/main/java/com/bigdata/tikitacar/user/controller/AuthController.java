@@ -1,8 +1,8 @@
 package com.bigdata.tikitacar.user.controller;
 
 import com.bigdata.tikitacar.user.dto.request.UserLoginRequestDto;
+import com.bigdata.tikitacar.user.dto.response.UserFindResponseDto;
 import com.bigdata.tikitacar.user.dto.response.UserLoginResponseDto;
-import com.bigdata.tikitacar.user.entity.User;
 import com.bigdata.tikitacar.user.service.UserService;
 import com.bigdata.tikitacar.util.Base64Service;
 import com.bigdata.tikitacar.util.JwtService;
@@ -75,10 +75,10 @@ public class AuthController {
 
         String email = base64Service.decode(code);
 
-        User user = userService.findUserByEmail(email);
+        UserFindResponseDto userFindResponseDto = userService.findUserByEmail(email);
 
-        if(user != null){
-            user.updateUserAuth();
+        if(userFindResponseDto != null){
+            userService.modifyUserAuth(email);
             map.put("msg", "인증 성공");
             map.put("status", "success");
             response = new ResponseEntity(map, HttpStatus.OK);

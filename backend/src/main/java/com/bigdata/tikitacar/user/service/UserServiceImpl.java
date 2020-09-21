@@ -1,12 +1,16 @@
 package com.bigdata.tikitacar.user.service;
 
 import com.bigdata.tikitacar.user.dto.request.UserLoginRequestDto;
+import com.bigdata.tikitacar.user.dto.request.UserModifyRequestDto;
 import com.bigdata.tikitacar.user.dto.request.UserRegisterRequestDto;
+import com.bigdata.tikitacar.user.dto.response.UserFindResponseDto;
 import com.bigdata.tikitacar.user.dto.response.UserLoginResponseDto;
 import com.bigdata.tikitacar.user.entity.User;
 import com.bigdata.tikitacar.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -63,7 +67,45 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User findUserByEmail(String email) {
-        return userRepository.findByEmail(email).orElse(null);
+    public UserFindResponseDto findUserByEmail(String email) {
+        User user = userRepository.findByEmail(email).orElse(null);
+        UserFindResponseDto userFindResponseDto = null;
+
+        if(user != null){
+            userFindResponseDto = userFindResponseDto.builder()
+                .email(user.getEmail())
+                .nickanme(user.getNickname())
+                .birth(user.getBirth())
+                .gender(user.getGender())
+                .phone(user.getPhone())
+                .address(user.getAddress())
+                .addressDetail(user.getAddressDetail())
+                .build();
+        }
+
+        return userFindResponseDto;
     }
+
+    @Override
+    public void modifyUserAuth(String email) {
+        User user = userRepository.findByEmail(email).orElse(null);
+
+        if(user != null){
+            user.updateUserAuth();
+        }
+    }
+
+    @Override
+    public void modifyUserInfo(Long id, UserModifyRequestDto userModifyRequestDto) {
+        User user = userRepository.findById(id).orElse(null);
+
+        if(user != null){
+            user.updateUserInfo(userModifyRequestDto);
+        }
+    }
+
+    @Override
+    @Transactional
+    public void deleteUser(Long id) { userRepository.deleteById(id); }
+
 }

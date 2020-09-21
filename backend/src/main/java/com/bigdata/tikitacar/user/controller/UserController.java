@@ -1,9 +1,12 @@
 package com.bigdata.tikitacar.user.controller;
 
+import com.bigdata.tikitacar.user.dto.request.UserModifyRequestDto;
 import com.bigdata.tikitacar.user.dto.request.UserRegisterRequestDto;
+import com.bigdata.tikitacar.user.dto.response.UserFindResponseDto;
 import com.bigdata.tikitacar.user.service.UserService;
 import com.bigdata.tikitacar.util.Base64Service;
 import com.bigdata.tikitacar.util.EmailService;
+import com.bigdata.tikitacar.util.JwtService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,6 +29,9 @@ public class UserController {
 
     @Autowired
     private Base64Service base64Service;
+
+    @Autowired
+    private JwtService jwtService;
 
     @ApiOperation("회원가입")
     @PostMapping("")
@@ -52,19 +58,52 @@ public class UserController {
     @ApiOperation("회원 정보 불러오기")
     @GetMapping("")
     public Object getUserInfo(@RequestHeader(value="Authorization") String token){
-        return null;
+        Map<String, Object> map = new HashMap<String, Object>();
+        ResponseEntity response = null;
+        String email = jwtService.getEmailFromToken(token.substring(7));
+
+        UserFindResponseDto userFindResponseDto = userService.findUserByEmail(email);
+
+        if(userFindResponseDto != null){
+            map.put("msg", "회원 정보 불러오기 성공");
+            map.put("status", "success");
+            map.put("user", userFindResponseDto);
+            response = new ResponseEntity(map, HttpStatus.OK);
+        }else{
+            map.put("msg", "회원 정보 불러오기 실패");
+            map.put("status", "fail");
+            response = new ResponseEntity(map, HttpStatus.BAD_REQUEST);
+        }
+
+        return response;
     }
 
     @ApiOperation("회원 정보 업데이트(수정)")
     @PutMapping("/{id}")
-    public Object updateUserInfo(@PathVariable("id") Long id){
-        return null;
+    public Object updateUserInfo(@PathVariable("id") Long id, @RequestBody UserModifyRequestDto userModifyRequestDto){
+        ResponseEntity response = null;
+        Map<String, Object> map = new HashMap<String, Object>();
+
+        userService.modifyUserInfo(id, userModifyRequestDto);
+
+        map.put("msg", "회원 정보 수정 성공");
+        map.put("status", "success");
+        response = new ResponseEntity(map, HttpStatus.OK);
+        return response;
     }
 
     @ApiOperation("회원 탈퇴")
     @DeleteMapping("/{id}")
     public Object deleteUser(@PathVariable("id") Long id){
-        return null;
+        ResponseEntity response = null;
+        Map<String, Object> map = new HashMap<>();
+
+        userService.deleteUser(id);
+        map.put("msg", "회원탈퇴 성공");
+        map.put("status", "success");
+        response = new ResponseEntity(map, HttpStatus.OK);
+
+        return response;
     }
 
     @ApiOperation("이메일 중복체크")
