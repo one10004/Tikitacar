@@ -1,5 +1,6 @@
 package com.bigdata.tikitacar.user.controller;
 
+import com.bigdata.tikitacar.user.dto.request.UserModifyRequestDto;
 import com.bigdata.tikitacar.user.dto.request.UserRegisterRequestDto;
 import com.bigdata.tikitacar.user.dto.response.UserFindResponseDto;
 import com.bigdata.tikitacar.user.service.UserService;
@@ -79,13 +80,16 @@ public class UserController {
 
     @ApiOperation("회원 정보 업데이트(수정)")
     @PutMapping("/{id}")
-    public Object updateUserInfo(@PathVariable("id") Long id){
+    public Object updateUserInfo(@PathVariable("id") Long id, @RequestBody UserModifyRequestDto userModifyRequestDto){
         ResponseEntity response = null;
         Map<String, Object> map = new HashMap<String, Object>();
 
+        userService.modifyUserInfo(id, userModifyRequestDto);
 
-
-        return null;
+        map.put("msg", "회원 정보 수정 성공");
+        map.put("status", "success");
+        response = new ResponseEntity(map, HttpStatus.OK);
+        return response;
     }
 
     @ApiOperation("회원 탈퇴")
