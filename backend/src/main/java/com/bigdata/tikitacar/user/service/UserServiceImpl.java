@@ -89,6 +89,13 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public String findPasswordByEmail(String email) {
+        User user = userRepository.findByEmail(email).orElse(null);
+
+        return user.getPassword();
+    }
+
+    @Override
     public void modifyUserAuth(String email) {
         User user = userRepository.findByEmail(email).orElse(null);
 
@@ -109,6 +116,12 @@ public class UserServiceImpl implements UserService{
 
     @Override
     @Transactional
-    public void deleteUser(Long id) { userRepository.deleteById(id); }
+    public void deleteUser(String email) {
+        User user = userRepository.findByEmail(email).orElse(null);
+
+        if(user != null){
+            userRepository.deleteById(user.getId());
+        }
+    }
 
 }

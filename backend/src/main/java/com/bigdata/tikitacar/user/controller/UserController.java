@@ -1,5 +1,6 @@
 package com.bigdata.tikitacar.user.controller;
 
+import com.bigdata.tikitacar.user.dto.request.UserDeleteCheckRequsetDto;
 import com.bigdata.tikitacar.user.dto.request.UserModifyRequestDto;
 import com.bigdata.tikitacar.user.dto.request.UserRegisterRequestDto;
 import com.bigdata.tikitacar.user.dto.response.UserFindResponseDto;
@@ -92,13 +93,36 @@ public class UserController {
         return response;
     }
 
-    @ApiOperation("회원 탈퇴")
-    @DeleteMapping("/{id}")
-    public Object deleteUser(@PathVariable("id") Long id){
+    @ApiOperation("이메일 비밀번호 체크")
+    @PostMapping("/check")
+    public Object checkWhenDelete(@RequestBody UserDeleteCheckRequsetDto userDeleteCheckRequsetDto){
         ResponseEntity response = null;
         Map<String, Object> map = new HashMap<>();
 
-        userService.deleteUser(id);
+        String email = jwtService.getEmailFromToken(userDeleteCheckRequsetDto.getToken());
+        String password = userService.findPasswordByEmail(email);
+
+        if(password.equals(userDeleteCheckRequsetDto.getPassword())){
+            map.put("msg", "이메일, 비밀번호 일치");
+            map.put("status", "success");
+            response = new ResponseEntity(map, HttpStatus.OK);
+        }else{
+            map.put("msg", "이메일, 비밀번호 불일치");
+            map.put("status", "fail");
+            response = new ResponseEntity(map, HttpStatus.BAD_REQUEST);
+        }
+
+        return response;
+    }
+
+    @ApiOperation("회원 탈퇴")
+    @DeleteMapping("")
+    public Object deleteUser(@RequestHeader(value="Authorization") String token){
+        ResponseEntity response = null;
+        Map<String, Object> map = new HashMap<>();
+
+        String email = jwtService.getEmailFromToken(token);
+        userService.deleteUser(email);
         map.put("msg", "회원탈퇴 성공");
         map.put("status", "success");
         response = new ResponseEntity(map, HttpStatus.OK);
