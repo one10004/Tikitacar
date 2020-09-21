@@ -16,7 +16,7 @@ public interface DealService {
 //    public List<DealSearchResponseDto> searchAllDeal();
 
     //Update
-    public void updateDeal(Long id, DealUpdateRequestDto dealUpdateRequestDto);
+    public void updateDeal(DealUpdateRequestDto dealUpdateRequestDto);
 
     //Delete
     public void removeDeal(Long id);
