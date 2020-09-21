@@ -78,11 +78,11 @@ public class DealController {
     //Delete
     @ApiOperation("거래 삭제")
     @DeleteMapping("/{id}")
-    public Object dealDelete(@PathVariable Long id,@RequestBody DealUpdateRequestDto dealUpdateRequestDto){
+    public Object dealDelete(@PathVariable Long id){
         ResponseEntity response = null;
         Map<String,Object> map = new HashMap<String, Object>();
 
-        dealService.updateDeal(id,dealUpdateRequestDto);
+        dealService.removeDeal(id);
         response = new ResponseEntity(map,HttpStatus.OK);
 
         return response;
