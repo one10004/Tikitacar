@@ -20,7 +20,7 @@ public interface UserService {
     // Update
     public UserFindResponseDto findUserByEmail(String email);
     public void modifyUserAuth(String email);
-    public void modifyUserInfo(Long id, UserModifyRequestDto userModifyRequestDto);
+    public void modifyUserInfo(UserModifyRequestDto userModifyRequestDto);
 
     // Delete
     public void deleteUser(Long id);
