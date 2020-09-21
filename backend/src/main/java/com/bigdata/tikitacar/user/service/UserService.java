@@ -2,6 +2,7 @@ package com.bigdata.tikitacar.user.service;
 
 import com.bigdata.tikitacar.user.dto.request.UserLoginRequestDto;
 import com.bigdata.tikitacar.user.dto.request.UserRegisterRequestDto;
+import com.bigdata.tikitacar.user.dto.response.UserFindResponseDto;
 import com.bigdata.tikitacar.user.dto.response.UserLoginResponseDto;
 import com.bigdata.tikitacar.user.entity.User;
 
@@ -16,5 +17,7 @@ public interface UserService {
     public UserLoginResponseDto login(UserLoginRequestDto userLoginRequestDto);
 
     // Update
-    public User findUserByEmail(String email);
+    public UserFindResponseDto findUserByEmail(String email);
+    public void modifyUserAuth(String email);
+    public void modifyUserInfo()
 }
