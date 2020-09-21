@@ -10,7 +10,18 @@ import mutations from './mutations'
 Vue.use(Vuex)
 
 const state = {
-  
+  signUpCheck :{
+      email : "",
+      nickname :"",
+      name :"",
+      password :"",
+      passwordConfirm : "",
+      birth :"",
+      gender :"",
+      phone :"",
+      address : "",
+      address_detail :""
+  }
 }
 
 export default new Vuex.Store({

@@ -16,7 +16,7 @@
                     type="text"
                     v-model="signupData.email"
                     :class ="checking.email"
-
+                    @focus="checking.email=false"
                 ><v-icon slot="prepend" :class="checking.email">
                   mdi-check-bold
                 </v-icon>
@@ -35,9 +35,10 @@
                     type="text"
                     v-model="signupData.nickname"
                     prepend-icon="mdi-check-bold"
+                    @focus="checking.nickname=false"
                     required
                 > <template slot="append">
-                  <v-btn outlined style="margin-bottom: 6px" @click="nicknameDuplicateCheck">
+                  <v-btn outlined style="margin-bottom: 6px" @click="nicknameDuplicateCheck($event)">
                     <v-icon left>mdi-magnify</v-icon>
                     닉네임 중복 확인
                   </v-btn>
@@ -69,7 +70,7 @@
                         v-model="signupData.passwordConfirm"
                         append-icon="mdi-lock"
                         prepend-icon="mdi-check-bold"
-                        v-on:focusout="passwordCheck($event)"
+                        v-on:blur="passwordCheck($event)"
                         required
                     >
                 </v-text-field>
@@ -119,7 +120,6 @@
                     <v-btn outlined style="margin-bottom: 6px" @click="addressModal = true">
                       <v-icon left>mdi-magnify</v-icon>
                       주소 검색
-
                     </v-btn>
                   </template>
                 </v-text-field>
@@ -166,7 +166,16 @@ export default{
       addressModal : false,
       result : "",
       checking : {
-        email : false
+        email: "",
+        nickname: "",
+        birth: "",
+        gender: "",
+        phone: "",
+        address: "",
+        address_detail: "",
+        name: "",
+        password : "",
+        passwordConfirm : "",
       },
       passwordConfirmed : false
       ,
@@ -191,29 +200,52 @@ export default{
       this.addressModal = false;
     },
     emailDuplicateCheck : function(event){
+      if(this.signupData.email==""){
+        alert("비어있습니다.");
+        return;
+      }
       let URL = api.ROOT_URL + api.ROUTES.USERS.emailDuplicateCheckURL + "/" + this.signupData.email;
-      console.log(URL);
+
       axios.get(URL, {}).then(function(response){
             alert(response.data.msg);
 
-            console.dir(event.target);
-        //event.target.class="done";
+
       }).catch(function(error){
 
         alert(error.response.data.msg);
+        event.target.style.color="red";
+        return;
       });
+      event.target.style.color="green";
+      this.checking.email = true;
     },
-    nicknameDuplicateCheck : function(){
+    nicknameDuplicateCheck : function(event){
+      if(this.signupData.nickname==""){
+        alert("비어있습니다.");
+        return;
+      }
       let URL = api.ROOT_URL + api.ROUTES.USERS.nicknameDuplicateCheckURL + "/" + this.signupData.nickname;
 
       axios.get(URL, {}).then(function(response){
-            alert(response.data.msg);
+        console.dir(response);
+        alert(response.data.msg);
+
       }).catch(function(error){
+        console.dir(error);
         alert(error.response.data.msg);
+        event.target.style.color="red";
+        return;
       });
+      event.target.style.color="green";
+      this.checking.nickname = true;
+
     },
     userCreateSubmit : function(){
-      if(!this.passwordConfirmed){
+      if(!this.checking.email || !this.checking.nickname){
+        alert("중복 확인을 해주세요");
+        return;
+      }
+      if(!this.checking.password){
         alert("비밀번호가 일치하지 않습니다.");
         return;
       }
@@ -229,10 +261,11 @@ export default{
     passwordCheck : function(){
       //event.target.
        if(this.signupData.password != this.signupData.passwordConfirm){
-          this.signupData.passwordConfirm="";
-          this.passwordConfirmed = false;
+         alert("비밀번호가 일치하지 않습니다.");
+         this.checking.password = false;
+          this.signupData.passwordConfirm = "";
       }else{
-         this.passwordConfirmed = true;
+         this.checking.password = true;
        }
     }
   },

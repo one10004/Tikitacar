@@ -3,5 +3,7 @@
 
 
 export default {
-   
+    checkEmail (state) {
+        state.signUpCheck.email = true;
+    }
 }
