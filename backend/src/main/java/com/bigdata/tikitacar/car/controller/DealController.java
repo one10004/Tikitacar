@@ -9,11 +9,13 @@ import com.bigdata.tikitacar.user.service.UserService;
 import com.bigdata.tikitacar.util.JwtService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -84,6 +86,21 @@ public class DealController {
         Map<String,Object> map = new HashMap<String, Object>();
 
         dealService.removeDeal(id);
+        response = new ResponseEntity(map,HttpStatus.OK);
+
+        return response;
+    }
+
+    //GetAll
+    @ApiOperation("거래 리스트 조회")
+    @GetMapping("/all/{page}")
+    public Object dealGetAll(@PathVariable("page") int page){
+        ResponseEntity response = null;
+        Map<String,Object> map = new HashMap<String, Object>();
+
+        List<DealSearchResponseDto> dealSearchResponseDtoList = dealService.searchAll(PageRequest.of(page, 10));
+
+        map.put("data",dealSearchResponseDtoList);
         response = new ResponseEntity(map,HttpStatus.OK);
 
         return response;
