@@ -4,7 +4,6 @@ import com.bigdata.tikitacar.car.dto.request.DealRegisterRequestDto;
 import com.bigdata.tikitacar.car.dto.request.DealUpdateRequestDto;
 import com.bigdata.tikitacar.car.dto.response.DealSearchResponseDto;
 import com.bigdata.tikitacar.car.service.DealService;
-import com.bigdata.tikitacar.user.entity.User;
 import com.bigdata.tikitacar.user.service.UserService;
 import com.bigdata.tikitacar.util.JwtService;
 import io.swagger.annotations.ApiOperation;
@@ -44,8 +43,6 @@ public class DealController {
         dealRegisterRequestDto.updateSellerId(userService.findUserByEmail(jwtService.getEmailFromToken(token)).getId());
         dealService.registerDeal(dealRegisterRequestDto);
 
-
-
         map.put("msg","거래 등록에 성공했습니다.");
         map.put("status","success");
         response = new ResponseEntity(map, HttpStatus.OK);
@@ -73,7 +70,7 @@ public class DealController {
 
     //Update
     @ApiOperation("거래 업데이트")
-    @PutMapping("/")
+    @PutMapping("")
     public Object dealUpdate(@RequestBody DealUpdateRequestDto dealUpdateRequestDto){
         ResponseEntity response = null;
         Map<String,Object> map = new HashMap<String, Object>();
