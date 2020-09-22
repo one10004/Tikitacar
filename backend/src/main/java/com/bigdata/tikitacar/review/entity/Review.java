@@ -6,6 +6,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -35,8 +36,7 @@ public class Review {
     private String content;
 
     @Column(name="date")
-    @CreationTimestamp
-    private String date;
+    private LocalDateTime date;
 
     @Column(name="rating")
     private int rating;
