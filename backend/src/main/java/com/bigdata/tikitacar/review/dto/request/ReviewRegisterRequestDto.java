@@ -14,4 +14,8 @@ public class ReviewRegisterRequestDto {
     private String title;
     private String content;
     private int rating;
+
+    public void updateWriter(Long writer) {
+        this.writer = writer;
+    }
 }

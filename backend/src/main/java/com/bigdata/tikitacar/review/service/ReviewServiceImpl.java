@@ -8,7 +8,6 @@ import com.bigdata.tikitacar.review.entity.Review;
 import com.bigdata.tikitacar.review.repository.ReviewRepository;
 import com.bigdata.tikitacar.user.entity.User;
 import com.bigdata.tikitacar.user.repository.UserRepository;
-import com.sun.nio.sctp.IllegalReceiveException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 
