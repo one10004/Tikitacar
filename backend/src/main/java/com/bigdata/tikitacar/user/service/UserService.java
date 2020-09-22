@@ -22,6 +22,7 @@ public interface UserService {
     public String findPasswordByEmail(String email);
     public void modifyUserAuth(String email);
     public void modifyUserInfo(UserModifyRequestDto userModifyRequestDto);
+    public String findPassword(String email);
 
     // Delete
     public void deleteUser(String email);

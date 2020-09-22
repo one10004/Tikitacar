@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.Random;
 
 
 @Service
@@ -113,6 +114,33 @@ public class UserServiceImpl implements UserService {
         User user = Optional.of(userRepository.findById(userModifyRequestDto.getId()).orElseThrow(() -> new NoSuchElementException("id에 해당하는 유저가 존재하지 않음."))).get();
 
         user.updateUserInfo(userModifyRequestDto);
+    }
+
+    @Override
+    @Transactional
+    public String findPassword(String email) {
+        User user = Optional.of(userRepository.findByEmail(email).orElseThrow(() -> new NoSuchElementException("이메일에 해당하는 유저가 존재하지 않음."))).get();
+
+        Random rand = new Random();
+        StringBuffer sb = new StringBuffer();
+
+        for(int i=0; i<10;i++){
+            int idx = rand.nextInt(3);
+            switch (idx){
+                case 0:
+                    sb.append((char)(rand.nextInt(26) + 97));
+                    break;
+                case 1:
+                    sb.append((char)(rand.nextInt(26)+65));
+                    break;
+                case 2:
+                    sb.append(rand.nextInt(10));
+                    break;
+            }
+        }
+
+        user.randomPassword(sb.toString());
+        return sb.toString();
     }
 
     @Override
