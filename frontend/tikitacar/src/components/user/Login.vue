@@ -45,7 +45,7 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn dark color="success" @click="login">로그인</v-btn>
+                <v-btn dark color="info" @click="login(loginRequest)">로그인</v-btn>
                 <v-btn dark color="info" router-link :to="{name  : 'PwInquiry'}">비밀번호 찾기</v-btn>
               </v-card-actions>
             </v-card>
@@ -78,10 +78,11 @@
 </template>
 
 <script>
-//import { mapActions } from "vuex";
-import axios from 'axios';
-import api from '@/api/api'
-import router from "@/router/";
+import { mapActions } from "vuex";
+//import axios from 'axios';
+//import api from '@/api/api'
+//import router from "@/router/";
+
   export default {
     data: () => ({
         showPassword : false,
@@ -96,7 +97,8 @@ import router from "@/router/";
       source: String,
     },
     methods: {
-      login(){
+      ...mapActions(["login"]),
+    /*  login(){
         let URL = api.ROOT_URL + api.ROUTES.AUTH.loginURL;
        axios.post(URL,this.loginRequest).then(
            function(data){
@@ -106,7 +108,7 @@ import router from "@/router/";
        ).catch(function(error){
           alert(error.response.data.msg);
        });
-      }
+      }*/
 
     }
   }

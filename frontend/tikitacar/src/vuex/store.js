@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-// import cookies from 'vue-cookies'
+import cookies from 'vue-cookies'
 
 import getters from './getters'
 import actions from './actions'
@@ -21,7 +21,11 @@ const state = {
       phone :"",
       address : "",
       address_detail :""
-  }
+  },
+    userInfo: {
+        authToken: cookies.get('auth-token'),
+
+    },
 }
 
 export default new Vuex.Store({
