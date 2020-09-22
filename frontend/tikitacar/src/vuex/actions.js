@@ -29,9 +29,10 @@ export default {
           swal('로그아웃 성공','success');
           commit('DEL_USER')
         router.push({ name: 'Home' });
-        router.go();
+        //router.go();
       }).catch((err) => {
             swal('실패', err.response.data.msg, 'error');
         });
-    }
+    },
+
 }

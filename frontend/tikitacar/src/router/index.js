@@ -6,6 +6,7 @@ import Main from '../components/Main.vue'
 import MyPage from '../components/user/MyPage.vue'
 import Detail from '../components/Detail.vue'
 import Search from '../components/Search.vue'
+import PwInquiry from '../components/user/PwInquiry'
 //import App from '@/App.vue';
 Vue.use(VueRouter)
 
@@ -14,6 +15,11 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: Login
+  },
+  {
+    path : '/user/pwinquiry',
+    name : 'PwInquiry',
+    component: PwInquiry
   },
   {
     path : '/user/signup',
@@ -45,7 +51,8 @@ const routes = [
     path: '/search',
     name: 'Search',
     component: Search,
-  }
+  },
+
 ]
 
 const router = new VueRouter({

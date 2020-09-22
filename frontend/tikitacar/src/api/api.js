@@ -5,14 +5,15 @@ export default {
         USERS: {
             emailDuplicateCheckURL: "user/email",
             nicknameDuplicateCheckURL: "user/nickname",
-            getUserInfoURL : "user/",
+            getUserInfoURL : "user",
             createUserURL : "user",
             updateUserURL : "user",
             deleteUserURL : "user",
         },
         AUTH : {
-            loginURL : "auth/login",
-            logoutURL : "auth/logout"
+            loginURL : "auth/login/",
+            logoutURL : "auth/logout",
+            pwInquiryURL : "auth/password"
         },
         HOMEURL : ""
     }
