@@ -11,9 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.NoSuchElementException;
+import java.util.Optional;
+
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
@@ -33,7 +36,11 @@ public class UserServiceImpl implements UserService{
                 .addressDetail(userRegisterRequestDto.getAddressDetail())
                 .build();
 
-        userRepository.save(user);
+        try {
+            userRepository.save(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return;
     }
 
@@ -51,29 +58,28 @@ public class UserServiceImpl implements UserService{
     public UserLoginResponseDto login(UserLoginRequestDto userLoginRequestDto) {
         String email = userLoginRequestDto.getEmail();
         String password = userLoginRequestDto.getPassword();
-        User user = userRepository.findByEmailAndPassword(email, password).orElse(null);
+        User user = Optional.of(userRepository.findByEmailAndPassword(email, password)
+                .orElseThrow(() -> new NoSuchElementException("해당 이메일과 비밀번호로 유저를 조회할 수 없음."))).get();
 
         UserLoginResponseDto userLoginResponseDto = null;
 
 
-        if(user != null)
-            userLoginResponseDto = UserLoginResponseDto.builder()
-                    .email(email)
-                    .nickname(user.getNickname())
-                    .id(user.getId())
-                    .auth(user.getAuth())
-                    .build();
+        userLoginResponseDto = UserLoginResponseDto.builder()
+                .email(email)
+                .nickname(user.getNickname())
+                .id(user.getId())
+                .auth(user.getAuth())
+                .build();
 
         return userLoginResponseDto;
     }
 
     @Override
     public UserFindResponseDto findUserByEmail(String email) {
-        User user = userRepository.findByEmail(email).orElse(null);
+        User user = Optional.of(userRepository.findByEmail(email).orElseThrow(() -> new NoSuchElementException("이메일에 해당하는 유저가 존재하지 않음."))).get();
         UserFindResponseDto userFindResponseDto = null;
 
-        if(user != null){
-            userFindResponseDto = userFindResponseDto.builder()
+        userFindResponseDto = userFindResponseDto.builder()
                 .id(user.getId())
                 .email(user.getEmail())
                 .nickanme(user.getNickname())
@@ -83,45 +89,38 @@ public class UserServiceImpl implements UserService{
                 .address(user.getAddress())
                 .addressDetail(user.getAddressDetail())
                 .build();
-        }
 
         return userFindResponseDto;
     }
 
     @Override
     public String findPasswordByEmail(String email) {
-        User user = userRepository.findByEmail(email).orElse(null);
+        User user = Optional.of(userRepository.findByEmail(email).orElseThrow(() -> new NoSuchElementException("이메일에 해당하는 유저가 존재하지 않음."))).get();
 
         return user.getPassword();
     }
 
     @Override
     public void modifyUserAuth(String email) {
-        User user = userRepository.findByEmail(email).orElse(null);
+        User user = Optional.of(userRepository.findByEmail(email).orElseThrow(() -> new NoSuchElementException("이메일에 해당하는 유저가 존재하지 않음."))).get();
 
-        if(user != null){
-            user.updateUserAuth();
-        }
+        user.updateUserAuth();
     }
 
     @Override
     @Transactional
     public void modifyUserInfo(UserModifyRequestDto userModifyRequestDto) {
-        User user = userRepository.findById(userModifyRequestDto.getId()).orElse(null);
+        User user = Optional.of(userRepository.findById(userModifyRequestDto.getId()).orElseThrow(() -> new NoSuchElementException("id에 해당하는 유저가 존재하지 않음."))).get();
 
-        if(user != null){
-            user.updateUserInfo(userModifyRequestDto);
-        }
+        user.updateUserInfo(userModifyRequestDto);
     }
 
     @Override
     @Transactional
     public void deleteUser(String email) {
-        User user = userRepository.findByEmail(email).orElse(null);
+        User user = Optional.of(userRepository.findByEmail(email).orElseThrow(() -> new NoSuchElementException("이메일에 해당하는 유저가 존재하지 않음."))).get();
 
-        if(user != null){
-            userRepository.deleteById(user.getId());
-        }
+        userRepository.deleteById(user.getId());
     }
 
 }

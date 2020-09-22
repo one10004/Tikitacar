@@ -99,7 +99,7 @@ public class UserController {
         ResponseEntity response = null;
         Map<String, Object> map = new HashMap<>();
 
-        String email = jwtService.getEmailFromToken(userDeleteCheckRequsetDto.getToken());
+        String email = jwtService.getEmailFromToken(userDeleteCheckRequsetDto.getToken().substring(7));
         String password = userService.findPasswordByEmail(email);
 
         if(password.equals(userDeleteCheckRequsetDto.getPassword())){
