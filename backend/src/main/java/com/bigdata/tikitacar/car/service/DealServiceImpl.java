@@ -17,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -71,7 +72,8 @@ public class DealServiceImpl implements DealService {
         Deal deal = Deal.builder()
                 .seller(seller)
                 .car(car)
-                .status("판매중")
+//                .status("판매중")
+//                .date(LocalDateTime.now())
                 .title(dealRegisterRequestDto.getTitle())
                 .content(dealRegisterRequestDto.getContent())
                 .build();
