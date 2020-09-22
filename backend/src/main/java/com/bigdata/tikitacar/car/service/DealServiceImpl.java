@@ -19,10 +19,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
+
+
 @Service
-public class DealServcieImpl implements DealService {
+public class DealServiceImpl implements DealService {
 
     @Autowired
     DealRepository dealRepository;
@@ -40,7 +43,8 @@ public class DealServcieImpl implements DealService {
     @Override
     @Transactional
     public void registerDeal(DealRegisterRequestDto dealRegisterRequestDto) {
-        User seller= userRepository.findById(dealRegisterRequestDto.getSellerId()).get();
+        User seller = Optional.of(userRepository.findById(dealRegisterRequestDto.getSellerId())
+                .orElseThrow(NoSuchElementException::new)).get();
 
         //차등록
         Car car = Car.builder()
@@ -58,7 +62,11 @@ public class DealServcieImpl implements DealService {
                 .price(dealRegisterRequestDto.getPrice())
                 .build();
 
-        car= carRepository.save(car);
+        try {
+            car= carRepository.save(car);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         Deal deal = Deal.builder()
                 .seller(seller)
@@ -68,22 +76,30 @@ public class DealServcieImpl implements DealService {
                 .content(dealRegisterRequestDto.getContent())
                 .build();
 
-        dealRepository.save(deal);
+        try {
+            dealRepository.save(deal);
 
-        //이미지 업로드
-        for(String s :dealRegisterRequestDto.getSrc()){
-            Img img = Img.builder()
-                    .deal(deal)
-                    .src(s)
-                    .build();
-            imgRepository.save(img);
+            //이미지 업로드
+            for(String s :dealRegisterRequestDto.getSrc()){
+                Img img = Img.builder()
+                        .deal(deal)
+                        .src(s)
+                        .build();
+                    imgRepository.save(img);
+                }
         }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     //Read
     @Override
     public DealSearchResponseDto searchDeal(Long id) {
-        Deal deal = dealRepository.findById(id).get();
+        Deal deal = Optional.of(dealRepository.findById(id)
+                .orElseThrow(NoSuchElementException::new)).get();
+
         DealSearchResponseDto dealSearchResponseDto = DealSearchResponseDto.builder()
                 .email(deal.getSeller().getEmail())
                 .nickname(deal.getSeller().getEmail())
@@ -112,10 +128,16 @@ public class DealServcieImpl implements DealService {
     @Override
     @Transactional
     public void updateDeal(DealUpdateRequestDto dealUpdateRequestDto) {
-        Deal deal = dealRepository.findById(dealUpdateRequestDto.getId()).get();
+        Deal deal = Optional.of(dealRepository.findById(dealUpdateRequestDto.getId())
+                .orElseThrow(NoSuchElementException::new)).get();
 
-        //이전 이미지 다지우기
-        imgRepository.deleteByDeal_Id(deal.getId());
+
+        try {
+            //이전 이미지 다지우기
+            imgRepository.deleteByDeal_Id(deal.getId());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         Car car =deal.getCar();
 
@@ -135,15 +157,19 @@ public class DealServcieImpl implements DealService {
         deal.updateDeal(dealUpdateRequestDto.getTitle(),
                 dealUpdateRequestDto.getContent());
 
-        //이미지 새로추가
-        for(String s :dealUpdateRequestDto.getSrc()){
-            Img img = Img.builder()
-                    .deal(deal)
-                    .src(s)
-                    .build();
-            imgRepository.save(img);
+        try {
+            //이미지 새로추가
+            for(String s :dealUpdateRequestDto.getSrc()){
+                Img img = Img.builder()
+                        .deal(deal)
+                        .src(s)
+                        .build();
+                imgRepository.save(img);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        
+
     }
 
     //Delete

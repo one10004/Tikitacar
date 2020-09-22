@@ -4,6 +4,7 @@ import com.bigdata.tikitacar.car.dto.request.DealRegisterRequestDto;
 import com.bigdata.tikitacar.car.dto.request.DealUpdateRequestDto;
 import com.bigdata.tikitacar.car.dto.response.DealSearchResponseDto;
 import com.bigdata.tikitacar.car.service.DealService;
+import com.bigdata.tikitacar.user.dto.response.UserFindResponseDto;
 import com.bigdata.tikitacar.user.service.UserService;
 import com.bigdata.tikitacar.util.JwtService;
 import io.swagger.annotations.ApiOperation;
@@ -71,7 +72,8 @@ public class DealController {
     //Update
     @ApiOperation("거래 업데이트")
     @PutMapping("")
-    public Object dealUpdate(@RequestBody DealUpdateRequestDto dealUpdateRequestDto){
+    public Object dealUpdate(@RequestHeader(value="Authorization") String token,
+                             @RequestBody DealUpdateRequestDto dealUpdateRequestDto){
         ResponseEntity response = null;
         Map<String,Object> map = new HashMap<String, Object>();
 
@@ -87,9 +89,16 @@ public class DealController {
     //Delete
     @ApiOperation("거래 삭제")
     @DeleteMapping("/{id}")
-    public Object dealDelete(@PathVariable Long id){
+    public Object dealDelete(@RequestHeader(value="Authorization") String token,
+                             @PathVariable Long id){
         ResponseEntity response = null;
         Map<String,Object> map = new HashMap<String, Object>();
+
+        UserFindResponseDto userFindResponseDto = userService.findUserByEmail(jwtService.getEmailFromToken(token);
+
+        DealSearchResponseDto dealSearchResponseDto = dealService.searchDeal(id);
+
+        /**/
 
         dealService.removeDeal(id);
 
