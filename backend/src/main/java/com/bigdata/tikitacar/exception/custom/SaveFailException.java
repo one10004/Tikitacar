@@ -1,4 +1,4 @@
-package com.bigdata.tikitacar.exception.save;
+package com.bigdata.tikitacar.exception.custom;
 
 public class SaveFailException extends RuntimeException{
     public SaveFailException(String msg, Throwable t){

@@ -2,7 +2,7 @@ package com.bigdata.tikitacar.qna.service;
 
 import com.bigdata.tikitacar.car.entity.Deal;
 import com.bigdata.tikitacar.car.repository.DealRepository;
-import com.bigdata.tikitacar.exception.save.SaveFailException;
+import com.bigdata.tikitacar.exception.custom.SaveFailException;
 import com.bigdata.tikitacar.qna.dto.request.QnaWriteRequestDto;
 import com.bigdata.tikitacar.qna.entity.Qna;
 import com.bigdata.tikitacar.qna.repository.QnaRepository;
