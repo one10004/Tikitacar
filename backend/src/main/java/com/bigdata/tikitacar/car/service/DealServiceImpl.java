@@ -174,6 +174,24 @@ public class DealServiceImpl implements DealService {
 
     }
 
+
+    @Override
+    public void updateDealStatus(Long buyerId, Long dealId) {
+        User user = Optional.of(userRepository.findById(buyerId))
+                .orElseThrow(() -> new NoSuchElementException("유저가 존재하지 않음.")).get();
+
+        Deal deal = Optional.of(dealRepository.findById(dealId))
+                .orElseThrow(() -> new NoSuchElementException("거래가 존재하지 않음.")).get();
+
+        try{
+            deal.updateDealStatus("판매완료",user);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+    }
+
     //Delete
     @Override
     @Transactional

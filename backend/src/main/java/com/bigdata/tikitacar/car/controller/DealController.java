@@ -94,6 +94,23 @@ public class DealController {
         return response;
     }
 
+    @ApiOperation("거래 완료처리")
+    @PutMapping("/status/{id}")
+    public Object dealDone(@RequestHeader(value="Authorization") String token,
+                           @PathVariable Long dealId){
+        ResponseEntity response = null;
+        Map<String,Object> map = new HashMap<String, Object>();
+
+        //현재 로그인한 아이디
+        Long buyerId = userService.findUserByEmail(jwtService.getEmailFromToken(token)).getId();
+        dealService.updateDealStatus(buyerId,dealId);
+
+
+
+        return response;
+    }
+
+
     //Delete
     @ApiOperation("거래 삭제")
     @DeleteMapping("/{id}")

@@ -51,8 +51,9 @@ public class Deal {
         this.content=content;
     }
 
-    public void updateStatus(String status){
+    public void updateDealStatus(String status,User buyer){
         this.status=status;
+        this.buyer=buyer;
     }
 
 
