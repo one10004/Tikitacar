@@ -82,7 +82,6 @@ import { mapActions } from "vuex";
 import router from "@/router";
 import swal from "sweetalert";
 
-//import axios from 'axios';
 //import api from '@/api/api'
 //import router from "@/router/";
 
