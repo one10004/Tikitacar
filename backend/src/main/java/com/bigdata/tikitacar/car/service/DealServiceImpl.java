@@ -72,8 +72,8 @@ public class DealServiceImpl implements DealService {
         Deal deal = Deal.builder()
                 .seller(seller)
                 .car(car)
-//                .status("판매중")
-//                .date(LocalDateTime.now())
+                .status("판매중")
+                .date(LocalDateTime.now())
                 .title(dealRegisterRequestDto.getTitle())
                 .content(dealRegisterRequestDto.getContent())
                 .build();

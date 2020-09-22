@@ -35,11 +35,9 @@ public class Deal {
     private Car car;
 
     @Column(name="status")
-    @ColumnDefault("판매중")
     private String status;
 
     @Column(name="date")
-    @CreationTimestamp
     private LocalDateTime date;
 
     @Column(name="title")
