@@ -4,6 +4,7 @@ import com.bigdata.tikitacar.car.dto.request.DealRegisterRequestDto;
 import com.bigdata.tikitacar.car.dto.request.DealUpdateRequestDto;
 import com.bigdata.tikitacar.car.dto.response.DealSearchResponseDto;
 import com.bigdata.tikitacar.car.service.DealService;
+import com.bigdata.tikitacar.user.dto.response.UserFindResponseDto;
 import com.bigdata.tikitacar.user.service.UserService;
 import com.bigdata.tikitacar.util.JwtService;
 import io.swagger.annotations.ApiOperation;
@@ -71,15 +72,24 @@ public class DealController {
     //Update
     @ApiOperation("거래 업데이트")
     @PutMapping("")
-    public Object dealUpdate(@RequestBody DealUpdateRequestDto dealUpdateRequestDto){
+    public Object dealUpdate(@RequestHeader(value="Authorization") String token,
+                             @RequestBody DealUpdateRequestDto dealUpdateRequestDto){
         ResponseEntity response = null;
         Map<String,Object> map = new HashMap<String, Object>();
 
-        dealService.updateDeal(dealUpdateRequestDto);
+        String loginEmail = jwtService.getEmailFromToken(token);
+        DealSearchResponseDto dealSearchResponseDto = dealService.searchDeal(dealUpdateRequestDto.getId());
 
-        map.put("msg","거래 수정에 성공했습니다.");
-        map.put("status","success");
-        response = new ResponseEntity(map,HttpStatus.OK);
+        if(loginEmail.equals(dealSearchResponseDto.getEmail())){
+            dealService.updateDeal(dealUpdateRequestDto);
+            map.put("msg","거래 수정에 성공했습니다.");
+            map.put("status","success");
+            response = new ResponseEntity(map,HttpStatus.OK);
+        }else{
+            map.put("msg","거래 수정에 실패하였습니다.");
+            map.put("status","fail");
+            response = new ResponseEntity(map,HttpStatus.BAD_REQUEST);
+        }
 
         return response;
     }
@@ -87,15 +97,25 @@ public class DealController {
     //Delete
     @ApiOperation("거래 삭제")
     @DeleteMapping("/{id}")
-    public Object dealDelete(@PathVariable Long id){
+    public Object dealDelete(@RequestHeader(value="Authorization") String token,
+                             @PathVariable Long id){
         ResponseEntity response = null;
         Map<String,Object> map = new HashMap<String, Object>();
 
-        dealService.removeDeal(id);
+        String loginEmail = jwtService.getEmailFromToken(token);
+        DealSearchResponseDto dealSearchResponseDto = dealService.searchDeal(id);
 
-        map.put("msg","거래 삭제에 성공했습니다.");
-        map.put("status","success");
-        response = new ResponseEntity(map,HttpStatus.OK);
+        if(loginEmail.equals(dealSearchResponseDto.getEmail())){
+            dealService.removeDeal(id);
+            map.put("msg","거래 삭제에 성공했습니다.");
+            map.put("status","success");
+            response = new ResponseEntity(map,HttpStatus.OK);
+
+        }else{
+            map.put("msg","거래 삭제에 실패했습니다.");
+            map.put("status","fail");
+            response = new ResponseEntity(map,HttpStatus.BAD_REQUEST);
+        }
 
         return response;
     }

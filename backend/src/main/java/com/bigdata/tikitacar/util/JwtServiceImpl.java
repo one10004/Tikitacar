@@ -9,8 +9,14 @@ import java.util.Date;
 
 @Service
 public class JwtServiceImpl implements JwtService{
-    private final String secret = "watermelon";
+    private final String secret = "tikitacar";
     private final long validTime = 2*60*60*1000L;
+
+    @Override
+    public Long getValidTime(){
+        return validTime;
+    }
+
     @Override
     public String generateToken(String id) {
         Claims claims = Jwts.claims().setSubject(id);
