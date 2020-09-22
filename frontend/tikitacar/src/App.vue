@@ -9,12 +9,20 @@
       </router-link>
 
       
-        <div style="text-align: center;">
+        <div style="text-align: center;" v-if="!isloggedIn">
           <router-link :to="{name: 'Login'}" style="text-decoration: none;">
             <v-icon
               style="margin-top:15px;font-size:65px;padding-bottom:0px;"
             >mdi-account-circle</v-icon>
           </router-link>
+        </div>
+        <div v-else>
+          <v-card>
+            <v-card-actions>
+              <v-btn router-link :to="{name  : 'MyPage'}">마이 페이지</v-btn>
+              <v-btn @click="logout">로그 아웃</v-btn>
+            </v-card-actions>
+          </v-card>
         </div>
         
       
@@ -57,13 +65,21 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
   props: {
       source: String,
   },
   data: () => ({
-
+    isloggedIn : ""
   }),
+  created : function(){
+    this.isloggedIn = this.$store.getters.isLoggedIn;
+    console.log(this.isloggedIn);
+  },
+  methods : {
+    ...mapActions(["logout"])
+  },
   name: 'App',
   components: {}
 }
