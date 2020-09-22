@@ -35,12 +35,7 @@ public class ExceptionAdvice {
         map.put("status","fail");
         map.put("msg", exception.getMessage());
         ResponseEntity res = null;
-        if(exception.getClass().getName().equals("java.util.NoSuchElementException"))
-            res = new ResponseEntity(map, HttpStatus.BAD_REQUEST);
-        else
-            res = new ResponseEntity(map, HttpStatus.BAD_REQUEST);
-
-
+        res = new ResponseEntity(map, HttpStatus.BAD_REQUEST);
 
         return res;
     }
