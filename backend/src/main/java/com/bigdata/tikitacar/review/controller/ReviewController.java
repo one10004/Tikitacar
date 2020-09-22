@@ -1,7 +1,5 @@
 package com.bigdata.tikitacar.review.controller;
 
-import com.bigdata.tikitacar.car.dto.request.DealRegisterRequestDto;
-import com.bigdata.tikitacar.car.service.DealService;
 import com.bigdata.tikitacar.review.dto.request.ReviewRegisterRequestDto;
 import com.bigdata.tikitacar.review.service.ReviewService;
 import com.bigdata.tikitacar.user.service.UserService;
