@@ -96,14 +96,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String findPasswordByEmail(String email) {
-        User user = Optional.of(userRepository.findByEmail(email).orElseThrow(() -> new NoSuchElementException("이메일에 해당하는 유저가 존재하지 않음."))).get();
+        User user = Optional.of(userRepository.findByEmail(email)
+                .orElseThrow(() -> new NoSuchElementException("(유저 탈퇴를 위한 이메일 비밀번호 일치 여부 확인 중)이메일에 해당하는 유저가 존재하지 않음."))).get();
 
         return user.getPassword();
     }
 
     @Override
     public void modifyUserAuth(String email) {
-        User user = Optional.of(userRepository.findByEmail(email).orElseThrow(() -> new NoSuchElementException("이메일에 해당하는 유저가 존재하지 않음."))).get();
+        User user = Optional.of(userRepository.findByEmail(email)
+                .orElseThrow(() -> new NoSuchElementException("(유저 auth 변경 중)이메일에 해당하는 유저가 존재하지 않음."))).get();
 
         user.updateUserAuth();
     }
@@ -111,7 +113,8 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void modifyUserInfo(UserModifyRequestDto userModifyRequestDto) {
-        User user = Optional.of(userRepository.findById(userModifyRequestDto.getId()).orElseThrow(() -> new NoSuchElementException("id에 해당하는 유저가 존재하지 않음."))).get();
+        User user = Optional.of(userRepository.findById(userModifyRequestDto.getId())
+                .orElseThrow(() -> new NoSuchElementException("(유저 정보 수정 중)id에 해당하는 유저가 존재하지 않음."))).get();
 
         user.updateUserInfo(userModifyRequestDto);
     }
@@ -119,7 +122,8 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public String findPassword(String email) {
-        User user = Optional.of(userRepository.findByEmail(email).orElseThrow(() -> new NoSuchElementException("이메일에 해당하는 유저가 존재하지 않음."))).get();
+        User user = Optional.of(userRepository.findByEmail(email)
+                .orElseThrow(() -> new NoSuchElementException("(유저 비밀번호를 찾는 중)이메일에 해당하는 유저가 존재하지 않음."))).get();
 
         Random rand = new Random();
         StringBuffer sb = new StringBuffer();
@@ -146,7 +150,8 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void deleteUser(String email) {
-        User user = Optional.of(userRepository.findByEmail(email).orElseThrow(() -> new NoSuchElementException("이메일에 해당하는 유저가 존재하지 않음."))).get();
+        User user = Optional.of(userRepository.findByEmail(email)
+                .orElseThrow(() -> new NoSuchElementException("(유저 탈퇴 중)이메일에 해당하는 유저가 존재하지 않음."))).get();
 
         userRepository.deleteById(user.getId());
     }
