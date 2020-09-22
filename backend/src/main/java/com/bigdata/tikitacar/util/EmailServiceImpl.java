@@ -23,32 +23,18 @@ public class EmailServiceImpl implements EmailService {
     public void sendSimpleMessage(String to, String subject, String text) {
         SimpleMailMessage msg = new SimpleMailMessage();
 
-//            MimeMessage mimeMessage = emailSender.createMimeMessage();
-//            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage,true,"utf-8");
-//
-//            helper.setTo(to);
-//            helper.setSubject(subject);
-//            helper.setText(text,true);
-//
-//            emailSender.send(mimeMessage);
-        msg.setFrom("Tikitacar");
-        msg.setTo(to);
-        msg.setSubject(subject);
-        msg.setText(text);
+        try{
+            MimeMessage mimeMessage = emailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage,true,"utf-8");
 
-        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-        mailSender.setProtocol("smtp");
-        mailSender.setHost("smtp.gmail.com");
-        mailSender.setPort(587);
-        mailSender.setUsername("tikitacar106@gmail.com");
-        mailSender.setPassword("ssafy@106");
+            helper.setTo(to);
+            helper.setSubject(subject);
+            helper.setText(text,true);
 
-        Properties prop = new Properties();
-        prop.setProperty("mail.smtp.auth", "true");
-        prop.setProperty("mail.smtp.starttls.enable", "true");
-
-        mailSender.setJavaMailProperties(prop);
-        mailSender.send(msg);
+            emailSender.send(mimeMessage);
+        } catch (MessagingException e){
+            e.printStackTrace();
+        }
 
     }
 }

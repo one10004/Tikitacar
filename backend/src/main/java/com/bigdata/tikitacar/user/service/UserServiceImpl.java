@@ -60,7 +60,7 @@ public class UserServiceImpl implements UserService {
         String email = userLoginRequestDto.getEmail();
         String password = userLoginRequestDto.getPassword();
         User user = Optional.of(userRepository.findByEmailAndPassword(email, password)
-                .orElseThrow(() -> new NoSuchElementException("해당 이메일과 비밀번호로 유저를 조회할 수 없음."))).get();
+                .orElseThrow(() -> new NoSuchElementException("(로그인 중 오류 발생)해당 이메일과 비밀번호로 유저를 조회할 수 없음."))).get();
 
         UserLoginResponseDto userLoginResponseDto = null;
 
