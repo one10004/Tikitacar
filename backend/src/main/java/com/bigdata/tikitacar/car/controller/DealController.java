@@ -77,11 +77,19 @@ public class DealController {
         ResponseEntity response = null;
         Map<String,Object> map = new HashMap<String, Object>();
 
-        dealService.updateDeal(dealUpdateRequestDto);
+        String loginEmail = jwtService.getEmailFromToken(token);
+        DealSearchResponseDto dealSearchResponseDto = dealService.searchDeal(dealUpdateRequestDto.getId());
 
-        map.put("msg","거래 수정에 성공했습니다.");
-        map.put("status","success");
-        response = new ResponseEntity(map,HttpStatus.OK);
+        if(loginEmail.equals(dealSearchResponseDto.getEmail())){
+            dealService.updateDeal(dealUpdateRequestDto);
+            map.put("msg","거래 수정에 성공했습니다.");
+            map.put("status","success");
+            response = new ResponseEntity(map,HttpStatus.OK);
+        }else{
+            map.put("msg","거래 수정에 실패하였습니다.");
+            map.put("status","fail");
+            response = new ResponseEntity(map,HttpStatus.BAD_REQUEST);
+        }
 
         return response;
     }
@@ -94,17 +102,20 @@ public class DealController {
         ResponseEntity response = null;
         Map<String,Object> map = new HashMap<String, Object>();
 
-        UserFindResponseDto userFindResponseDto = userService.findUserByEmail(jwtService.getEmailFromToken(token);
-
+        String loginEmail = jwtService.getEmailFromToken(token);
         DealSearchResponseDto dealSearchResponseDto = dealService.searchDeal(id);
 
-        /**/
+        if(loginEmail.equals(dealSearchResponseDto.getEmail())){
+            dealService.removeDeal(id);
+            map.put("msg","거래 삭제에 성공했습니다.");
+            map.put("status","success");
+            response = new ResponseEntity(map,HttpStatus.OK);
 
-        dealService.removeDeal(id);
-
-        map.put("msg","거래 삭제에 성공했습니다.");
-        map.put("status","success");
-        response = new ResponseEntity(map,HttpStatus.OK);
+        }else{
+            map.put("msg","거래 삭제에 실패했습니다.");
+            map.put("status","fail");
+            response = new ResponseEntity(map,HttpStatus.BAD_REQUEST);
+        }
 
         return response;
     }
