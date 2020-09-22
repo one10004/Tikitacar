@@ -9,31 +9,25 @@
           >
             <v-col cols="12" sm="2">
               <v-select
-                v-model="value"
-                :items="items"
-                chips
+                v-model="searchInfo.from"
+                :items="fromOptions"
                 label="수입/국산"
-                multiple
                 solo
               ></v-select>
             </v-col>
             <v-col cols="12" sm="2">
               <v-select
-                v-model="value"
-                :items="items"
-                chips
+                v-model="searchInfo.manufacturer"
+                :items="manufacturerOptions"
                 label="제조사"
-                multiple
                 solo
               ></v-select>
             </v-col>
             <v-col cols="12" sm="2">
               <v-select
-                v-model="value"
-                :items="items"
-                chips
+                v-model="searchInfo.model"
+                :items="modelOptions"
                 label="모델"
-                multiple
                 solo
               ></v-select>
             </v-col>
@@ -41,9 +35,7 @@
               <v-select
                 v-model="value"
                 :items="items"
-                chips
                 label="세부모델"
-                multiple
                 solo
               ></v-select>
             </v-col>
@@ -68,12 +60,10 @@
             clearable
             background-color="#C8E8F6"
           >
-            <!-- <router-link :to="{name: 'Search'}"> -->
-              <v-icon 
-                slot="append"
-                @click="toSearch"
-              >mdi-magnify</v-icon>
-            <!-- </router-link> -->
+            <v-icon 
+              slot="append"
+              @click="toSearch"
+            >mdi-magnify</v-icon>
           </v-text-field>
         </v-col>
       </v-row>
@@ -120,10 +110,13 @@ import {mapActions} from 'vuex';
     },
     data: () => ({
       searchInfo: {
-        from: "수입",
-        manufacturer: "Tesla",
-        model: 'Model 3',
-      }
+        from: "",
+        manufacturer: "",
+        model: "",
+      },
+      fromOptions: ["수입", "국산"],
+      manufacturerOptions: ["현대", "기아", "쌍용", "테슬라", "BMW", "벤츠", "아우디"],
+      modelOptions: ["제네시스 G80", "티볼리 아머", "모델 S", "이클래스", "A8"]
     }),
     methods: {
       ...mapActions(["search"]),
