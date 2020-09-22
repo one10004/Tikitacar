@@ -1,5 +1,6 @@
 package com.bigdata.tikitacar.user.controller;
 
+import com.bigdata.tikitacar.user.dto.request.UserFindPasswordRequestDto;
 import com.bigdata.tikitacar.user.dto.request.UserLoginRequestDto;
 import com.bigdata.tikitacar.user.dto.response.UserFindResponseDto;
 import com.bigdata.tikitacar.user.dto.response.UserLoginResponseDto;
@@ -99,11 +100,11 @@ public class AuthController {
 
     @ApiOperation("비밀번호 찾기")
     @PostMapping("/password")
-    public Object findPassword(@RequestHeader(value = "Authorization") String token) {
+    public Object findPassword(@RequestBody UserFindPasswordRequestDto userFindPasswordRequestDto) {
         ResponseEntity response = null;
         Map<String, Object> map = new HashMap<>();
 
-        String email = jwtService.getEmailFromToken(token.substring(7));
+        String email = userFindPasswordRequestDto.getEmail();
         String random = userService.findPassword(email);
 
         emailService.sendSimpleMessage(email, "Tikitacar 비밀번호 찾기 결과",
