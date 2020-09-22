@@ -51,5 +51,9 @@ public class Deal {
         this.content=content;
     }
 
+    public void updateStatus(String status){
+        this.status=status;
+    }
+
 
 }
