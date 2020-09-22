@@ -75,7 +75,7 @@ export default {
   }),
   created : function(){
     this.isloggedIn = this.$store.getters.isLoggedIn;
-    console.log(this.isloggedIn);
+
   },
   methods : {
     ...mapActions(["logout"])

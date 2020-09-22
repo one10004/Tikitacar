@@ -79,6 +79,9 @@
 
 <script>
 import { mapActions } from "vuex";
+import router from "@/router";
+import swal from "sweetalert";
+
 //import axios from 'axios';
 //import api from '@/api/api'
 //import router from "@/router/";
@@ -87,12 +90,23 @@ import { mapActions } from "vuex";
     data: () => ({
         showPassword : false,
         id: "",
+        isloggedIn : "",
         loginRequest : {
           email : "",
           password : ""
         }
       })
     ,
+    created : function() {
+      this.isloggedIn = this.$store.getters.isLoggedIn;
+      if (this.isloggedIn) {
+
+        swal('X', '이미 로그인 되있는 상태입니다', 'warning');
+        router.push({name: 'Home'});
+        // router.go();
+      }
+
+    },
     props: {
       source: String,
     },
