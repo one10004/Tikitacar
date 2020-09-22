@@ -44,7 +44,7 @@ public class DealServiceImpl implements DealService {
     @Transactional
     public void registerDeal(DealRegisterRequestDto dealRegisterRequestDto) {
         User seller = Optional.of(userRepository.findById(dealRegisterRequestDto.getSellerId())
-                .orElseThrow(NoSuchElementException::new)).get();
+                .orElseThrow(() -> new NoSuchElementException("유저가 존재하지 않음."))).get();
 
         //차등록
         Car car = Car.builder()
@@ -98,7 +98,7 @@ public class DealServiceImpl implements DealService {
     @Override
     public DealSearchResponseDto searchDeal(Long id) {
         Deal deal = Optional.of(dealRepository.findById(id)
-                .orElseThrow(NoSuchElementException::new)).get();
+                .orElseThrow(() -> new NoSuchElementException("거래가 존재하지 않음."))).get();
 
         DealSearchResponseDto dealSearchResponseDto = DealSearchResponseDto.builder()
                 .email(deal.getSeller().getEmail())
@@ -129,7 +129,7 @@ public class DealServiceImpl implements DealService {
     @Transactional
     public void updateDeal(DealUpdateRequestDto dealUpdateRequestDto) {
         Deal deal = Optional.of(dealRepository.findById(dealUpdateRequestDto.getId())
-                .orElseThrow(NoSuchElementException::new)).get();
+                .orElseThrow(() -> new NoSuchElementException("거래가 존재하지 않음."))).get();
 
 
         try {
