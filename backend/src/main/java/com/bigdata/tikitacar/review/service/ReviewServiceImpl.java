@@ -12,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import javax.ws.rs.NotAuthorizedException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -30,21 +32,27 @@ public class ReviewServiceImpl implements ReviewService {
     UserRepository userRepository;
 
     @Override
+    @Transactional
     public void registerReview(ReviewRegisterRequestDto reviewRegisterRequestDto) {
 
         User writer = Optional.of(userRepository.findById(reviewRegisterRequestDto.getWriter())
-                .orElseThrow(() -> new NoSuchElementException("작성자가 존재하지 않음."))).get();
+                .orElseThrow(() -> new NoSuchElementException("작성자가 존재하지 않음"))).get();
+
+        System.out.println(writer.getId());
 
         Deal deal = Optional.of(dealRepository.findById(reviewRegisterRequestDto.getDeal())
-                .orElseThrow(() -> new NoSuchElementException("거래가 존재하지 않음."))).get();
+                .orElseThrow(() -> new NoSuchElementException("거래가 존재하지 않음"))).get();
 
-        if(writer.getId() != deal.getBuyer().getId()) new NotAuthorizedException("리뷰 작성의 권한이 없음.");
+        if(deal.getBuyer() == null) throw new NoSuchElementException("판매가 완료되지 않은 거래");
+
+        if(writer.getId() != deal.getBuyer().getId()) throw new NoSuchElementException("리뷰 작성의 권한이 없음");
 
         Review review = Review.builder()
                 .deal(deal)
                 .writer(writer)
                 .title(reviewRegisterRequestDto.getTitle())
                 .content(reviewRegisterRequestDto.getContent())
+                .date(LocalDateTime.now())
                 .rating(reviewRegisterRequestDto.getRating())
                 .build();
 

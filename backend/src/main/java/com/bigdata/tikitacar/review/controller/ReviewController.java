@@ -35,7 +35,7 @@ public class ReviewController {
         ResponseEntity response = null;
         Map<String,Object> map = new HashMap<String, Object>();
 
-        reviewRegisterRequestDto.updateWriter(userService.findUserByEmail(jwtService.getEmailFromToken(token)).getId());
+        reviewRegisterRequestDto.updateWriter(userService.findUserByEmail(jwtService.getEmailFromToken(token.substring(7))).getId());
         reviewService.registerReview(reviewRegisterRequestDto);
 
         map.put("msg","후기 등록에 성공했습니다.");
