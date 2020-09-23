@@ -86,12 +86,12 @@ public class QnaServiceImpl implements QnaService {
     @Transactional
     public void replyToQuestion(Long id, QnaReplyUpdateRequestDto qnaReplyUpdateRequestDto) {
         Qna qna = Optional.of(qnaRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("(질문 답변 작성 중) id에 해당하는 질문을 찾을 수 없음."))).get();
+                .orElseThrow(() -> new NoSuchElementException("(질문 답변 작성(수정) 중) id에 해당하는 질문을 찾을 수 없음."))).get();
 
         try {
             qna.updateReply(qnaReplyUpdateRequestDto.getReply());
         } catch (Exception e) {
-            throw new SaveFailException("(질문 답변 작성 중) 답변 달고 저장 중 오류 발생.");
+            throw new SaveFailException("(질문 답변 작성(수정) 중) 답변 달고(수정 후) 저장 중 오류 발생.");
         }
 
     }
@@ -109,6 +109,22 @@ public class QnaServiceImpl implements QnaService {
             qna.updateQuestion(qnaQuestionUpdateRequestDto.getContent());
         } catch (Exception e) {
             throw new SaveFailException("(질문 수정 중) 질문 수정 후 저장 중 오류 발생.");
+        }
+    }
+
+    @Override
+    @Transactional
+    public void removeReply(Long id) {
+        Qna qna = Optional.of(qnaRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("(답변 삭제 중) id에 해당 하는 질문을 찾을 수 없음."))).get();
+
+        if(qna.getReply() == null)
+            throw new SaveFailException("(답변 삭제 중) 답변이 없어서 삭제할 수 없음");
+
+        try {
+            qna.deleteReply();
+        } catch (Exception e){
+            throw new SaveFailException("(답변 삭제 중) 답변 삭제 중 오류 발생");
         }
     }
 

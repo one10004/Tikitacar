@@ -56,19 +56,6 @@ public class QnaController {
         return new ResponseEntity(map, HttpStatus.OK);
     }
 
-    @ApiOperation("답글 달기")
-    @PutMapping("/reply/{id}")
-    public Object replyToQuestion(@PathVariable Long id, @RequestBody QnaReplyUpdateRequestDto qnaReplyUpdateRequestDto) {
-        Map<String, Object> map = new HashMap<>();
-
-        qnaService.replyToQuestion(id, qnaReplyUpdateRequestDto);
-
-        map.put("msg", "질문에 답변 달기 성공");
-        map.put("status", "success");
-
-        return new ResponseEntity(map, HttpStatus.OK);
-    }
-
     @ApiOperation("질문 삭제")
     @DeleteMapping("/{id}")
     public Object deleteQuestion(@PathVariable Long id) {
@@ -90,6 +77,32 @@ public class QnaController {
         qnaService.modifyQuestion(id, qnaQuestionUpdateRequestDto);
 
         map.put("msg", "질문 수정 성공");
+        map.put("status", "success");
+
+        return new ResponseEntity(map, HttpStatus.OK);
+    }
+
+    @ApiOperation("답글 달기(수정)")
+    @PutMapping("/reply/{id}")
+    public Object replyToQuestion(@PathVariable Long id, @RequestBody QnaReplyUpdateRequestDto qnaReplyUpdateRequestDto) {
+        Map<String, Object> map = new HashMap<>();
+
+        qnaService.replyToQuestion(id, qnaReplyUpdateRequestDto);
+
+        map.put("msg", "질문에 답변 달기(또는 수정) 성공");
+        map.put("status", "success");
+
+        return new ResponseEntity(map, HttpStatus.OK);
+    }
+
+    @ApiOperation("답변 삭제")
+    @DeleteMapping("/reply/{id}")
+    public Object modifyReply(@PathVariable Long id){
+        Map<String, Object> map = new HashMap<>();
+
+        qnaService.removeReply(id);
+
+        map.put("msg", "답변 삭제 성공");
         map.put("status", "success");
 
         return new ResponseEntity(map, HttpStatus.OK);

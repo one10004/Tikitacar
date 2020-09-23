@@ -18,6 +18,7 @@ public interface QnaService {
     // Update
     public void replyToQuestion(Long id, QnaReplyUpdateRequestDto qnaReplyUpdateRequestDto);
     public void modifyQuestion(Long id, QnaQuestionUpdateRequestDto qnaQuestionUpdateRequestDto);
+    public void removeReply(Long id);
 
     // Delete
     public void removeQuestion(Long id);

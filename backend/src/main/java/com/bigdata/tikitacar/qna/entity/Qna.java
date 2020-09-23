@@ -47,4 +47,9 @@ public class Qna {
     public void updateQuestion(String content){
         this.content = content;
     }
+
+    public void deleteReply(){
+        reply = null;
+        replyRegTime = null;
+    }
 }
