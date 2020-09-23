@@ -5,6 +5,7 @@ import com.bigdata.tikitacar.car.entity.Deal;
 import com.bigdata.tikitacar.car.entity.Waiting;
 import com.bigdata.tikitacar.car.repository.DealRepository;
 import com.bigdata.tikitacar.car.repository.WaitingRepository;
+import com.bigdata.tikitacar.exception.custom.SaveFailException;
 import com.bigdata.tikitacar.user.entity.User;
 import com.bigdata.tikitacar.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
