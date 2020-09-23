@@ -93,7 +93,7 @@ public class ReviewController {
         reviewUpdateRequestDto.updateWriter(userService.findUserByEmail(jwtService.getEmailFromToken(token)).getId());
         reviewService.updateReview(reviewUpdateRequestDto);
 
-        map.put("msg","후기 등록에 성공했습니다.");
+        map.put("msg","후기 수정에 성공했습니다.");
         map.put("status","success");
         response = new ResponseEntity(map, HttpStatus.OK);
         return response;
@@ -112,12 +112,12 @@ public class ReviewController {
 
         if(loginEmail.equals(reviewSearchResponseDto.getEmail())){
             reviewService.removeReview(id);
-            map.put("msg","거래 삭제에 성공했습니다.");
+            map.put("msg","후기 삭제에 성공했습니다.");
             map.put("status","success");
             response = new ResponseEntity(map,HttpStatus.OK);
 
         }else{
-            map.put("msg","거래 삭제에 실패했습니다.");
+            map.put("msg","후기 삭제에 실패했습니다.");
             map.put("status","fail");
             response = new ResponseEntity(map,HttpStatus.BAD_REQUEST);
         }
