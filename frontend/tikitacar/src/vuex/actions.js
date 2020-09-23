@@ -10,8 +10,8 @@ export default {
       let URL = api.ROOT_URL + api.ROUTES.AUTH.loginURL;
     axios.post(URL, loginData)
         .then((res) => {
-           console.dir(res);
-            ('로그인 성공', '환영합니다 :)', 'success')
+           //console.dir(res);
+            swal('로그인 성공', '환영합니다 :)', 'success')
 
           commit('SET_USER', res)
           router.push({ name: 'Home' })

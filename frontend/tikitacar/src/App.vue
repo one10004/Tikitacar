@@ -9,7 +9,7 @@
       </router-link>
 
       
-        <div style="text-align: center;" v-if="!isloggedIn">
+        <div style="text-align: center;" v-if="!isLoggedin">
           <router-link :to="{name: 'Login'}" style="text-decoration: none;">
             <v-icon
               style="margin-top:15px;font-size:65px;padding-bottom:0px;"
@@ -71,14 +71,16 @@ export default {
       source: String,
   },
   data: () => ({
-    isloggedIn : this.$store.getters.isLoggedIn
   }),
   created : function(){
-
+   // this.isloggedIn=this.;
 
   },
   methods : {
-    ...mapActions(["logout"])
+    ...mapActions(["logout"]),
+
+  }, computed : {
+    isLoggedin (){ return this.$store.getters.isLoggedIn}
   },
   name: 'App',
   components: {}
