@@ -1,5 +1,6 @@
 package com.bigdata.tikitacar.qna.controller;
 
+import com.bigdata.tikitacar.qna.dto.request.QnaQuestionUpdateRequestDto;
 import com.bigdata.tikitacar.qna.dto.request.QnaReplyUpdateRequestDto;
 import com.bigdata.tikitacar.qna.dto.request.QnaWriteRequestDto;
 import com.bigdata.tikitacar.qna.service.QnaService;
@@ -42,10 +43,10 @@ public class QnaController {
 
     @ApiOperation("deal 거래에 해당하는 qna 목록 불러오기")
     @GetMapping("/{id}/{page}")
-    public Object readQnaList(@PathVariable Long id, @PathVariable int page){
+    public Object readQnaList(@PathVariable Long id, @PathVariable int page) {
         Map<String, Object> map = new HashMap<>();
 
-        Map<String ,Object> res = qnaService.readQnas(id, PageRequest.of(page, 5));
+        Map<String, Object> res = qnaService.readQnas(id, PageRequest.of(page, 5));
 
         map.put("msg", "qna 목록 불러오기 성공");
         map.put("status", "success");
@@ -57,7 +58,7 @@ public class QnaController {
 
     @ApiOperation("답글 달기")
     @PutMapping("/reply/{id}")
-    public Object replyToQuestion(@PathVariable Long id, @RequestBody QnaReplyUpdateRequestDto qnaReplyUpdateRequestDto){
+    public Object replyToQuestion(@PathVariable Long id, @RequestBody QnaReplyUpdateRequestDto qnaReplyUpdateRequestDto) {
         Map<String, Object> map = new HashMap<>();
 
         qnaService.replyToQuestion(id, qnaReplyUpdateRequestDto);
@@ -70,12 +71,25 @@ public class QnaController {
 
     @ApiOperation("질문 삭제")
     @DeleteMapping("/{id}")
-    public Object deleteQuestion(@PathVariable Long id){
+    public Object deleteQuestion(@PathVariable Long id) {
         Map<String, Object> map = new HashMap<>();
 
         qnaService.removeQuestion(id);
 
         map.put("msg", "질문 삭제 성공");
+        map.put("status", "success");
+
+        return new ResponseEntity(map, HttpStatus.OK);
+    }
+
+    @ApiOperation("질문 수정")
+    @PutMapping("/{id}")
+    public Object modifyQuestion(@PathVariable Long id, @RequestBody QnaQuestionUpdateRequestDto qnaQuestionUpdateRequestDto) {
+        Map<String, Object> map = new HashMap<>();
+
+        qnaService.modifyQuestion(id, qnaQuestionUpdateRequestDto);
+
+        map.put("msg", "질문 수정 성공");
         map.put("status", "success");
 
         return new ResponseEntity(map, HttpStatus.OK);

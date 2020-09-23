@@ -3,6 +3,7 @@ package com.bigdata.tikitacar.qna.service;
 import com.bigdata.tikitacar.car.entity.Deal;
 import com.bigdata.tikitacar.car.repository.DealRepository;
 import com.bigdata.tikitacar.exception.custom.SaveFailException;
+import com.bigdata.tikitacar.qna.dto.request.QnaQuestionUpdateRequestDto;
 import com.bigdata.tikitacar.qna.dto.request.QnaReplyUpdateRequestDto;
 import com.bigdata.tikitacar.qna.dto.request.QnaWriteRequestDto;
 import com.bigdata.tikitacar.qna.dto.response.QnaListResponseDto;
@@ -20,7 +21,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
-public class QnaServiceImpl implements QnaService{
+public class QnaServiceImpl implements QnaService {
 
     @Autowired
     private QnaRepository qnaRepository;
@@ -46,9 +47,9 @@ public class QnaServiceImpl implements QnaService{
                 .regTime(LocalDateTime.now())
                 .build();
 
-        try{
+        try {
             qnaRepository.save(qna);
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new SaveFailException("(qna 작성 중) qna 저장 중에 오류 발생.");
         }
     }
@@ -62,7 +63,7 @@ public class QnaServiceImpl implements QnaService{
 
         map.put("totalPage", qnaList.getTotalPages());
 
-        for(Qna qna : qnaList){
+        for (Qna qna : qnaList) {
             User user = Optional.of(userRepository.findById(qna.getWriter().getId())
                     .orElseThrow(() -> new NoSuchElementException("(qna 목록 불러오기 중) user id에 해당하는 유저 존재하지 않음."))).get();
 
@@ -89,7 +90,7 @@ public class QnaServiceImpl implements QnaService{
 
         try {
             qna.updateReply(qnaReplyUpdateRequestDto.getReply());
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new SaveFailException("(질문 답변 작성 중) 답변 달고 저장 중 오류 발생.");
         }
 
@@ -97,10 +98,26 @@ public class QnaServiceImpl implements QnaService{
 
     @Override
     @Transactional
+    public void modifyQuestion(Long id, QnaQuestionUpdateRequestDto qnaQuestionUpdateRequestDto) {
+        Qna qna = Optional.of(qnaRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("(질문 수정 중) id에 해당 하는 질문을 찾을 수 없음."))).get();
+
+        if (qna.getReply() != null)
+            throw new SaveFailException("(질문 수정 중) 질문에 답변이 있어서 수정할 수 없음");
+
+        try {
+            qna.updateQuestion(qnaQuestionUpdateRequestDto.getContent());
+        } catch (Exception e) {
+            throw new SaveFailException("(질문 수정 중) 질문 수정 후 저장 중 오류 발생.");
+        }
+    }
+
+    @Override
+    @Transactional
     public void removeQuestion(Long id) {
         try {
             qnaRepository.deleteById(id);
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new SaveFailException("(질문 삭제 중) 질문 삭제 중 오류 발생");
         }
     }

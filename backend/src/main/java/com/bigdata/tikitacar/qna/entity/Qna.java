@@ -43,4 +43,8 @@ public class Qna {
         this.reply = reply;
         replyRegTime = LocalDateTime.now();
     }
+
+    public void updateQuestion(String content){
+        this.content = content;
+    }
 }
