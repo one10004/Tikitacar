@@ -3,6 +3,7 @@ package com.bigdata.tikitacar.qna.service;
 import com.bigdata.tikitacar.car.entity.Deal;
 import com.bigdata.tikitacar.car.repository.DealRepository;
 import com.bigdata.tikitacar.exception.custom.SaveFailException;
+import com.bigdata.tikitacar.qna.dto.request.QnaReplyUpdateRequestDto;
 import com.bigdata.tikitacar.qna.dto.request.QnaWriteRequestDto;
 import com.bigdata.tikitacar.qna.dto.response.QnaListResponseDto;
 import com.bigdata.tikitacar.qna.entity.Qna;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -65,6 +67,7 @@ public class QnaServiceImpl implements QnaService{
                     .orElseThrow(() -> new NoSuchElementException("(qna 목록 불러오기 중) user id에 해당하는 유저 존재하지 않음."))).get();
 
             QnaListResponseDto qnaListResponseDto = QnaListResponseDto.builder()
+                    .id(qna.getId())
                     .nickname(user.getNickname())
                     .content(qna.getContent())
                     .reply(qna.getReply())
@@ -76,5 +79,19 @@ public class QnaServiceImpl implements QnaService{
 
         map.put("list", qnaListResponseDtoList);
         return map;
+    }
+
+    @Override
+    @Transactional
+    public void replyToQuestion(Long id, QnaReplyUpdateRequestDto qnaReplyUpdateRequestDto) {
+        Qna qna = Optional.of(qnaRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("(질문 답변 작성 중) id에 해당하는 질문을 찾을 수 없음."))).get();
+
+        try {
+            qna.updateReply(qnaReplyUpdateRequestDto.getReply());
+        } catch (Exception e){
+            throw new SaveFailException("(질문 답변 작성 중) 답변 달고 저장 중 오류 발생.");
+        }
+
     }
 }

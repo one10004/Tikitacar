@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @ToString
 public class QnaListResponseDto {
+    Long id;
     String nickname;
     String content;
     String reply;

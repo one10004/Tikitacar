@@ -1,8 +1,7 @@
 package com.bigdata.tikitacar.qna.controller;
 
+import com.bigdata.tikitacar.qna.dto.request.QnaReplyUpdateRequestDto;
 import com.bigdata.tikitacar.qna.dto.request.QnaWriteRequestDto;
-import com.bigdata.tikitacar.qna.dto.response.QnaListResponseDto;
-import com.bigdata.tikitacar.qna.entity.Qna;
 import com.bigdata.tikitacar.qna.service.QnaService;
 import com.bigdata.tikitacar.util.JwtService;
 import io.swagger.annotations.ApiOperation;
@@ -13,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -55,6 +53,20 @@ public class QnaController {
         map.put("status", "success");
         map.put("qnaList", res.get("list"));
         map.put("totalPage", res.get("totalPage"));
+
+        return new ResponseEntity(map, HttpStatus.OK);
+    }
+
+    @ApiOperation("답글 달기")
+    @PutMapping("/reply/{id}")
+    public Object modifyQuestion(@PathVariable Long id, @RequestBody QnaReplyUpdateRequestDto qnaReplyUpdateRequestDto){
+        ResponseEntity response = null;
+        Map<String, Object> map = new HashMap<>();
+
+        qnaService.replyToQuestion(id, qnaReplyUpdateRequestDto);
+
+        map.put("msg", "질문에 답변 달기 성공");
+        map.put("status", "success");
 
         return new ResponseEntity(map, HttpStatus.OK);
     }

@@ -35,4 +35,12 @@ public class Qna {
 
     @Column(name = "reg_time")
     private LocalDateTime regTime;
+
+    @Column(name = "reply_reg_time")
+    private LocalDateTime replyRegTime;
+
+    public void updateReply(String reply){
+        this.reply = reply;
+        replyRegTime = LocalDateTime.now();
+    }
 }
