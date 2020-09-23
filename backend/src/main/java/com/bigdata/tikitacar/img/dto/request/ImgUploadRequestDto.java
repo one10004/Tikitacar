@@ -12,5 +12,5 @@ import org.springframework.web.multipart.MultipartFile;
 @AllArgsConstructor
 @Builder
 public class ImgUploadRequestDto {
-    private MultipartFile img;
+    private MultipartFile[] img;
 }

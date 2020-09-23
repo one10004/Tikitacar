@@ -20,12 +20,12 @@ public class ImgServiceImpl implements  ImgService{
     @Override
     public String uploadImg(ImgUploadRequestDto imgUploadRequestDto) {
 
-        String fileName= imgUploadRequestDto.getImg().getOriginalFilename();
+        String fileName= imgUploadRequestDto.getImg()[0].getOriginalFilename();
         String now = new SimpleDateFormat("yyyyMMddHmsS").format(new Date());
         String src = now+"_"+fileName;
 
         try{
-            imgUploadRequestDto.getImg().transferTo(new File(src));
+            imgUploadRequestDto.getImg()[0].transferTo(new File(src));
         }catch (Exception e){
             e.printStackTrace();
         }
