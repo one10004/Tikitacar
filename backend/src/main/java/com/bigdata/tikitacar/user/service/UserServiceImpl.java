@@ -83,7 +83,7 @@ public class UserServiceImpl implements UserService {
         userFindResponseDto = userFindResponseDto.builder()
                 .id(user.getId())
                 .email(user.getEmail())
-                .nickanme(user.getNickname())
+                .nickname(user.getNickname())
                 .birth(user.getBirth())
                 .gender(user.getGender())
                 .phone(user.getPhone())
