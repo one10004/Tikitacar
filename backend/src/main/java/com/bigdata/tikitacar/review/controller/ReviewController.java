@@ -1,6 +1,7 @@
 package com.bigdata.tikitacar.review.controller;
 
 import com.bigdata.tikitacar.review.dto.request.ReviewRegisterRequestDto;
+import com.bigdata.tikitacar.review.dto.request.ReviewUpdateRequestDto;
 import com.bigdata.tikitacar.review.dto.response.ReviewSearchResponseDto;
 import com.bigdata.tikitacar.review.service.ReviewService;
 import com.bigdata.tikitacar.user.service.UserService;
@@ -13,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -38,7 +38,7 @@ public class ReviewController {
         ResponseEntity response = null;
         Map<String,Object> map = new HashMap<String, Object>();
 
-        reviewRegisterRequestDto.updateWriter(userService.findUserByEmail(jwtService.getEmailFromToken(token.substring(7))).getId());
+        reviewRegisterRequestDto.updateWriter(userService.findUserByEmail(jwtService.getEmailFromToken(token)).getId());
         reviewService.registerReview(reviewRegisterRequestDto);
 
         map.put("msg","후기 등록에 성공했습니다.");
@@ -83,7 +83,45 @@ public class ReviewController {
     }
 
     //Update
+    @ApiOperation("후기 수정")
+    @PutMapping("")
+    public Object reviewUpdate(@RequestHeader(value="Authorization") String token,
+                                 @RequestBody ReviewUpdateRequestDto reviewUpdateRequestDto){
+        ResponseEntity response = null;
+        Map<String,Object> map = new HashMap<String, Object>();
+
+        reviewUpdateRequestDto.updateWriter(userService.findUserByEmail(jwtService.getEmailFromToken(token)).getId());
+        reviewService.updateReview(reviewUpdateRequestDto);
+
+        map.put("msg","후기 등록에 성공했습니다.");
+        map.put("status","success");
+        response = new ResponseEntity(map, HttpStatus.OK);
+        return response;
+    }
 
     //Delete
+    @ApiOperation("후기 삭제")
+    @DeleteMapping("")
+    public Object reviewDelete(@RequestHeader(value="Authorization") String token,
+                               @PathVariable Long id){
+        ResponseEntity response = null;
+        Map<String,Object> map = new HashMap<String, Object>();
+
+        String loginEmail = jwtService.getEmailFromToken(token);
+        ReviewSearchResponseDto reviewSearchResponseDto = reviewService.searchReview(id);
+
+        if(loginEmail.equals(reviewSearchResponseDto.getEmail())){
+            reviewService.removeReview(id);
+            map.put("msg","거래 삭제에 성공했습니다.");
+            map.put("status","success");
+            response = new ResponseEntity(map,HttpStatus.OK);
+
+        }else{
+            map.put("msg","거래 삭제에 실패했습니다.");
+            map.put("status","fail");
+            response = new ResponseEntity(map,HttpStatus.BAD_REQUEST);
+        }
+        return response;
+    }
 
 }
