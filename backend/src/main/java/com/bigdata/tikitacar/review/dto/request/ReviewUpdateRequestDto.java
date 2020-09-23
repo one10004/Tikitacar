@@ -11,7 +11,6 @@ import lombok.*;
 public class ReviewUpdateRequestDto {
     private Long id;
     private Long writer;
-    private Long deal;
     private String title;
     private String content;
     private int rating;
