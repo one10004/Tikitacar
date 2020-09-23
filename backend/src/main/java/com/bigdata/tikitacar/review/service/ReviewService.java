@@ -11,6 +11,9 @@ public interface ReviewService {
     //Create
     public void registerReview(ReviewRegisterRequestDto reviewRegisterRequestDto);
 
+    //List
+    List<ReviewSearchResponseDto> searchAllReview(Pageable pageable);
+
     //Read
     public ReviewSearchResponseDto searchReview(Long id);
 
@@ -20,7 +23,5 @@ public interface ReviewService {
     //Delete
     public void removeReview(Long id);
 
-    //List
-    List<ReviewSearchResponseDto> searchAllReview(Pageable pageable);
 
 }
