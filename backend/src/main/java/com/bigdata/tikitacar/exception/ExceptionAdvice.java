@@ -23,12 +23,12 @@ public class ExceptionAdvice {
             , Exception exception) {
 
         // You can also use builder for create client instance.
-        IncomingWebhookClient client = new IncomingWebhookClient("https://meeting.ssafy.com/hooks/74dc7qsk1787zjzkyxmcnfgqne");
-
-        IncomingWebhookRequest payload = new IncomingWebhookRequest();
-        payload.setText("[ExceptionHandler]\n"+ exception.toString());
-
-        client.postByIncomingWebhook(payload);
+//        IncomingWebhookClient client = new IncomingWebhookClient("https://meeting.ssafy.com/hooks/74dc7qsk1787zjzkyxmcnfgqne");
+//
+//        IncomingWebhookRequest payload = new IncomingWebhookRequest();
+//        payload.setText("[ExceptionHandler]\n"+ exception.toString());
+//
+//        client.postByIncomingWebhook(payload);
 
         Map<String,Object> map = new HashMap<String, Object>();
 

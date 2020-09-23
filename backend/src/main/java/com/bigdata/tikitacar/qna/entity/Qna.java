@@ -5,6 +5,7 @@ import com.bigdata.tikitacar.user.entity.User;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -31,4 +32,7 @@ public class Qna {
 
     @Column(name = "reply")
     private String reply;
+
+    @Column(name = "reg_time")
+    private LocalDateTime regTime;
 }
