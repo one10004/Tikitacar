@@ -6,7 +6,10 @@ import Main from '../components/Main.vue'
 import MyPage from '../components/user/MyPage.vue'
 import Detail from '../components/Detail.vue'
 import Search from '../components/Search.vue'
+
 import PwInquiry from '../components/user/PwInquiry'
+import UserDeletePage from "@/components/user/UserDeletePage";
+
 //import App from '@/App.vue';
 Vue.use(VueRouter)
 
@@ -52,6 +55,11 @@ const routes = [
     name: 'Search',
     component: Search,
   },
+  {
+    path : '/user/leave',
+    name : 'UserDeletePage',
+    component: UserDeletePage
+  }
 
 ]
 

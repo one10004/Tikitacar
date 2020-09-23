@@ -9,6 +9,7 @@ export default {
             createUserURL : "user",
             updateUserURL : "user",
             deleteUserURL : "user",
+            checkPasswordURL : "/user/check"
         },
         AUTH : {
             loginURL : "auth/login/",

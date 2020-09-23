@@ -79,8 +79,8 @@
               </v-text-field>
             </v-form>
             <v-card-actions>
-              <v-btn @click="userDeleteRequest">회원 탈퇴</v-btn>
-              <v-btn @click="updateUser">회원 정보 수정</v-btn>
+              <v-btn router-link :to="{name  : 'UserDeletePage'}">회원 탈퇴</v-btn>
+              <v-btn v-on:click="updateUser">회원 정보 수정</v-btn>
             </v-card-actions>
 
           </v-card>
@@ -127,32 +127,28 @@
 
   </v-app>
 
-
-
 </template>
-
 
 
 <script>
 import axios from 'axios';
 import api from '@/api/api'
 import router from "@/router/";
+import swal from "sweetalert";
 router;
   export default{
     data: () => ({
-
-      userUpdateRequest : {
+      userDeleteRequest : {
 
       },
       userInfo : {
 
-      }
+      },
     })
 
     ,created(){
 
         let URL = api.ROOT_URL + api.ROUTES.USERS.getUserInfoURL;
-        console.log(URL);
         let config = {
           headers : {
             "Authorization" : "Bearer" + " " + this.$store.getters.getAuthToken
@@ -164,19 +160,12 @@ router;
           this.userInfo = res.data.user;
 
         }).catch((err) => {
-          console.dir(err);
+          swal('X', err.response.data.msg, 'warning');
         });
 
     },
-    method : {
-      deleteUser() {
-        let URL = api.ROOT_URL + api.ROUTES.USERS.deleteUserURL;
-        axios.delete(URL,this.userDeleteRequest).then(function(response){
-          alert(response.data.msg);
-        }).catch(function(error){
-          alert(error.response.data.msg);
-        });
-      },
+    methods : {
+
       updateUser(){
         let URL = api.ROOT_URL + api.ROUTES.USERS.updateUserURL;
         axios.delete(URL,this.userUpdateRequest).then(function(response){
