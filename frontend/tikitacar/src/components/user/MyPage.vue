@@ -18,25 +18,26 @@
             <v-form>
               <v-text-field
                 readonly
-                label = "아이디"
+                label = "email"
                 id = "아이디"
                 placeholder="아이디"
-
+                v-model="userInfo.email"
               >
               </v-text-field>
               <v-text-field
                   readonly
-                  label = "이름"
+                  label = "닉네임"
                   id = "이름"
                   placeholder="이름"
-
+                  v-model="userInfo.nickname"
               >
               </v-text-field>
               <v-text-field
                   readonly
-                  label = "생년월일(YYYYMMDD)"
+                  label = "생년월일(YYYY-MM-DD)"
                   id = "성별"
                   placeholder="XXXXYYDD"
+                  v-model="userInfo.birth"
               >
 
               </v-text-field>
@@ -45,6 +46,7 @@
                   label = "성별"
                   id = "성별"
                   placeholder="성별"
+                  v-model="userInfo.gender"
               >
 
               </v-text-field>
@@ -53,6 +55,7 @@
                   label = "핸드폰번호(010XXXXXXXX)"
                   id = "phoneNum"
                   placeholder="XXXXXXXXXXX"
+                  v-model="userInfo.phone"
               >
 
               </v-text-field>
@@ -61,7 +64,7 @@
                   label = "주소"
                   id = "주소"
                   placeholder="주소"
-
+                  v-model="userInfo.address"
               >
 
               </v-text-field>
@@ -71,12 +74,13 @@
                   id ="addressDetail"
                   type="text"
                   placeholder="상세주소"
+                  v-model="userInfo.addressDetail"
               >
               </v-text-field>
             </v-form>
             <v-card-actions>
               <v-btn @click="userDeleteRequest">회원 탈퇴</v-btn>
-              <v-btn @click="userInfoUpdateRequest">회원 정보 수정</v-btn>
+              <v-btn @click="updateUser">회원 정보 수정</v-btn>
             </v-card-actions>
 
           </v-card>
@@ -137,16 +141,33 @@ router;
   export default{
     data: () => ({
 
-      userDeleteRequest : {
-        email : "",
-        password : ""
-      },
       userUpdateRequest : {
+
+      },
+      userInfo : {
 
       }
     })
 
-    ,
+    ,created(){
+
+        let URL = api.ROOT_URL + api.ROUTES.USERS.getUserInfoURL;
+        console.log(URL);
+        let config = {
+          headers : {
+            "Authorization" : "Bearer" + " " + this.$store.getters.getAuthToken
+          }
+        };
+        console.log(config);
+        axios.get(URL,config).then((res) => {
+
+          this.userInfo = res.data.user;
+
+        }).catch((err) => {
+          console.dir(err);
+        });
+
+    },
     method : {
       deleteUser() {
         let URL = api.ROOT_URL + api.ROUTES.USERS.deleteUserURL;
@@ -163,7 +184,8 @@ router;
         }).catch(function(error){
           alert(error.response.data.msg);
         });
-      }
+      },
+
     }
   }
 
