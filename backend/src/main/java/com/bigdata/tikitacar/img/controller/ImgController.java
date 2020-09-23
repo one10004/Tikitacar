@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -25,9 +26,9 @@ public class ImgController {
         ResponseEntity response = null;
         Map<String,Object> map=new HashMap<>();
 
-        String src = imgService.uploadImg(imgUploadRequestDto);
+        List<String> src = imgService.uploadImg(imgUploadRequestDto);
 
-        if(src!=null && src.length()!=0){
+        if(src!=null && src.size()!=0){
             map.put("msg","이미지 등록에 성공했습니다.");
             map.put("status","success");
             map.put("src",src);

@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class ImgServiceImpl implements  ImgService{
@@ -18,19 +20,26 @@ public class ImgServiceImpl implements  ImgService{
     ImgRepository imgRepository;
 
     @Override
-    public String uploadImg(ImgUploadRequestDto imgUploadRequestDto) {
+    public List<String> uploadImg(ImgUploadRequestDto imgUploadRequestDto) {
 
-        String fileName= imgUploadRequestDto.getImg()[0].getOriginalFilename();
-        String now = new SimpleDateFormat("yyyyMMddHmsS").format(new Date());
-        String src = now+"_"+fileName;
+        List<String> result=new ArrayList<>();
+        int len=imgUploadRequestDto.getImg().length;
 
-        try{
-            imgUploadRequestDto.getImg()[0].transferTo(new File(src));
-        }catch (Exception e){
-            e.printStackTrace();
+        for(int i=0;i<len;i++){
+
+            String fileName= imgUploadRequestDto.getImg()[0].getOriginalFilename();
+            String now = new SimpleDateFormat("yyyyMMddHmsS").format(new Date());
+            String src = now+"_"+fileName;
+
+            try{
+                imgUploadRequestDto.getImg()[0].transferTo(new File(src));
+                result.add(src);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }
 
-        return src;
+        return result;
     }
 
 //    @Override
