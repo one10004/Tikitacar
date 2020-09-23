@@ -78,7 +78,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserFindResponseDto findUserByEmail(String email) {
-        User user = Optional.of(userRepository.findByEmail(email).orElseThrow(() -> new NoSuchElementException("이메일에 해당하는 유저가 존재하지 않음."))).get();
+        User user = Optional.of(userRepository.findByEmail(email).orElseThrow(() -> new NoSuchElementException("(회원 정보 불러오기 or 이메일 인증시)이메일에 해당하는 유저가 존재하지 않음."))).get();
         UserFindResponseDto userFindResponseDto = null;
 
         userFindResponseDto = userFindResponseDto.builder()
