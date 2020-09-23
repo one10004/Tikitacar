@@ -28,7 +28,6 @@ public class QnaController {
     @ApiOperation("qna 작성")
     @PostMapping("")
     public Object writeQna(@RequestBody QnaWriteRequestDto qnaWriteRequestDto, @RequestHeader(value = "Authorization") String token) {
-        ResponseEntity response = null;
         Map<String, Object> map = new HashMap<>();
 
         String email = jwtService.getEmailFromToken(token.substring(7));
@@ -44,7 +43,6 @@ public class QnaController {
     @ApiOperation("deal 거래에 해당하는 qna 목록 불러오기")
     @GetMapping("/{id}/{page}")
     public Object readQnaList(@PathVariable Long id, @PathVariable int page){
-        ResponseEntity response = null;
         Map<String, Object> map = new HashMap<>();
 
         Map<String ,Object> res = qnaService.readQnas(id, PageRequest.of(page, 5));
@@ -59,13 +57,25 @@ public class QnaController {
 
     @ApiOperation("답글 달기")
     @PutMapping("/reply/{id}")
-    public Object modifyQuestion(@PathVariable Long id, @RequestBody QnaReplyUpdateRequestDto qnaReplyUpdateRequestDto){
-        ResponseEntity response = null;
+    public Object replyToQuestion(@PathVariable Long id, @RequestBody QnaReplyUpdateRequestDto qnaReplyUpdateRequestDto){
         Map<String, Object> map = new HashMap<>();
 
         qnaService.replyToQuestion(id, qnaReplyUpdateRequestDto);
 
         map.put("msg", "질문에 답변 달기 성공");
+        map.put("status", "success");
+
+        return new ResponseEntity(map, HttpStatus.OK);
+    }
+
+    @ApiOperation("질문 삭제")
+    @DeleteMapping("/{id}")
+    public Object deleteQuestion(@PathVariable Long id){
+        Map<String, Object> map = new HashMap<>();
+
+        qnaService.removeQuestion(id);
+
+        map.put("msg", "질문 삭제 성공");
         map.put("status", "success");
 
         return new ResponseEntity(map, HttpStatus.OK);

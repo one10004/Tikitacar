@@ -16,4 +16,7 @@ public interface QnaService {
 
     // Update
     public void replyToQuestion(Long id, QnaReplyUpdateRequestDto qnaReplyUpdateRequestDto);
+
+    // Delete
+    public void removeQuestion(Long id);
 }

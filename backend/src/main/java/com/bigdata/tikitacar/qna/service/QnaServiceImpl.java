@@ -94,4 +94,14 @@ public class QnaServiceImpl implements QnaService{
         }
 
     }
+
+    @Override
+    @Transactional
+    public void removeQuestion(Long id) {
+        try {
+            qnaRepository.deleteById(id);
+        } catch (Exception e){
+            throw new SaveFailException("(질문 삭제 중) 질문 삭제 중 오류 발생");
+        }
+    }
 }
