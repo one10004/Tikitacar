@@ -62,7 +62,6 @@ public class UserController {
         Map<String, Object> map = new HashMap<String, Object>();
         ResponseEntity response = null;
         String email = jwtService.getEmailFromToken(token);
-
         UserFindResponseDto userFindResponseDto = userService.findUserByEmail(email);
 
         if(userFindResponseDto != null){

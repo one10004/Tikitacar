@@ -55,7 +55,7 @@ public class JwtServiceImpl implements JwtService{
     @Override
     public String getEmailFromToken(String token) {
         try {
-            Claims claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
+            Claims claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(token.substring(7)).getBody();
             return claims.getSubject();
         }catch (Exception e) {
             e.printStackTrace();
