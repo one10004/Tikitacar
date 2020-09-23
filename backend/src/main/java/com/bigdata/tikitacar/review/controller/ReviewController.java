@@ -101,7 +101,7 @@ public class ReviewController {
 
     //Delete
     @ApiOperation("후기 삭제")
-    @DeleteMapping("")
+    @DeleteMapping("/{id}")
     public Object reviewDelete(@RequestHeader(value="Authorization") String token,
                                @PathVariable Long id){
         ResponseEntity response = null;
@@ -110,7 +110,7 @@ public class ReviewController {
         String loginEmail = jwtService.getEmailFromToken(token);
         ReviewSearchResponseDto reviewSearchResponseDto = reviewService.searchReview(id);
 
-        if(loginEmail.equals(reviewSearchResponseDto.getEmail())){
+        if(loginEmail != null && loginEmail.equals(reviewSearchResponseDto.getEmail())){
             reviewService.removeReview(id);
             map.put("msg","후기 삭제에 성공했습니다.");
             map.put("status","success");
