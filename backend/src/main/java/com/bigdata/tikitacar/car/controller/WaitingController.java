@@ -86,7 +86,7 @@ public class WaitingController {
 
     @ApiOperation("대기 취소")
     @DeleteMapping("/{id}")
-    public Object deleteWaitingList(@@RequestHeader(value="Authorization") String token,
+    public Object deleteWaitingList(@RequestHeader(value="Authorization") String token,
                                     @PathVariable("id") Long dealId){
         ResponseEntity response = null;
         Map<String,Object> map = new HashMap<String, Object>();
