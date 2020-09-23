@@ -193,9 +193,6 @@ import {mapActions} from "vuex";
           src: []
         },
         files: [],
-        dto: {
-          img: ""
-        },
       },
 
       uploadImageIndex: 0
@@ -214,8 +211,6 @@ import {mapActions} from "vuex";
             },
           ];
           num = i;
-          this.info.dto.img = this.$refs.images.files[i];
-          console.log(this.info.dto);
         }
         this.uploadImageIndex =
           this.uploadImageIndex + num + (1);

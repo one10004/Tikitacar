@@ -25,21 +25,32 @@ export default {
     commit();
   },
   registerCar({getters}, info) {
+    let formData = new FormData();
     for(var i = 0; i < info.files.length; i++) {
-      let formData = new FormData();
       formData.append('img', info.files[i].image);
-      axios.post(Api.ROOT_URL + Api.ROUTES.IMG.imgURL, formData, {
-        headers: {
-          'Content-Type' : 'multipart/form-data'
-        }
-      })
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((err) => {
-          console.log(err);
-        })
     }
+    axios.post(Api.ROOT_URL + Api.ROUTES.IMG.imgURL, formData, {
+      headers: {
+        'Content-Type' : 'multipart/form-data'
+      }
+    })
+      .then((res) => {
+        info.dealInfo.src = res.data.src;
+        axios.post(Api.ROOT_URL + Api.ROUTES.DEAL.registerCarURL, info.dealInfo, {
+          headers: {
+            'Authorization' : 'RandomTokenString'
+          }
+        })
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     // axios.post(Api.ROOT_URL + Api.ROUTES.IMG.imgURL, info.files, "authToken")
     //   .then((res) => {
     //     console.log(res);
