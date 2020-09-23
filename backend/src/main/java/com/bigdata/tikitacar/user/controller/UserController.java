@@ -61,7 +61,7 @@ public class UserController {
     public Object getUserInfo(@RequestHeader(value="Authorization") String token){
         Map<String, Object> map = new HashMap<String, Object>();
         ResponseEntity response = null;
-        String email = jwtService.getEmailFromToken(token.substring(7));
+        String email = jwtService.getEmailFromToken(token);
 
         UserFindResponseDto userFindResponseDto = userService.findUserByEmail(email);
 
@@ -99,7 +99,7 @@ public class UserController {
         ResponseEntity response = null;
         Map<String, Object> map = new HashMap<>();
 
-        String email = jwtService.getEmailFromToken(token.substring(7));
+        String email = jwtService.getEmailFromToken(token);
         String password = userService.findPasswordByEmail(email);
 
         if(password.equals(userDeleteCheckRequsetDto.getPassword())){
