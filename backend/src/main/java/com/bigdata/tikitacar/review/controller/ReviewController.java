@@ -1,6 +1,5 @@
 package com.bigdata.tikitacar.review.controller;
 
-import com.bigdata.tikitacar.car.dto.response.DealSearchResponseDto;
 import com.bigdata.tikitacar.review.dto.request.ReviewRegisterRequestDto;
 import com.bigdata.tikitacar.review.dto.response.ReviewSearchResponseDto;
 import com.bigdata.tikitacar.review.service.ReviewService;
@@ -55,11 +54,12 @@ public class ReviewController {
         ResponseEntity response = null;
         Map<String,Object> map = new HashMap<String, Object>();
 
-        List<ReviewSearchResponseDto> reviewSearchResponseDtoList = reviewService.searchAllReview(PageRequest.of(page, 10));
+        Map<String, Object> resultData = reviewService.searchAllReview(PageRequest.of(page, 10));
 
         map.put("msg","후기 리스트 조회에 성공했습니다.");
         map.put("status","success");
-        map.put("data",reviewSearchResponseDtoList);
+        map.put("reviewSearchResponseDtoList", resultData.get("reviewSearchResponseDtoList"));
+        map.put("totalPage", resultData.get("totalPage"));
         response = new ResponseEntity(map,HttpStatus.OK);
 
         return response;

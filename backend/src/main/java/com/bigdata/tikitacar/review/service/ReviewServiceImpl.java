@@ -15,12 +15,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import javax.ws.rs.NotAuthorizedException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class ReviewServiceImpl implements ReviewService {
@@ -67,26 +63,35 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public List<ReviewSearchResponseDto> searchAllReview(Pageable pageable) {
+    public Map<String,Object> searchAllReview(Pageable pageable) {
+        Map<String,Object> result = new HashMap<>();
+
         List<ReviewSearchResponseDto> reviewSearchResponseDtoList = new ArrayList<>();
 
         Page<Review> list = reviewRepository.findAll(pageable);
-
+        System.out.println(list.getTotalPages());
         for(Review review : list) {
             reviewSearchResponseDtoList.add(ReviewSearchResponseDto.builder()
                     .id(review.getId())
                     .email(review.getWriter().getEmail())
                     .nickname(review.getWriter().getNickname())
-                    .deal(review.getDeal())
+                    .sellerEmail(review.getDeal().getSeller().getEmail())
+                    .sellerNickname(review.getDeal().getSeller().getNickname())
+                    .carName(review.getDeal().getCar().getName())
+                    .carPrice(review.getDeal().getCar().getPrice())
+                    .dealTitle(review.getDeal().getTitle())
+                    .dealContent(review.getDeal().getContent())
                     .title(review.getTitle())
                     .content(review.getContent())
                     .date(review.getDate())
                     .rating(review.getRating())
                     .build());
-
         }
 
-        return reviewSearchResponseDtoList;
+        result.put("reviewSearchResponseDtoList", reviewSearchResponseDtoList);
+        result.put("totalPage", list.getTotalPages());
+
+        return result;
     }
 
     @Override
@@ -98,7 +103,12 @@ public class ReviewServiceImpl implements ReviewService {
                 .id(review.getId())
                 .email(review.getWriter().getEmail())
                 .nickname(review.getWriter().getNickname())
-                .deal(review.getDeal())
+                .sellerEmail(review.getDeal().getSeller().getEmail())
+                .sellerNickname(review.getDeal().getSeller().getNickname())
+                .carName(review.getDeal().getCar().getName())
+                .carPrice(review.getDeal().getCar().getPrice())
+                .dealTitle(review.getDeal().getTitle())
+                .dealContent(review.getDeal().getContent())
                 .title(review.getTitle())
                 .content(review.getContent())
                 .date(review.getDate())

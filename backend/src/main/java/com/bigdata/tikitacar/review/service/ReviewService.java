@@ -5,6 +5,7 @@ import com.bigdata.tikitacar.review.dto.response.ReviewSearchResponseDto;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ReviewService {
 
@@ -12,7 +13,7 @@ public interface ReviewService {
     public void registerReview(ReviewRegisterRequestDto reviewRegisterRequestDto);
 
     //List
-    List<ReviewSearchResponseDto> searchAllReview(Pageable pageable);
+    Map<String,Object> searchAllReview(Pageable pageable);
 
     //Read
     public ReviewSearchResponseDto searchReview(Long id);
@@ -22,6 +23,5 @@ public interface ReviewService {
 
     //Delete
     public void removeReview(Long id);
-
 
 }

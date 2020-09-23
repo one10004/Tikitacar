@@ -1,8 +1,6 @@
 package com.bigdata.tikitacar.review.dto.response;
 
-import com.bigdata.tikitacar.car.dto.response.DealSearchResponseDto;
 import com.bigdata.tikitacar.car.entity.Deal;
-import com.bigdata.tikitacar.user.entity.User;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -21,7 +19,12 @@ public class ReviewSearchResponseDto {
     String nickname;
     
     //거래정보
-    private Deal deal;
+    String sellerEmail;
+    String sellerNickname;
+    String carName;
+    int carPrice;
+    String dealTitle;
+    String dealContent;
 
     //후기정보
     private String title;
