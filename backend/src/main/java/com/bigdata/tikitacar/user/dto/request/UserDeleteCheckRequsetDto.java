@@ -9,6 +9,5 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 public class UserDeleteCheckRequsetDto {
-    String token;
     String password;
 }

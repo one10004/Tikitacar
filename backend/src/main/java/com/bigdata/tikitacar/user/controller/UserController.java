@@ -95,11 +95,11 @@ public class UserController {
 
     @ApiOperation("이메일 비밀번호 체크")
     @PostMapping("/check")
-    public Object checkWhenDelete(@RequestBody UserDeleteCheckRequsetDto userDeleteCheckRequsetDto){
+    public Object checkWhenDelete(@RequestBody UserDeleteCheckRequsetDto userDeleteCheckRequsetDto, @RequestHeader("Authorization") String token){
         ResponseEntity response = null;
         Map<String, Object> map = new HashMap<>();
 
-        String email = jwtService.getEmailFromToken(userDeleteCheckRequsetDto.getToken().substring(7));
+        String email = jwtService.getEmailFromToken(token.substring(7));
         String password = userService.findPasswordByEmail(email);
 
         if(password.equals(userDeleteCheckRequsetDto.getPassword())){
