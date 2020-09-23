@@ -1,5 +1,6 @@
 package com.bigdata.tikitacar.user.service;
 
+import com.bigdata.tikitacar.exception.custom.SaveFailException;
 import com.bigdata.tikitacar.user.dto.request.UserLoginRequestDto;
 import com.bigdata.tikitacar.user.dto.request.UserModifyRequestDto;
 import com.bigdata.tikitacar.user.dto.request.UserRegisterRequestDto;
@@ -40,7 +41,7 @@ public class UserServiceImpl implements UserService {
         try {
             userRepository.save(user);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new SaveFailException("회원가입 중 오류 발생.");
         }
         return;
     }
@@ -107,7 +108,11 @@ public class UserServiceImpl implements UserService {
         User user = Optional.of(userRepository.findByEmail(email)
                 .orElseThrow(() -> new NoSuchElementException("(유저 auth 변경 중)이메일에 해당하는 유저가 존재하지 않음."))).get();
 
-        user.updateUserAuth();
+        try {
+            user.updateUserAuth();
+        } catch (Exception e) {
+            throw new SaveFailException("(auth 변경) 유저의 auth 변경 저장 중 오류 발생");
+        }
     }
 
     @Override
@@ -116,7 +121,12 @@ public class UserServiceImpl implements UserService {
         User user = Optional.of(userRepository.findById(userModifyRequestDto.getId())
                 .orElseThrow(() -> new NoSuchElementException("(유저 정보 수정 중)id에 해당하는 유저가 존재하지 않음."))).get();
 
-        user.updateUserInfo(userModifyRequestDto);
+
+        try {
+            user.updateUserInfo(userModifyRequestDto);
+        } catch (Exception e) {
+            throw new SaveFailException("(유저 정보 변경 중) 유저 정보 변경 후 저장 중 오류 발생");
+        }
     }
 
     @Override
@@ -128,14 +138,14 @@ public class UserServiceImpl implements UserService {
         Random rand = new Random();
         StringBuffer sb = new StringBuffer();
 
-        for(int i=0; i<10;i++){
+        for (int i = 0; i < 10; i++) {
             int idx = rand.nextInt(3);
-            switch (idx){
+            switch (idx) {
                 case 0:
-                    sb.append((char)(rand.nextInt(26) + 97));
+                    sb.append((char) (rand.nextInt(26) + 97));
                     break;
                 case 1:
-                    sb.append((char)(rand.nextInt(26)+65));
+                    sb.append((char) (rand.nextInt(26) + 65));
                     break;
                 case 2:
                     sb.append(rand.nextInt(10));
@@ -153,7 +163,11 @@ public class UserServiceImpl implements UserService {
         User user = Optional.of(userRepository.findByEmail(email)
                 .orElseThrow(() -> new NoSuchElementException("(유저 탈퇴 중)이메일에 해당하는 유저가 존재하지 않음."))).get();
 
-        userRepository.deleteById(user.getId());
+        try {
+            userRepository.deleteById(user.getId());
+        } catch (Exception e) {
+            throw new SaveFailException("(회원탈퇴) 유저 정보 삭제 중 오류 발생.");
+        }
     }
 
 }
