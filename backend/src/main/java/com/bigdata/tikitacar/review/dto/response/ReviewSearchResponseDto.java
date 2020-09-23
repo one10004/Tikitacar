@@ -1,6 +1,5 @@
 package com.bigdata.tikitacar.review.dto.response;
 
-import com.bigdata.tikitacar.car.entity.Deal;
 import lombok.*;
 
 import java.time.LocalDateTime;

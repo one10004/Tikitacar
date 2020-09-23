@@ -3,7 +3,6 @@ package com.bigdata.tikitacar.review.entity;
 import com.bigdata.tikitacar.car.entity.Deal;
 import com.bigdata.tikitacar.user.entity.User;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

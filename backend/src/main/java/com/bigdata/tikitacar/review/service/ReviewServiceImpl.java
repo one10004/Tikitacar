@@ -1,6 +1,5 @@
 package com.bigdata.tikitacar.review.service;
 
-import com.bigdata.tikitacar.car.dto.response.DealSearchResponseDto;
 import com.bigdata.tikitacar.car.entity.Deal;
 import com.bigdata.tikitacar.car.repository.DealRepository;
 import com.bigdata.tikitacar.review.dto.request.ReviewRegisterRequestDto;
@@ -138,6 +137,7 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     @Transactional
     public void removeReview(Long id) {
+        reviewRepository.deleteById(id);
     }
 
 }
