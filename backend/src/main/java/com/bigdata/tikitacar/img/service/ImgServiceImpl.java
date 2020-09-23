@@ -27,12 +27,12 @@ public class ImgServiceImpl implements  ImgService{
 
         for(int i=0;i<len;i++){
 
-            String fileName= imgUploadRequestDto.getImg()[0].getOriginalFilename();
+            String fileName= imgUploadRequestDto.getImg()[i].getOriginalFilename();
             String now = new SimpleDateFormat("yyyyMMddHmsS").format(new Date());
             String src = now+"_"+fileName;
 
             try{
-                imgUploadRequestDto.getImg()[0].transferTo(new File(src));
+                imgUploadRequestDto.getImg()[i].transferTo(new File(src));
                 result.add(src);
             }catch (Exception e){
                 e.printStackTrace();

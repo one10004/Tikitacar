@@ -2,6 +2,7 @@ package com.bigdata.tikitacar.car.service;
 
 import com.bigdata.tikitacar.car.dto.request.DealRegisterRequestDto;
 import com.bigdata.tikitacar.car.dto.request.DealUpdateRequestDto;
+import com.bigdata.tikitacar.car.dto.request.DealUpdateStatusRequestDto;
 import com.bigdata.tikitacar.car.dto.response.DealSearchResponseDto;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -19,7 +20,7 @@ public interface DealService {
 
     //Update
     public void updateDeal(DealUpdateRequestDto dealUpdateRequestDto);
-    public void updateDealStatus(Long buyerId, Long dealId);
+    public void updateDealStatus(Long dealId, DealUpdateStatusRequestDto dealUpdateStatusRequestDto);
 
 
     //Delete
