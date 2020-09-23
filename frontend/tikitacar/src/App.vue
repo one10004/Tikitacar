@@ -71,10 +71,10 @@ export default {
       source: String,
   },
   data: () => ({
-    isloggedIn : ""
+    isloggedIn : this.$store.getters.isLoggedIn
   }),
   created : function(){
-    this.isloggedIn = this.$store.getters.isLoggedIn;
+
 
   },
   methods : {
