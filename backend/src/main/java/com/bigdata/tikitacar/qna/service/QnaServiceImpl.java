@@ -10,13 +10,12 @@ import com.bigdata.tikitacar.qna.repository.QnaRepository;
 import com.bigdata.tikitacar.user.entity.User;
 import com.bigdata.tikitacar.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class QnaServiceImpl implements QnaService{
@@ -53,10 +52,13 @@ public class QnaServiceImpl implements QnaService{
     }
 
     @Override
-    public List<QnaListResponseDto> readQnas(Long id) {
+    public Map<String, Object> readQnas(Long id, Pageable pageable) {
 
-        List<Qna> qnaList = qnaRepository.findQnaByDealNumber(id);
+        Map<String, Object> map = new HashMap<>();
+        Page<Qna> qnaList = qnaRepository.findQnaByDealNumber(id, pageable);
         List<QnaListResponseDto> qnaListResponseDtoList = new ArrayList<>();
+
+        map.put("totalPage", qnaList.getTotalPages());
 
         for(Qna qna : qnaList){
             User user = Optional.of(userRepository.findById(qna.getWriter().getId())
@@ -72,6 +74,7 @@ public class QnaServiceImpl implements QnaService{
             qnaListResponseDtoList.add(qnaListResponseDto);
         }
 
-        return qnaListResponseDtoList;
+        map.put("list", qnaListResponseDtoList);
+        return map;
     }
 }

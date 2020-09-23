@@ -15,6 +15,5 @@ public interface QnaRepository extends JpaRepository<Qna, Long> {
             countQuery = "select COUNT(*) from qna",
             nativeQuery = true
     )
-    List<Qna> findQnaByDealNumber(Long id);
-//    Page<Qna> findQnaByDealNumber(Long id, Pageable pageable);
+    Page<Qna> findQnaByDealNumber(Long id, Pageable pageable);
 }

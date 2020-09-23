@@ -7,6 +7,7 @@ import com.bigdata.tikitacar.qna.service.QnaService;
 import com.bigdata.tikitacar.util.JwtService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -43,16 +44,17 @@ public class QnaController {
     }
 
     @ApiOperation("deal 거래에 해당하는 qna 목록 불러오기")
-    @GetMapping("/{id}")
-    public Object readQnaList(@PathVariable Long id){
+    @GetMapping("/{id}/{page}")
+    public Object readQnaList(@PathVariable Long id, @PathVariable int page){
         ResponseEntity response = null;
         Map<String, Object> map = new HashMap<>();
 
-        List<QnaListResponseDto> qnaList = qnaService.readQnas(id);
+        Map<String ,Object> res = qnaService.readQnas(id, PageRequest.of(page, 5));
 
         map.put("msg", "qna 목록 불러오기 성공");
         map.put("status", "success");
-        map.put("qnaList", qnaList);
+        map.put("qnaList", res.get("list"));
+        map.put("totalPage", res.get("totalPage"));
 
         return new ResponseEntity(map, HttpStatus.OK);
     }
