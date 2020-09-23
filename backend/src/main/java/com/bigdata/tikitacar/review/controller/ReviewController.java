@@ -1,16 +1,20 @@
 package com.bigdata.tikitacar.review.controller;
 
+import com.bigdata.tikitacar.car.dto.response.DealSearchResponseDto;
 import com.bigdata.tikitacar.review.dto.request.ReviewRegisterRequestDto;
+import com.bigdata.tikitacar.review.dto.response.ReviewSearchResponseDto;
 import com.bigdata.tikitacar.review.service.ReviewService;
 import com.bigdata.tikitacar.user.service.UserService;
 import com.bigdata.tikitacar.util.JwtService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -43,5 +47,43 @@ public class ReviewController {
         response = new ResponseEntity(map, HttpStatus.OK);
         return response;
     }
+
+    //List
+    @ApiOperation("후기 리스트 조회")
+    @GetMapping("/all/{page}")
+    public Object ReviewGetAll(@PathVariable("page") int page){
+        ResponseEntity response = null;
+        Map<String,Object> map = new HashMap<String, Object>();
+
+        List<ReviewSearchResponseDto> reviewSearchResponseDtoList = reviewService.searchAllReview(PageRequest.of(page, 10));
+
+        map.put("msg","후기 리스트 조회에 성공했습니다.");
+        map.put("status","success");
+        map.put("data",reviewSearchResponseDtoList);
+        response = new ResponseEntity(map,HttpStatus.OK);
+
+        return response;
+    }
+
+    //Read
+    @ApiOperation("후기 한개 조회")
+    @GetMapping("/view/{id}")
+    public Object ReviewGet(@PathVariable Long id){
+        ResponseEntity response = null;
+        Map<String,Object> map = new HashMap<String, Object>();
+
+        ReviewSearchResponseDto reviewSearchResponseDto = reviewService.searchReview(id);
+
+        map.put("msg","후기 조회에 성공했습니다.");
+        map.put("status","success");
+        map.put("data",reviewSearchResponseDto);
+        response = new ResponseEntity(map,HttpStatus.OK);
+
+        return response;
+    }
+
+    //Update
+
+    //Delete
 
 }
