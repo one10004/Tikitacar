@@ -4,6 +4,7 @@ import com.bigdata.tikitacar.car.dto.response.DealSearchResponseDto;
 import com.bigdata.tikitacar.car.entity.Deal;
 import com.bigdata.tikitacar.car.repository.DealRepository;
 import com.bigdata.tikitacar.review.dto.request.ReviewRegisterRequestDto;
+import com.bigdata.tikitacar.review.dto.request.ReviewUpdateRequestDto;
 import com.bigdata.tikitacar.review.dto.response.ReviewSearchResponseDto;
 import com.bigdata.tikitacar.review.entity.Review;
 import com.bigdata.tikitacar.review.repository.ReviewRepository;
@@ -36,8 +37,6 @@ public class ReviewServiceImpl implements ReviewService {
 
         User writer = Optional.of(userRepository.findById(reviewRegisterRequestDto.getWriter())
                 .orElseThrow(() -> new NoSuchElementException("작성자가 존재하지 않음"))).get();
-
-        System.out.println(writer.getId());
 
         Deal deal = Optional.of(dealRepository.findById(reviewRegisterRequestDto.getDeal())
                 .orElseThrow(() -> new NoSuchElementException("거래가 존재하지 않음"))).get();
@@ -120,10 +119,24 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public void updateReview(ReviewRegisterRequestDto reviewRegisterRequestDto) {
+    @Transactional
+    public void updateReview(ReviewUpdateRequestDto reviewUpdateRequestDto) {
+        Review review = Optional.of(reviewRepository.findById(reviewUpdateRequestDto.getId())
+                .orElseThrow(() -> new NoSuchElementException("후기가 존재하지 않음."))).get();
+
+        User writer = Optional.of(userRepository.findById(reviewUpdateRequestDto.getWriter())
+                .orElseThrow(() -> new NoSuchElementException("작성자가 존재하지 않음"))).get();
+
+        if(writer.getId() != reviewRepository.findById(reviewUpdateRequestDto.getId()).get().getWriter().getId()) throw new NoSuchElementException("리뷰 수정의 권한이 없음");
+
+        review.updateReview(reviewUpdateRequestDto.getTitle(),
+                reviewUpdateRequestDto.getContent(),
+                reviewUpdateRequestDto.getRating());
+
     }
 
     @Override
+    @Transactional
     public void removeReview(Long id) {
     }
 
