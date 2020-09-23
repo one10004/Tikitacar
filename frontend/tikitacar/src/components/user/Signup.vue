@@ -160,6 +160,7 @@
 import api from "@/api/api";
 import axios from 'axios';
 import router from '@/router/';
+import swal from "sweetalert";
 export default{
   data(){
     return {
@@ -242,15 +243,17 @@ export default{
     },
     userCreateSubmit : function(){
       if(!this.checking.email || !this.checking.nickname){
-        alert("중복 확인을 해주세요");
+
+        swal('X', "중복 확인을 해주세요", 'error');
+
         return;
       }
       if(!this.checking.password){
-        alert("비밀번호가 일치하지 않습니다.");
+       // alert("비밀번호가 일치하지 않습니다.");
+        swal('X', "비밀번호가 일치하지 않습니다.", 'error');
         return;
       }
       let URL = api.ROOT_URL + api.ROUTES.USERS.createUserURL;
-      console.dir(this.signupData);
       axios.post(URL, this.signupData).then(function(response){
         alert(response.data.msg);
         router.push({name : "Home"});
@@ -260,10 +263,11 @@ export default{
     },
     passwordCheck : function(){
       //event.target.
-       if(this.signupData.password != this.signupData.passwordConfirm){
+
+      if(this.signupData.password != this.signupData.passwordConfirm){
          alert("비밀번호가 일치하지 않습니다.");
          this.checking.password = false;
-          this.signupData.passwordConfirm = "";
+         this.signupData.passwordConfirm = "";
       }else{
          this.checking.password = true;
        }
