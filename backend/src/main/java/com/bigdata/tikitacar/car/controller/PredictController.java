@@ -37,7 +37,7 @@ public class PredictController {
         params.add("insurance", String.valueOf(requestCarPredict.getInsurance()));
         params.add("release", String.valueOf(requestCarPredict.getReleasePrice()));
 
-        ResponseEntity<Map> responseEntity = restTemplate.postForEntity("http://j3a106.p.ssafy.io:8000/predict/", params, Map.class);
+        ResponseEntity<Map> responseEntity = restTemplate.postForEntity("http://127.0.0.1:8000/predict/", params, Map.class);
 
         if(responseEntity!=null) {
             map.put("msg", "중고차 가격 예측을 성공했습니다.");
