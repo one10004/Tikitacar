@@ -40,7 +40,7 @@ public class PredictController {
         ResponseEntity<Map> responseEntity = restTemplate.postForEntity("http://127.0.0.1:8000/predict/", params, Map.class);
 
         if(responseEntity!=null) {
-            map.put("msg", "중고차 예측 가격 조회를 성공했습니다.");
+            map.put("msg", "중고차 가격 예측을 성공했습니다.");
             map.put("status", "success");
             map.put("car_name", requestCarPredict.getName());
             int price = (int) Math.round((double) responseEntity.getBody().get("result"));

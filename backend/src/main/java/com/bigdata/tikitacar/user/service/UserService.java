@@ -19,9 +19,11 @@ public interface UserService {
 
     // Update
     public UserFindResponseDto findUserByEmail(String email);
+    public String findPasswordByEmail(String email);
     public void modifyUserAuth(String email);
-    public void modifyUserInfo(UserModifyRequestDto userModifyRequestDto);
+    public void modifyUserInfo(UserModifyRequestDto userModifyRequestDto, String email);
+    public String findPassword(String email);
 
     // Delete
-    public void deleteUser(Long id);
+    public void deleteUser(String email);
 }

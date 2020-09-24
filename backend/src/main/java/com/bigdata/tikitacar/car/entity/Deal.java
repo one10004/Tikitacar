@@ -2,9 +2,13 @@ package com.bigdata.tikitacar.car.entity;
 
 import com.bigdata.tikitacar.user.entity.User;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Getter
@@ -45,6 +49,11 @@ public class Deal {
     public void updateDeal(String title,String content){
         this.title=title;
         this.content=content;
+    }
+
+    public void updateDealStatus(String status,User buyer){
+        this.status=status;
+        this.buyer=buyer;
     }
 
 
