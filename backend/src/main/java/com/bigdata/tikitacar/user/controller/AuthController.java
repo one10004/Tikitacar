@@ -53,7 +53,7 @@ public class AuthController {
             map.put("msg", "로그인 성공");
             map.put("status", "success");
             map.put("email", email);
-            map.put("validTime",jwtService.getValidTime());
+            map.put("validTime", jwtService.getValidTime());
             String token = jwtService.generateToken(email);
             map.put("token", token);
 
@@ -81,19 +81,11 @@ public class AuthController {
 
         String email = base64Service.decode(code);
 
-        UserFindResponseDto userFindResponseDto = userService.findUserByEmail(email);
-
-        if (userFindResponseDto != null) {
-            userService.modifyUserAuth(email);
-            map.put("msg", "인증 성공");
-            map.put("status", "success");
-            response = new ResponseEntity(map, HttpStatus.OK);
-            res.sendRedirect("/");
-        } else {
-            map.put("msg", "인증 성공");
-            map.put("status", "success");
-            response = new ResponseEntity(map, HttpStatus.BAD_REQUEST);
-        }
+        userService.modifyUserAuth(email);
+        map.put("msg", "인증 성공");
+        map.put("status", "success");
+        response = new ResponseEntity(map, HttpStatus.OK);
+        res.sendRedirect("http://j3a106.p.ssafy.io/");
 
         return response;
     }
