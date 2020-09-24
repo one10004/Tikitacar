@@ -73,7 +73,7 @@
     <v-container>
       <v-row class="recommend">
         <v-col cols="12" sm="4">
-          <router-link :to="{ name: 'Detail', params: { id: 1 } }" style="text-decoration: none;">
+          <router-link :to="{ name: 'Detail', params: { id: 66 } }" style="text-decoration: none;">
             <v-card style="height: 500px;">
               <v-card-title class="headline">제네시스 G70</v-card-title>
             </v-card>
@@ -81,14 +81,14 @@
           
         </v-col>
         <v-col cols="12" sm="4">
-          <router-link :to="{ name: 'Detail', params: { id: 2 } }" style="text-decoration: none;">
+          <router-link :to="{ name: 'Detail', params: { id: 66 } }" style="text-decoration: none;">
             <v-card style="height: 500px;">
               <v-card-title class="headline">테슬라 모델 s</v-card-title>
             </v-card>
           </router-link>
         </v-col>
         <v-col cols="12" sm="4">
-          <router-link :to="{ name: 'Detail', params: { id: 3 } }" style="text-decoration: none;">
+          <router-link :to="{ name: 'Detail', params: { id: 66 } }" style="text-decoration: none;">
             <v-card style="height: 500px;">
               <v-card-title class="headline">코나 EV</v-card-title>
             </v-card>

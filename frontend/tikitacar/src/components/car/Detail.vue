@@ -5,9 +5,12 @@
       <hr>
       <div class="carInfo">
         <div>
-          <div class="mainImage">
-            Image
-          </div>
+          <!-- <div class="mainImage"> -->
+            <v-img 
+              height="350px"
+              width="450"
+              src="file:///C:/images/202009231237962_tesla1.jpg"></v-img>
+          <!-- </div> -->
           <div class="subImages">
             <div class="subImage1">sub image1</div>
             <div class="subImage1">sub image2</div>
@@ -44,7 +47,7 @@
               <v-checkbox
                 v-model="this.info.data.flooding"
                 readonly
-                :label="'사고 경험 1회'"
+                :label="'사고 경험 ' + this.info.data.flooding + '회'"
               ></v-checkbox>
             </div>
             <div class="price">
@@ -52,7 +55,7 @@
                 <b>판매가격</b>
               </div>
               <div style="width: 80px; height: 60px; position: absolute; bottom: 0; margin-left: 170px;">
-                <p style="font-size: 50px; color: blue">{{this.price}}</p>
+                <p style="font-size: 50px; color: blue">{{this.info.data.price}}</p>
               </div>
               <div style="width: 80px; height: 25px; position: absolute; bottom: 0; margin-left: 300px;">
                 <b>만원</b>
@@ -61,7 +64,7 @@
                 large
                 color="primary"
                 style="position: absolute; bottom: 0; margin-left: 430px;"
-                @click="buyCar(model)"
+                @click="buyCar(this.info.data.name)"
               >구매</v-btn>
             </div>
           </div>
@@ -71,9 +74,9 @@
         <h3>차량 정보</h3>
         <v-row>
           <v-col cols="12" sm="4">
-            <p>차량정보: 12가1234</p>
-            <p>주행거리: 8,000km</p>
-            <p>변속기: 오토</p>
+            <p>차량정보: {{this.info.data.name}}</p>
+            <p>주행거리: {{this.info.data.distance}}km</p>
+            <p>변속기: {{this.info.data.gear}}</p>
             <p>차종: 중형차</p>
           </v-col>
           <v-col cols="12" sm="4">
@@ -92,7 +95,7 @@
       </div>
       <div>
         <h3>주행거리 분석</h3>
-        <p>주행 거리는 총 <span style="font-size: 30px; color: blue; padding-left: 8px;">{{this.km}} km</span> 로 일반적인 연평균 주행거리 대비 [<span style="color: green; font-weight: bold;">적음</span>] 입니다.</p>
+        <p>주행 거리는 총 <span style="font-size: 30px; color: blue; padding-left: 8px;">{{this.info.data.distance}} km</span> 로 일반적인 연평균 주행거리 대비 [<span style="color: green; font-weight: bold;">{{this.status}}</span>] 입니다.</p>
       </div>
       <div>
         <h3>주요옵션</h3>
@@ -111,7 +114,7 @@
         <!-- <v-container> -->
           <v-row class="recommend">
             <v-col cols="12" sm="4">
-              <router-link :to="{ name: 'Detail', params: { id: 1 } }" style="text-decoration: none;">
+              <router-link :to="{ name: 'Detail', params: { id: 66 } }" style="text-decoration: none;">
                 <v-card style="height: 500px;">
                   <v-card-title class="headline">제네시스 G70</v-card-title>
                 </v-card>
@@ -119,14 +122,14 @@
               
             </v-col>
             <v-col cols="12" sm="4">
-              <router-link :to="{ name: 'Detail', params: { id: 2 } }" style="text-decoration: none;">
+              <router-link :to="{ name: 'Detail', params: { id: 66 } }" style="text-decoration: none;">
                 <v-card style="height: 500px;">
                   <v-card-title class="headline">테슬라 모델 s</v-card-title>
                 </v-card>
               </router-link>
             </v-col>
             <v-col cols="12" sm="4">
-              <router-link :to="{ name: 'Detail', params: { id: 3 } }" style="text-decoration: none;">
+              <router-link :to="{ name: 'Detail', params: { id: 66 } }" style="text-decoration: none;">
                 <v-card style="height: 500px;">
                   <v-card-title class="headline">코나 EV</v-card-title>
                 </v-card>
@@ -148,32 +151,16 @@ import {mapActions} from "vuex";
       source: String,
     },
     data: () => ({
-      info: {
-        // email: "",
-        // nickname: "",
-        // phone: "",
-        // address: "",
-        // name: "",
-        // year: Number,
-        // cc: Number,
-        // distance: Number,
-        // color: "",
-        // gear: "",
-        // fuel: "",
-        // seat: Number,
-        // flooding: Number,
-        // insurance: Number,
-        // releasePrice: Number,
-        // price: Number,
-        // title: "",
-        // content: ""
-      }
+      info: {},
+      status: "",
     }),
     created() {
-      this.getInfo(66)
+      this.getInfo(this.$route.params.id)
         .then((res) => {
           this.info = res.data;
-          console.log(this.info);
+          if(this.info.data.distance > 50000) this.status = "많음";
+          else if(this.info.data.distance > 20000) this.status = "보통";
+          else this.status = "적음";
         })
         .catch((err) => {
           console.log(err);
