@@ -80,11 +80,12 @@ public class UserController {
 
     @ApiOperation("회원 정보 업데이트(수정)")
     @PutMapping("")
-    public Object updateUserInfo(@RequestBody UserModifyRequestDto userModifyRequestDto){
+    public Object updateUserInfo(@RequestBody UserModifyRequestDto userModifyRequestDto, @RequestHeader("Authorization") String token){
         ResponseEntity response = null;
         Map<String, Object> map = new HashMap<String, Object>();
 
-        userService.modifyUserInfo(userModifyRequestDto);
+        String email = jwtService.getEmailFromToken(token);
+        userService.modifyUserInfo(userModifyRequestDto, email);
 
         map.put("msg", "회원 정보 수정 성공");
         map.put("status", "success");
