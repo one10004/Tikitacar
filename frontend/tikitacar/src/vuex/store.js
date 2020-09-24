@@ -22,10 +22,9 @@ const state = {
       address : "",
       address_detail :""
   },
-    userInfo: {
-        authToken: cookies.get('auth-token'),
-
-    },
+  userInfo: {
+      authToken: cookies.get('auth-token'),
+  },
 }
 
 export default new Vuex.Store({

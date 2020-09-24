@@ -73,13 +73,12 @@ export default {
     })
       .then((res) => {
         info.dealInfo.src = res.data.src;
-        axios.post(Api.ROOT_URL + Api.ROUTES.DEAL.registerCarURL, info.dealInfo, {
-          headers: {
-            'Authorization' : 'RandomTokenString'
-          }
-        })
+        console.log(getters.config);
+        console.log(this.getters.config);
+        axios.post(Api.ROOT_URL + Api.ROUTES.DEAL.registerCarURL, info.dealInfo, this.getters.config)
           .then((res) => {
             console.log(res);
+            alert("등록 성공");
           })
           .catch((err) => {
             console.log(err);
