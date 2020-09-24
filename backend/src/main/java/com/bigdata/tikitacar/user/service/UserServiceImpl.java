@@ -117,9 +117,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void modifyUserInfo(UserModifyRequestDto userModifyRequestDto) {
-        User user = Optional.of(userRepository.findById(userModifyRequestDto.getId())
-                .orElseThrow(() -> new NoSuchElementException("(유저 정보 수정 중)id에 해당하는 유저가 존재하지 않음."))).get();
+    public void modifyUserInfo(UserModifyRequestDto userModifyRequestDto, String email) {
+        User user = Optional.of(userRepository.findByEmail(email)
+                .orElseThrow(() -> new NoSuchElementException("(유저 정보 수정 중)이메일에 해당하는 유저가 존재하지 않음."))).get();
 
 
         try {
