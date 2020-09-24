@@ -15,8 +15,8 @@
 
                     type="text"
                     v-model="signupData.email"
-                    :class ="checking.email"
-                    @focus="checking.email=false"
+                    v-on:change="checking.email=false"
+
                 ><v-icon slot="prepend" :class="checking.email">
                   mdi-check-bold
                 </v-icon>
@@ -34,8 +34,10 @@
                     id ="nickname"
                     type="text"
                     v-model="signupData.nickname"
+                    v-on:change="checking.nickname=false, color='red'"
+
                     prepend-icon="mdi-check-bold"
-                    @focus="checking.nickname=false"
+
                     required
                 > <template slot="append">
                   <v-btn outlined style="margin-bottom: 6px" @click="nicknameDuplicateCheck($event)">
@@ -205,45 +207,62 @@ export default{
         alert("비어있습니다.");
         return;
       }
+      //this.checking.email = false;
+      console.dir(this.checking);
+      console.log("before axios");
       let URL = api.ROOT_URL + api.ROUTES.USERS.emailDuplicateCheckURL + "/" + this.signupData.email;
 
-      axios.get(URL, {}).then(function(response){
-            alert(response.data.msg);
+      axios.get(URL, {}).then((response) =>{
+        console.dir(response.data.msg);
+        event.target.style.color="green";
+        this.checking.email = true;
 
-
-      }).catch(function(error){
-
+      }).catch((error) =>{
+        console.dir(error);
         alert(error.response.data.msg);
         event.target.style.color="red";
+
+        this.checking.email = false;
         return;
+      }).finally(()=>{
+        console.dir(this.checking);
       });
-      event.target.style.color="green";
-      this.checking.email = true;
+
+
     },
     nicknameDuplicateCheck : function(event){
       if(this.signupData.nickname==""){
         alert("비어있습니다.");
         return;
       }
+      //this.checking.nickname = false;
+
       let URL = api.ROOT_URL + api.ROUTES.USERS.nicknameDuplicateCheckURL + "/" + this.signupData.nickname;
 
-      axios.get(URL, {}).then(function(response){
-        console.dir(response);
+      axios.get(URL, {}).then((response) =>{
         alert(response.data.msg);
-
-      }).catch(function(error){
-        console.dir(error);
+        event.target.style.color="green";
+        this.checking.nickname = true;
+        //console.dir(this.checking.email);
+        console.log("통과");
+      }).catch((error) =>{
         alert(error.response.data.msg);
         event.target.style.color="red";
+        this.checking.nickname = false;
         return;
+      }).finally(()=>{
+        console.dir(this.checking);
       });
-      event.target.style.color="green";
-      this.checking.nickname = true;
+    console.log("중복 X");
+
+
+
+
 
     },
     userCreateSubmit : function(){
       if(!this.checking.email || !this.checking.nickname){
-
+        console.log(this.checking.email + " " + this.checking.nickname);
         swal('X', "중복 확인을 해주세요", 'error');
 
         return;
