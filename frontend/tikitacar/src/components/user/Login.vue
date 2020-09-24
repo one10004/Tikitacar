@@ -23,10 +23,10 @@
               <v-card-text>
                 <v-form>
                   <v-text-field
-                    label="Id"
-                    name="id"
-                    id ="id"
-                    v-model="loginRequest.id"
+                    label="email"
+                    name="email"
+                    id ="email"
+                    v-model="loginRequest.email"
                     prepend-icon="mdi-account-circle"
                     type="text"
                   ></v-text-field>
@@ -36,7 +36,7 @@
                     label="Password"
                     name="password"
                     prepend-icon="mdi-lock"
-                    v-model="loginRequest.pw"
+                    v-model="loginRequest.password"
                     :append-icon="showPassword? 'mdi-eye' : 'mdi-eye-off'"
                     :type="showPassword? 'text' : 'password'"
                     @click:append="showPassword = ! showPassword"
@@ -45,7 +45,7 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn dark color="success" @click="login">로그인</v-btn>
+                <v-btn dark color="info" @click="login(loginRequest)">로그인</v-btn>
                 <v-btn dark color="info" router-link :to="{name  : 'PwInquiry'}">비밀번호 찾기</v-btn>
               </v-card-actions>
             </v-card>
@@ -78,35 +78,51 @@
 </template>
 
 <script>
-//import { mapActions } from "vuex";
-import axios from 'axios';
-import api from '@/api/api'
+import { mapActions } from "vuex";
+import router from "@/router";
+import swal from "sweetalert";
+
+//import api from '@/api/api'
+//import router from "@/router/";
 
   export default {
     data: () => ({
         showPassword : false,
         id: "",
+        isloggedIn : "",
         loginRequest : {
-          id : "",
-          pw : ""
+          email : "",
+          password : ""
         }
       })
     ,
+    created : function() {
+      this.isloggedIn = this.$store.getters.isLoggedIn;
+      console.dir(this.isloggedIn);
+      if (this.isloggedIn) {
+
+        swal('X', '이미 로그인 되있는 상태입니다', 'warning');
+        router.push({name: 'Home'});
+        // router.go();
+      }
+
+    },
     props: {
       source: String,
     },
     methods: {
-      login(){
+      ...mapActions(["login"]),
+    /*  login(){
         let URL = api.ROOT_URL + api.ROUTES.AUTH.loginURL;
-
        axios.post(URL,this.loginRequest).then(
-           function(){
-             alert("로그인에 성공했습니다.");
+           function(data){
+             alert(data.data.msg);
+             router.push({name : "Home"});
            }
        ).catch(function(error){
-         alert(error);
+          alert(error.response.data.msg);
        });
-      }
+      }*/
 
     }
   }
