@@ -11,7 +11,6 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @ToString
 public class UserModifyRequestDto {
-    private Long id;
     private String password;
     private String nickname;
     private LocalDate birth;

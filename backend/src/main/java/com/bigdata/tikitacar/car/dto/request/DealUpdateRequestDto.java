@@ -27,4 +27,6 @@ public class DealUpdateRequestDto {
 
     String title;
     String content;
+
+    String[] src;
 }

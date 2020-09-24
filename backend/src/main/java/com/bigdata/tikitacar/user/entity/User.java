@@ -62,4 +62,8 @@ public class User {
         this.address = userModifyRequestDto.getAddress();
         this.addressDetail = userModifyRequestDto.getAddressDetail();
     }
+
+    public void randomPassword(String random){
+        password = random;
+    }
 }

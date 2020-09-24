@@ -1,5 +1,6 @@
 package com.bigdata.tikitacar.user.controller;
 
+import com.bigdata.tikitacar.user.dto.request.UserDeleteCheckRequsetDto;
 import com.bigdata.tikitacar.user.dto.request.UserModifyRequestDto;
 import com.bigdata.tikitacar.user.dto.request.UserRegisterRequestDto;
 import com.bigdata.tikitacar.user.dto.response.UserFindResponseDto;
@@ -46,7 +47,7 @@ public class UserController {
 
         String email = userRegisterRequestDto.getEmail();
         String encoding = base64Service.encode(email);
-        String link = "http://j3a106.p.ssafy.io/user/auth/" + encoding;
+        String link = "http://j3a106.p.ssafy.io:8081/user/auth/" + encoding;
 
         emailService.sendSimpleMessage(email, "Tikitacar 가입 인증메일 입니다.",
                 email + "님 가입을 환영합니다.<br>" + "가입을 인증하기 위해서 아래의 링크를 클릭해주십시오. <br> "
@@ -60,8 +61,7 @@ public class UserController {
     public Object getUserInfo(@RequestHeader(value="Authorization") String token){
         Map<String, Object> map = new HashMap<String, Object>();
         ResponseEntity response = null;
-        String email = jwtService.getEmailFromToken(token.substring(7));
-
+        String email = jwtService.getEmailFromToken(token);
         UserFindResponseDto userFindResponseDto = userService.findUserByEmail(email);
 
         if(userFindResponseDto != null){
@@ -80,11 +80,12 @@ public class UserController {
 
     @ApiOperation("회원 정보 업데이트(수정)")
     @PutMapping("")
-    public Object updateUserInfo(@RequestBody UserModifyRequestDto userModifyRequestDto){
+    public Object updateUserInfo(@RequestBody UserModifyRequestDto userModifyRequestDto, @RequestHeader("Authorization") String token){
         ResponseEntity response = null;
         Map<String, Object> map = new HashMap<String, Object>();
 
-        userService.modifyUserInfo(userModifyRequestDto);
+        String email = jwtService.getEmailFromToken(token);
+        userService.modifyUserInfo(userModifyRequestDto, email);
 
         map.put("msg", "회원 정보 수정 성공");
         map.put("status", "success");
@@ -92,13 +93,36 @@ public class UserController {
         return response;
     }
 
-    @ApiOperation("회원 탈퇴")
-    @DeleteMapping("/{id}")
-    public Object deleteUser(@PathVariable("id") Long id){
+    @ApiOperation("이메일 비밀번호 체크")
+    @PostMapping("/check")
+    public Object checkWhenDelete(@RequestBody UserDeleteCheckRequsetDto userDeleteCheckRequsetDto, @RequestHeader("Authorization") String token){
         ResponseEntity response = null;
         Map<String, Object> map = new HashMap<>();
 
-        userService.deleteUser(id);
+        String email = jwtService.getEmailFromToken(token);
+        String password = userService.findPasswordByEmail(email);
+
+        if(password.equals(userDeleteCheckRequsetDto.getPassword())){
+            map.put("msg", "이메일, 비밀번호 일치");
+            map.put("status", "success");
+            response = new ResponseEntity(map, HttpStatus.OK);
+        }else{
+            map.put("msg", "이메일, 비밀번호 불일치");
+            map.put("status", "fail");
+            response = new ResponseEntity(map, HttpStatus.BAD_REQUEST);
+        }
+
+        return response;
+    }
+
+    @ApiOperation("회원 탈퇴")
+    @DeleteMapping("")
+    public Object deleteUser(@RequestHeader(value="Authorization") String token){
+        ResponseEntity response = null;
+        Map<String, Object> map = new HashMap<>();
+
+        String email = jwtService.getEmailFromToken(token);
+        userService.deleteUser(email);
         map.put("msg", "회원탈퇴 성공");
         map.put("status", "success");
         response = new ResponseEntity(map, HttpStatus.OK);

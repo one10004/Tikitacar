@@ -35,6 +35,9 @@ public class DealRegisterRequestDto {
     String title;
     String content;
 
+    String[] src;
+
+
     public void updateSellerId(Long id){
         sellerId=id;
     }
