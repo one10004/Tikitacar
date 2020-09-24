@@ -104,6 +104,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public void modifyUserAuth(String email) {
         User user = Optional.of(userRepository.findByEmail(email)
                 .orElseThrow(() -> new NoSuchElementException("(유저 auth 변경 중)이메일에 해당하는 유저가 존재하지 않음."))).get();
