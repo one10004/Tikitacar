@@ -16,6 +16,12 @@ export default {
             logoutURL : "auth/logout",
             pwInquiryURL : "auth/password"
         },
+        DEAL: {
+            registerCarURL: "deal"
+        },
+        IMG: {
+            imgURL: "img"
+        },
         HOMEURL : ""
     }
 
