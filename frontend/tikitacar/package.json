@@ -6,8 +6,8 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "local" : "vue-cli-service serve --mode local",
-    "production" : "vue-cli-service serve --mode production"
+    "local": "vue-cli-service serve --mode local",
+    "production": "vue-cli-service serve --mode production"
   },
   "dependencies": {
     "core-js": "^3.6.5",
@@ -16,7 +16,9 @@
     "vuetify": "^2.2.11",
     "vuex": "^3.5.1",
     "vue-daum-postcode": "0.9.0",
-    "axios": "0.20.0"
+    "axios": "0.20.0",
+    "vue-cookies": "^1.7.3",
+    "sweetalert": "^2.1.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
