@@ -1,19 +1,22 @@
 
 export default {
-    ROOT_URL : process.env.NODE_ENV=="production"?"http://j3a106.p.ssafy.io/" :"http://localhost:3080/",
+    ROOT_URL : process.env.NODE_ENV=="local"?"http://localhost:8081/" :"http://j3a106.p.ssafy.io/",
     ROUTES : {
         USERS: {
             emailDuplicateCheckURL: "user/email",
             nicknameDuplicateCheckURL: "user/nickname",
-            getUserInfoURL : "user/",
+            getUserInfoURL : "user",
             createUserURL : "user",
             updateUserURL : "user",
             deleteUserURL : "user",
+            checkPasswordURL : "/user/check"
         },
         AUTH : {
-            loginURL : "auth/login",
-            logoutURL : "auth/logout"
-        }
+            loginURL : "auth/login/",
+            logoutURL : "auth/logout",
+            pwInquiryURL : "auth/password"
+        },
+        HOMEURL : ""
     }
 
 }

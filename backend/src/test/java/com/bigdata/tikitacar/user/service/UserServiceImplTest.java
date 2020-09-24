@@ -1,8 +1,7 @@
 package com.bigdata.tikitacar.user.service;
 
+import com.bigdata.tikitacar.user.dto.request.UserLoginRequestDto;
 import com.bigdata.tikitacar.user.dto.request.UserRegisterRequestDto;
-import com.bigdata.tikitacar.user.dto.request.UserRequestDto;
-import com.bigdata.tikitacar.user.entity.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,10 +10,6 @@ import org.springframework.test.annotation.Rollback;
 import javax.transaction.Transactional;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
@@ -38,5 +33,4 @@ class UserServiceImplTest {
                 .build();
         userService.registerUser(user);
     }
-
 }

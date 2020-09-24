@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class DealUpdateRequestDto {
 
+    Long id;
     String name;
     int year;
     int cc;
@@ -26,4 +27,6 @@ public class DealUpdateRequestDto {
 
     String title;
     String content;
+
+    String[] src;
 }

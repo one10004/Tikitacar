@@ -1,6 +1,5 @@
-package com.bigdata.tikitacar.crawling.service;
+package com.bigdata.tikitacar.util;
 
-import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -10,12 +9,10 @@ import org.springframework.util.StringUtils;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.StringTokenizer;
 
 @Service

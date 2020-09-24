@@ -9,4 +9,5 @@ public interface JwtService {
 
     public String getEmailFromToken(String token);
 
+    public Long getValidTime();
 }
