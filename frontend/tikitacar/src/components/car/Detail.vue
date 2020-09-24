@@ -1,8 +1,8 @@
 <template>
   <v-app id="inspire">
     <v-main style="padding-left: 5%; margin-top: 50px;">
-      <h1>Detail page</h1>
-      <h3>Car name</h3>
+      <h2>{{this.info.data.title}}</h2>
+      <hr>
       <div class="carInfo">
         <div>
           <div class="mainImage">
@@ -21,28 +21,28 @@
               <h4>모델: </h4>
               <v-text-field 
                 readonly
-                v-model="model"
+                v-model="this.info.data.name"
               ></v-text-field>
             </div>
             <div class="spec">
               <h4>연식: </h4>
               <v-text-field 
                 readonly
-                v-model="year"
+                v-model="this.info.data.year"
               ></v-text-field>
             </div>
             <div class="spec">
               <h4>주행거리: </h4>
               <v-text-field 
                 readonly
-                v-model="km"
+                v-model="this.info.data.distance"
                 suffix="km"
               ></v-text-field>
             </div>
             <div class="spec">
               <h4>사고유무: </h4>
               <v-checkbox
-                v-model="accident"
+                v-model="this.info.data.flooding"
                 readonly
                 :label="'사고 경험 1회'"
               ></v-checkbox>
@@ -148,19 +148,49 @@ import {mapActions} from "vuex";
       source: String,
     },
     data: () => ({
-      model: 'Tesla Model 3',
-      year: 2019,
-      km: "8,000",
-      accident: true,
-      price: "3,645",
+      info: {
+        // email: "",
+        // nickname: "",
+        // phone: "",
+        // address: "",
+        // name: "",
+        // year: Number,
+        // cc: Number,
+        // distance: Number,
+        // color: "",
+        // gear: "",
+        // fuel: "",
+        // seat: Number,
+        // flooding: Number,
+        // insurance: Number,
+        // releasePrice: Number,
+        // price: Number,
+        // title: "",
+        // content: ""
+      }
     }),
+    created() {
+      this.getInfo(66)
+        .then((res) => {
+          this.info = res.data;
+          console.log(this.info);
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+    },
     methods: {
-      ...mapActions(["buyCar"])
+      ...mapActions(["buyCar", "getInfo"])
     }
   }
 </script>
 
 <style scoped>
+  hr {
+    margin-top: 10px;
+    margin-bottom: 40px;
+    margin-right: 120px;
+  }
   h3 {
     margin-top: 50px;
   }

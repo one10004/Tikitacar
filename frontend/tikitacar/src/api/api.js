@@ -15,11 +15,13 @@ export default {
             logoutURL: "auth/logout"
         },
         DEAL: {
-            registerCarURL: "deal"
+            registerCarURL: "deal",
+            getInfoURL: "deal/view/"
         },
         IMG: {
             imgURL: "img"
-        }
+        },
+
     }
 
 }

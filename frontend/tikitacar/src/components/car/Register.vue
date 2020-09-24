@@ -176,7 +176,7 @@ import {mapActions} from "vuex";
     data: () => ({
       info: {
         dealInfo: {
-          sellerId: 7,
+          sellerId: 14,
           name: "",
           cc: Number,
           distance: Number,

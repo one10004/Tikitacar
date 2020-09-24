@@ -51,20 +51,19 @@ export default {
       .catch((err) => {
         console.log(err);
       });
-    // axios.post(Api.ROOT_URL + Api.ROUTES.IMG.imgURL, info.files, "authToken")
-    //   .then((res) => {
-    //     console.log(res);
-    //     axios.post(Api.ROOT_URL + Api.ROUTES.DEAL.registerCarURL, info.dealInfo, "authToken")
-    //       .then((res) => {
-    //         console.log(res);
-    //       })
-    //       .catch((err) => {
-    //         console.log(err);
-    //       });
-    //   })
-    //   .catch((err) => {
-
-    //   });
     getters;
+  },
+  getInfo({getters}, id) {
+    getters;
+    console.log(id);
+    return new Promise((resolve, reject) => {
+      axios.get(Api.ROOT_URL + Api.ROUTES.DEAL.getInfoURL + id)
+        .then((res) => {
+          resolve(res);
+        })
+        .catch((err) => {
+          reject(err);
+        })
+    }) 
   }
 }
