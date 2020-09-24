@@ -47,7 +47,7 @@ public class UserController {
 
         String email = userRegisterRequestDto.getEmail();
         String encoding = base64Service.encode(email);
-        String link = "http://j3a106.p.ssafy.io:8081/user/auth/" + encoding;
+        String link = "http://j3a106.p.ssafy.io:8081/auth/" + encoding;
 
         emailService.sendSimpleMessage(email, "Tikitacar 가입 인증메일 입니다.",
                 email + "님 가입을 환영합니다.<br>" + "가입을 인증하기 위해서 아래의 링크를 클릭해주십시오. <br> "
