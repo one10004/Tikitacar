@@ -28,12 +28,20 @@
                   readonly
                   label = "닉네임"
                   id = "이름"
-                  placeholder="이름"
                   v-model="userInfo.nickname"
               >
               </v-text-field>
               <v-text-field
-                  readonly
+                                    readonly
+                                    label = "성별"
+                                    id = "성별"
+                                    placeholder="성별"
+                                    v-model="userInfo.gender"
+                                >
+
+                             </v-text-field>
+
+              <v-text-field
                   label = "생년월일(YYYY-MM-DD)"
                   id = "성별"
                   placeholder="XXXXYYDD"
@@ -41,15 +49,7 @@
               >
 
               </v-text-field>
-              <v-text-field
-                  readonly
-                  label = "성별"
-                  id = "성별"
-                  placeholder="성별"
-                  v-model="userInfo.gender"
-              >
 
-              </v-text-field>
               <v-text-field
                   readonly
                   label = "핸드폰번호(010XXXXXXXX)"
@@ -80,7 +80,7 @@
             </v-form>
             <v-card-actions>
               <v-btn router-link :to="{name  : 'UserDeletePage'}">회원 탈퇴</v-btn>
-              <v-btn v-on:click="updateUser">회원 정보 수정</v-btn>
+              <v-btn router-link :to="{name  : 'UserUpdatePage'}">회원 정보 수정</v-btn>
             </v-card-actions>
 
           </v-card>
@@ -154,10 +154,12 @@ router;
             "Authorization" : "Bearer" + " " + this.$store.getters.getAuthToken
           }
         };
-        console.log(config);
+       // console.log(config);
         axios.get(URL,config).then((res) => {
 
           this.userInfo = res.data.user;
+          this.userInfo.password="";
+          this.userInfo.passwordConfirm="";
 
         }).catch((err) => {
           swal('X', err.response.data.msg, 'warning');

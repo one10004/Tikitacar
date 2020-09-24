@@ -7,8 +7,9 @@ import MyPage from '../components/user/MyPage.vue'
 import Detail from '../components/Detail.vue'
 import Search from '../components/Search.vue'
 
-import PwInquiry from '../components/user/PwInquiry'
+import PwInquiry from '../components/user/UserPwInquiryPage'
 import UserDeletePage from "@/components/user/UserDeletePage";
+import UserUpdatePage from "@/components/user/UserUpdatePage"
 
 //import App from '@/App.vue';
 Vue.use(VueRouter)
@@ -59,6 +60,11 @@ const routes = [
     path : '/user/leave',
     name : 'UserDeletePage',
     component: UserDeletePage
+  },
+  {
+    path : '/user/modifyInfo',
+    name : 'UserUpdatePage',
+    component: UserUpdatePage
   }
 
 ]
