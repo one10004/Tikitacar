@@ -89,7 +89,7 @@
 
                 <v-select
                     label="성별"
-                   :items="['남', '녀']"
+                   :items="['남', '여']"
                     id="gender"
                     v-model="signupData.gender"
                     prepend-icon="mdi-check-bold"
@@ -131,7 +131,7 @@
                     name="addressDetail"
                     id ="addressDetail"
                     type="text"
-                    v-model="signupData.address_detail"
+                    v-model="signupData.addressDetail"
                     prepend-icon="mdi-check-bold"
                 >
                 </v-text-field>
@@ -216,7 +216,7 @@ export default{
         console.dir(response.data.msg);
         event.target.style.color="green";
         this.checking.email = true;
-
+        swal('O', response.data.msg, 'success');
       }).catch((error) =>{
         console.dir(error);
         alert(error.response.data.msg);

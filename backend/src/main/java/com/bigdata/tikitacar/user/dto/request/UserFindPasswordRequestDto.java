@@ -4,10 +4,10 @@ import lombok.*;
 
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class UserRequestDto {
-    private Long id;
-    private String password;
+public class UserFindPasswordRequestDto {
+    String email;
 }

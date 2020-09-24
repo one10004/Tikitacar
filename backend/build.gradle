@@ -40,6 +40,7 @@ dependencies {
 	implementation 'javax.mail:javax.mail-api:1.6.2'
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: '2.2.6.RELEASE'
 	compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.7.0'
+	compile 'net.bis5.mattermost4j:mattermost4j-core:0.22.1'
 }
 
 test {

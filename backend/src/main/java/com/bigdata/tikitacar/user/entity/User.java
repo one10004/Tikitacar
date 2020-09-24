@@ -1,5 +1,6 @@
 package com.bigdata.tikitacar.user.entity;
 
+import com.bigdata.tikitacar.user.dto.request.UserModifyRequestDto;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
@@ -50,5 +51,19 @@ public class User {
 
     public void updateUserAuth(){
         this.auth = 1;
+    }
+
+    public void updateUserInfo(UserModifyRequestDto userModifyRequestDto){
+        this.password = userModifyRequestDto.getPassword();
+        this.nickname = userModifyRequestDto.getNickname();
+        this.birth = userModifyRequestDto.getBirth();
+        this.gender = userModifyRequestDto.getGender();
+        this.phone = userModifyRequestDto.getPhone();
+        this.address = userModifyRequestDto.getAddress();
+        this.addressDetail = userModifyRequestDto.getAddressDetail();
+    }
+
+    public void randomPassword(String random){
+        password = random;
     }
 }
