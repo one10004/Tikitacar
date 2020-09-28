@@ -51,7 +51,7 @@
         </v-container>
       </v-card>
     <h3>내차 알아보기</h3>
-    <v-container>
+    <v-container style="margin-left: 0px;">
       <v-row>
         <v-col cols="12" sm="4">
           <v-text-field
@@ -70,7 +70,7 @@
     </v-container>
 
     <h3>추천 차량</h3>
-    <v-container>
+    <v-container style="margin-left: 0px;">
       <v-row class="recommend">
         <v-col cols="12" sm="4">
           <router-link :to="{ name: 'Detail', params: { id: 1 } }" style="text-decoration: none;">
@@ -130,7 +130,7 @@ import {mapActions} from 'vuex';
 <style scoped>
   .carSearch {
     margin-top: 10px;
-    width: 90%;
+    width: 1100px;
     height: 100px;
     padding: 0px;
     margin-left: 10px;

@@ -17,7 +17,8 @@ export default {
             pwInquiryURL : "auth/password"
         },
         DEAL: {
-            registerCarURL: "deal"
+            registerCarURL: "deal",
+            searchResultURL: "deal/all/"
         },
         IMG: {
             imgURL: "img"

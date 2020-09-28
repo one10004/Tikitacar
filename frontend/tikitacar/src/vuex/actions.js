@@ -88,5 +88,25 @@ export default {
         console.log(err);
       });
     getters;
+  },
+  search({getters}, searchInfo) {
+    console.log(searchInfo);
+    alert("search " + searchInfo.manufacturer + " " + searchInfo.model);
+    router.push({
+      name: "Search",
+      query: { from: searchInfo.from, manufacturer: searchInfo.manufacturer, model: searchInfo.model },
+    });
+    getters;
+  },
+  fetchData() {
+    return new Promise((resolve, reject) => {
+      axios.get(Api.ROOT_URL + Api.ROUTES.DEAL.searchResultURL + 0)
+        .then((res) => {
+          resolve(res.data.data);
+        })
+        .catch((err) => {
+          reject(err);
+        })
+    })
   }
 }

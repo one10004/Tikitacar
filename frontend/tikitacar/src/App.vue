@@ -1,8 +1,11 @@
 <template>
   <v-app id="inspire">
     <v-navigation-drawer
+      absolute
+      permanent
       app
       left
+      style="width: 200px;"
     >
       <router-link :to="{name: 'Main'}" style="text-decoration: none;">
         <h1>tikitaCAR</h1>
@@ -51,7 +54,7 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-main>
+    <v-main style="padding-left: 180px;">
       <router-view :key="$route.fullPath" />
     </v-main>
 
@@ -100,7 +103,7 @@ export default {
 }
 h1 {
   margin-top:15px;
-  font-size:50px;
+  font-size:30px;
   padding-bottom:0px;
   text-align: center;
 }

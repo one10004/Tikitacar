@@ -62,33 +62,37 @@
         </v-container>
       </v-card>
 
-      <h3> 검색 결과 </h3>
-
-      <v-container>
-      <v-row class="recommend">
-            <v-col cols="12" sm="4">
-              <router-link :to="{ name: 'Detail', params: { id: 1 } }" style="text-decoration: none;">
-                <v-card style="height: 500px;">
-                  <v-card-title class="headline">제네시스 G70</v-card-title>
-                </v-card>
-              </router-link>
-            </v-col>
-            <v-col cols="12" sm="4">
-              <router-link :to="{ name: 'Detail', params: { id: 2 } }" style="text-decoration: none;">
-                <v-card style="height: 500px;">
-                  <v-card-title class="headline">테슬라 모델 s</v-card-title>
-                </v-card>
-              </router-link>
-            </v-col>
-            <v-col cols="12" sm="4">
-              <router-link :to="{ name: 'Detail', params: { id: 3 } }" style="text-decoration: none;">
-                <v-card style="height: 500px;">
-                  <v-card-title class="headline">코나 EV</v-card-title>
-                </v-card>
-              </router-link>
-            </v-col>            
-          </v-row>
-      </v-container>
+      <div style="display: flex;">
+        <div style="width : 250px;">
+          <h3> 세부 검색 </h3>
+          <v-select
+            label="option1"
+          ></v-select>
+          <v-select
+            label="option1"
+          ></v-select>
+          <v-select
+            label="option1"
+          ></v-select>
+          <v-select
+            label="option1"
+          ></v-select>
+        </div>
+        <div style="width: 100%; padding-left: 20px;">
+          <h3> 검색 결과 </h3>
+          <v-container>
+            <v-row class="recommend">
+              <v-col cols="12" sm="4" v-for="car in cars" :key="car.name">
+                <router-link :to="{ name: 'Detail', params: { id: 1 } }" style="text-decoration: none;">
+                  <v-card style="height: 500px;">
+                    <v-card-title class="headline">{{car.name}}</v-card-title>
+                  </v-card>
+                </router-link>
+              </v-col>         
+            </v-row>
+          </v-container>
+        </div>
+      </div>
     </v-main>
   </v-app>
 </template>
@@ -109,6 +113,8 @@ import {mapActions} from "vuex";
       from: "",
       manufacturer: "",
       model: "",
+      cars: [],
+      items: []
     }),
     methods: {
       ...mapActions(["fetchData"])
@@ -117,6 +123,13 @@ import {mapActions} from "vuex";
       this.from = this.$route.query.from;
       this.manufacturer = this.$route.query.manufacturer;
       this.model = this.$route.query.model;
+      this.fetchData()
+        .then((res) => {
+          this.cars = res;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   }
 </script>
