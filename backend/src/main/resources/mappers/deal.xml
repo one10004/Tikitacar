@@ -1,30 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="deal">
-    <select id="selectSearch" resultType="car.dto.response.DealSearchResponseDto">
+    <select id="selectDealList" resultType="car.dto.response.DealSearchResponseDto">
+        <![CDATA[
         select
-
-        from deal as d, car as c, img as i
+            d.id as id, c.name as name,u.nickname as nickname,
+            c.release_price as releasePrice, c.price as price,
+            d.title as title, i.src as src
+        from
+            deal as d, car as c, user as u, img as i
         where
             d.car = c.id
             and
-            d.
-
+            d.seller=u.id
+            and
+            d.id = i.deal
+            <if test="name!='없음'">
+                and c.name like concat('%',#{name},'%')
+            </if>
+            <if test="year1!=-1 and yaer2!=-1">
+                and #{year1} <= c.year and c.year <=#{year2}
+            </if>
+            <if test="year1==-1 and yaer2!=-1">
+                 and 0 <= c.year and c.year <=#{year2}
+            </if>
+            <if test="year1!=-1 and yaer2==-1">
+                 and #{year1} <= c.year and c.year <= 10000
+            </if>
+            <if test="year1==-1 and yaer2==-1">
+                 and 0 <= c.year and c.year <= 10000
+            </if>
+            <if test="cc!=-1">
+                and c.cc <= #{cc}
+            </if>
+            <if test="distance!=-1">
+                and c.distance <= #{distance}
+            </if>
+            <if test="color!='없음'">
+                and c.color = #{color}
+            </if>
+            <if test="gear!='없음'">
+                and c.gear = #{gear}
+            </if>
+            <if test="fuel!='없음'">
+                and c.fuel = #{fuel}
+            </if>
+            <if test="seat!=-1">
+                and c.seat <= #{seat}
+            </if>
+            <if test="flooding!=-1">
+                and c.flooding <= #{flooding}
+            </if>
+            <if test="insurance!=-1">
+                and c.insurance <= #{insurance}
+            </if>
+            <if test="releasePrice!=-1">
+                and c.release_price <= #{releasePrice}
+            </if>
+            <if test="price!=-1">
+                and c.price <= #{price}
+            </if>
+        group by
+            d.id
+        ]]>
     </select>
-
-
-    <update id="update">
-        update blog set
-        <if test="recipeId!=0">
-            recipe_id = #{recipeId},
-        </if>
-        <if test="recipeId==0">
-            recipe_id=null,
-        </if>
-        title=#{title},
-        content = #{content}, tag1=#{tag1}, tag2=#{tag2}, tag3=#{tag3}
-        where blog_id = #{blogId}
-    </update>
-
-
 </mapper>
