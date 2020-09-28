@@ -84,14 +84,14 @@ public class ReviewController {
 
     //Update
     @ApiOperation("후기 수정")
-    @PutMapping("")
+    @PutMapping("/{id}")
     public Object reviewUpdate(@RequestHeader(value="Authorization") String token,
-                                 @RequestBody ReviewUpdateRequestDto reviewUpdateRequestDto){
+                                 @RequestBody ReviewUpdateRequestDto reviewUpdateRequestDto, @PathVariable Long id){
         ResponseEntity response = null;
         Map<String,Object> map = new HashMap<String, Object>();
 
         reviewUpdateRequestDto.updateWriter(userService.findUserByEmail(jwtService.getEmailFromToken(token)).getId());
-        reviewService.updateReview(reviewUpdateRequestDto);
+        reviewService.updateReview(reviewUpdateRequestDto, id);
 
         map.put("msg","후기 수정에 성공했습니다.");
         map.put("status","success");

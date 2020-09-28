@@ -119,14 +119,14 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     @Transactional
-    public void updateReview(ReviewUpdateRequestDto reviewUpdateRequestDto) {
-        Review review = Optional.of(reviewRepository.findById(reviewUpdateRequestDto.getId())
+    public void updateReview(ReviewUpdateRequestDto reviewUpdateRequestDto, Long id) {
+        Review review = Optional.of(reviewRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("후기가 존재하지 않음."))).get();
 
         User writer = Optional.of(userRepository.findById(reviewUpdateRequestDto.getWriter())
                 .orElseThrow(() -> new NoSuchElementException("작성자가 존재하지 않음"))).get();
 
-        if(writer.getId() != reviewRepository.findById(reviewUpdateRequestDto.getId()).get().getWriter().getId()) throw new NoSuchElementException("리뷰 수정의 권한이 없음");
+        if(writer.getId() != reviewRepository.findById(id).get().getWriter().getId()) throw new NoSuchElementException("리뷰 수정의 권한이 없음");
 
         review.updateReview(reviewUpdateRequestDto.getTitle(),
                 reviewUpdateRequestDto.getContent(),
