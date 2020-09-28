@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="deal">
+    <select id="selectSearch" resultType="car.dto.response.DealSearchResponseDto">
+        select
+
+        from deal as d, car as c, img as i
+        where
+            d.car = c.id
+            and
+            d.
+
+    </select>
+
+
+    <update id="update">
+        update blog set
+        <if test="recipeId!=0">
+            recipe_id = #{recipeId},
+        </if>
+        <if test="recipeId==0">
+            recipe_id=null,
+        </if>
+        title=#{title},
+        content = #{content}, tag1=#{tag1}, tag2=#{tag2}, tag3=#{tag3}
+        where blog_id = #{blogId}
+    </update>
+
+
+</mapper>

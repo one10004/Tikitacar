@@ -3,7 +3,7 @@ package com.bigdata.tikitacar.car.service;
 import com.bigdata.tikitacar.car.dto.request.DealRegisterRequestDto;
 import com.bigdata.tikitacar.car.dto.request.DealUpdateRequestDto;
 import com.bigdata.tikitacar.car.dto.request.DealUpdateStatusRequestDto;
-import com.bigdata.tikitacar.car.dto.response.DealSearchResponseDto;
+import com.bigdata.tikitacar.car.dto.response.DealDetailResponseDto;
 import com.bigdata.tikitacar.car.entity.Car;
 import com.bigdata.tikitacar.car.entity.Deal;
 import com.bigdata.tikitacar.car.repository.CarRepository;
@@ -99,11 +99,11 @@ public class DealServiceImpl implements DealService {
 
     //Read
     @Override
-    public DealSearchResponseDto searchDeal(Long id) {
+    public DealDetailResponseDto searchDeal(Long id) {
         Deal deal = Optional.of(dealRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("거래가 존재하지 않음."))).get();
 
-        DealSearchResponseDto dealSearchResponseDto = DealSearchResponseDto.builder()
+        DealDetailResponseDto dealDetailResponseDto = DealDetailResponseDto.builder()
                 .email(deal.getSeller().getEmail())
                 .nickname(deal.getSeller().getEmail())
                 .phone(deal.getSeller().getPhone())
@@ -124,7 +124,7 @@ public class DealServiceImpl implements DealService {
                 .content(deal.getContent())
                 .build();
 
-        return dealSearchResponseDto;
+        return dealDetailResponseDto;
     }
 
     //Update
@@ -200,13 +200,13 @@ public class DealServiceImpl implements DealService {
 
     //List
     @Override
-    public List<DealSearchResponseDto> searchAll(Pageable pageable) {
-        List<DealSearchResponseDto> dealSearchResponseDtoList = new ArrayList<>();
+    public List<DealDetailResponseDto> searchAll(Pageable pageable) {
+        List<DealDetailResponseDto> dealDetailResponseDtoList = new ArrayList<>();
 
         Page<Deal> list = dealRepository.findAll(pageable);
 
         for(Deal deal : list) {
-            dealSearchResponseDtoList.add(DealSearchResponseDto.builder()
+            dealDetailResponseDtoList.add(DealDetailResponseDto.builder()
                     .email(deal.getSeller().getEmail())
                     .nickname(deal.getSeller().getEmail())
                     .phone(deal.getSeller().getPhone())
@@ -228,6 +228,6 @@ public class DealServiceImpl implements DealService {
                     .build());
         }
 
-        return dealSearchResponseDtoList;
+        return dealDetailResponseDtoList;
     }
 }
