@@ -11,6 +11,13 @@ export default {
             deleteUserURL : "user",
             checkPasswordURL : "/user/check"
         },
+        REVIEW :{
+            createReviewURL : "review",
+            updateReviewURL : "review",
+            deleteReviewURL : "review",
+            getReviewListURL : "review/all/",
+            getReviewDetailURL : "/review/view/"
+        },
         AUTH : {
             loginURL : "auth/login/",
             logoutURL : "auth/logout",
