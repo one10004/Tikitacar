@@ -13,6 +13,7 @@
                 :items="fromOptions"
                 label="수입/국산"
                 solo
+                @change="selectFrom($event)"
               ></v-select>
             </v-col>
             <v-col cols="12" sm="2">
@@ -119,9 +120,18 @@ import {mapActions} from 'vuex';
       modelOptions: ["제네시스 G80", "티볼리 아머", "모델 S", "이클래스", "A8"]
     }),
     methods: {
-      ...mapActions(["search"]),
+      ...mapActions(["search", "getMfrOptions"]),
       toSearch() {
         this.$router.push({name: 'Search'});
+      },
+      selectFrom(event) {
+        this.getMfrOptions(event)
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => {
+            console.log(err);
+          })
       }
     }
   }

@@ -10,33 +10,28 @@
             <v-col cols="12" sm="2">
               <v-select
                 v-model="this.from"
-                :items="items"
-                chips
+                :items="this.fromOptions"
                 label="수입/국산"
                 :placeholder="this.from"
-                multiple
                 solo
+                @change="selectFrom($event)"
               ></v-select>
             </v-col>
             <v-col cols="12" sm="2">
               <v-select
                 v-model="value"
-                :items="items"
-                chips
+                :items="this.manufacturerOptions"
                 label="제조사"
                 :placeholder="this.manufacturer"
-                multiple
                 solo
               ></v-select>
             </v-col>
             <v-col cols="12" sm="2">
               <v-select
                 v-model="value"
-                :items="items"
-                chips
+                :items="this.modelOptions"
                 label="모델"
                 :placeholder="this.model"
-                multiple
                 solo
               ></v-select>
             </v-col>
@@ -44,9 +39,7 @@
               <v-select
                 v-model="value"
                 :items="items"
-                chips
                 label="세부모델"
-                multiple
                 solo
               ></v-select>
             </v-col>
@@ -83,7 +76,7 @@
           <v-container>
             <v-row class="recommend">
               <v-col cols="12" sm="4" v-for="car in cars" :key="car.name">
-                <router-link :to="{ name: 'Detail', params: { id: 1 } }" style="text-decoration: none;">
+                <router-link :to="{ name: 'Detail', params: { id: 66 } }" style="text-decoration: none;">
                   <v-card style="height: 500px;">
                     <v-card-title class="headline">{{car.name}}</v-card-title>
                   </v-card>
@@ -114,10 +107,21 @@ import {mapActions} from "vuex";
       manufacturer: "",
       model: "",
       cars: [],
-      items: []
+      fromOptions: ["국산", "수입"],
+      manufacturerOptions: [],
+      modelOptions: [],
     }),
     methods: {
-      ...mapActions(["fetchData"])
+      ...mapActions(["fetchData", "search", "getMfrOptions"]),
+      selectFrom(event) {
+        this.getMfrOptions(event)
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+      }
     },
     created() {
       this.from = this.$route.query.from;

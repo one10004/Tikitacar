@@ -108,5 +108,12 @@ export default {
           reject(err);
         })
     })
+  },
+  getMfrOptions({getters}, option) {
+    getters;
+    alert(option);
+    // return new Promise((resolve, reject) => {
+      
+    // })
   }
 }
