@@ -1,9 +1,11 @@
 package com.bigdata.tikitacar.car.controller;
 
 import com.bigdata.tikitacar.car.dto.request.DealRegisterRequestDto;
+import com.bigdata.tikitacar.car.dto.request.DealSearchRequestDto;
 import com.bigdata.tikitacar.car.dto.request.DealUpdateRequestDto;
 import com.bigdata.tikitacar.car.dto.request.DealUpdateStatusRequestDto;
 import com.bigdata.tikitacar.car.dto.response.DealDetailResponseDto;
+import com.bigdata.tikitacar.car.dto.response.DealSearchResponseDto;
 import com.bigdata.tikitacar.car.service.DealService;
 import com.bigdata.tikitacar.user.service.UserService;
 import com.bigdata.tikitacar.util.JwtService;
@@ -40,11 +42,11 @@ public class DealController {
         ResponseEntity response = null;
         Map<String,Object> map = new HashMap<String, Object>();
 
-        String loginEamil = jwtService.getEmailFromToken(token);
+        String loginEmail = jwtService.getEmailFromToken(token);
 
-        if(loginEamil!=null){
+        if(loginEmail!=null){
             //유저정보 dto에 등록
-            dealRegisterRequestDto.updateSellerId(userService.findUserByEmail(loginEamil).getId());
+            dealRegisterRequestDto.updateSellerId(userService.findUserByEmail(loginEmail).getId());
             dealService.registerDeal(dealRegisterRequestDto);
 
             map.put("msg","거래 등록에 성공했습니다.");
@@ -165,7 +167,26 @@ public class DealController {
 
         List<DealDetailResponseDto> dealDetailResponseDtoList = dealService.searchAll(PageRequest.of(page, 10));
 
+        map.put("msg","거래 리스트 조회에 성공했습니다.");
+        map.put("status","success");
         map.put("data", dealDetailResponseDtoList);
+        response = new ResponseEntity(map,HttpStatus.OK);
+
+        return response;
+    }
+
+    //Search
+    @ApiOperation("거래 상세 조회")
+    @PostMapping("/search")
+    public Object dealSearch(@RequestBody DealSearchRequestDto dealSearchRequestDto){
+        ResponseEntity response = null;
+        Map<String,Object> map = new HashMap<String, Object>();
+
+        List<DealSearchResponseDto> dealSearchResponseDtoList  = dealService.searchDetail(dealSearchRequestDto);
+
+        map.put("msg","거래 상세 조회에 성공했습니다.");
+        map.put("status","success");
+        map.put("data", dealSearchResponseDtoList);
         response = new ResponseEntity(map,HttpStatus.OK);
 
         return response;

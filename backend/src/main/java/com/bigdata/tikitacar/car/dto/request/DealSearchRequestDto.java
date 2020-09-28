@@ -11,7 +11,8 @@ import lombok.NoArgsConstructor;
 @Builder
 public class DealSearchRequestDto {
     private String name;
-    private int year;
+    private int year1;
+    private int year2;
     private int cc;
     private int distance;
     private String color;
@@ -20,7 +21,7 @@ public class DealSearchRequestDto {
     private int seat;
     private int flooding;
     private int insurance;
-    private int releasePrice;
     private int price;
+    private String status;
 
 }

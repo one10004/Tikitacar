@@ -1,9 +1,11 @@
 package com.bigdata.tikitacar.car.service;
 
 import com.bigdata.tikitacar.car.dto.request.DealRegisterRequestDto;
+import com.bigdata.tikitacar.car.dto.request.DealSearchRequestDto;
 import com.bigdata.tikitacar.car.dto.request.DealUpdateRequestDto;
 import com.bigdata.tikitacar.car.dto.request.DealUpdateStatusRequestDto;
 import com.bigdata.tikitacar.car.dto.response.DealDetailResponseDto;
+import com.bigdata.tikitacar.car.dto.response.DealSearchResponseDto;
 import com.bigdata.tikitacar.car.entity.Car;
 import com.bigdata.tikitacar.car.entity.Deal;
 import com.bigdata.tikitacar.car.repository.CarRepository;
@@ -229,5 +231,11 @@ public class DealServiceImpl implements DealService {
         }
 
         return dealDetailResponseDtoList;
+    }
+
+    @Override
+    public List<DealSearchResponseDto> searchDetail(DealSearchRequestDto dealSearchRequestDto) {
+        List<DealSearchResponseDto> dealSearchResponseDto = dealRepository.selectDealList(dealSearchRequestDto);
+        return dealSearchResponseDto;
     }
 }
