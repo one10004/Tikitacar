@@ -40,9 +40,9 @@ public class WebConfig implements WebMvcConfigurer {
 
 //            waiting
             
-            "/swagger-ui.html",
-            "/swagger-resources/",
-            "/webjars/",
+            "/swagger-ui.html/**",
+            "/swagger-resources/**",
+            "/webjars/**",
             "/v2/**",
     };
 
