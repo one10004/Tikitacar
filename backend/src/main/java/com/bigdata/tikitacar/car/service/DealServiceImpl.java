@@ -209,6 +209,7 @@ public class DealServiceImpl implements DealService {
 
         for(Deal deal : list) {
             dealDetailResponseDtoList.add(DealDetailResponseDto.builder()
+                    .id(deal.getId())
                     .email(deal.getSeller().getEmail())
                     .nickname(deal.getSeller().getEmail())
                     .phone(deal.getSeller().getPhone())

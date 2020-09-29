@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class DealDetailResponseDto {
+    Long id;
+
     //유저정보
     String email;
     String nickname;
