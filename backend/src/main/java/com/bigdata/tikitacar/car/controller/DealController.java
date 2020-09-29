@@ -192,4 +192,15 @@ public class DealController {
         return response;
     }
 
+    @ApiOperation("거래 조회")
+    @GetMapping("/search/my")
+    public Object dealSearchMy(){
+        ResponseEntity response = null;
+        Map<String,Object> map = new HashMap<String, Object>();
+
+
+
+        return null;
+    }
+
 }

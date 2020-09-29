@@ -30,4 +30,5 @@ public interface DealService {
     //List
     List<DealDetailResponseDto> searchAll(Pageable pageable);
     List<DealSearchResponseDto> searchDetail(DealSearchRequestDto dealSearchRequestDto);
+    List<DealSearchResponseDto> searchMy(Long id);
 }

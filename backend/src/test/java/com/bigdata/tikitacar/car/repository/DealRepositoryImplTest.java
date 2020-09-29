@@ -2,6 +2,7 @@ package com.bigdata.tikitacar.car.repository;
 
 import com.bigdata.tikitacar.car.dto.request.DealSearchRequestDto;
 import com.bigdata.tikitacar.car.dto.response.DealSearchResponseDto;
+import com.bigdata.tikitacar.car.service.DealService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,6 +16,9 @@ class DealRepositoryImplTest {
 
     @Autowired
     DealRepository dealRepository;
+
+    @Autowired
+    DealService dealService;
 
     @Test
     public void test(){
@@ -34,7 +38,8 @@ class DealRepositoryImplTest {
                 .status("판매완료")
                 .build();
 
-        List<DealSearchResponseDto> dealSearchResponseDtoList = dealRepository.selectDealList(dealSearchRequestDto);
+//        List<DealSearchResponseDto> dealSearchResponseDtoList = dealRepository.selectDealList(dealSearchRequestDto);
+        List<DealSearchResponseDto> dealSearchResponseDtoList = dealService.searchDetail(dealSearchRequestDto);
         System.out.println(dealSearchResponseDtoList.size());
         for (DealSearchResponseDto dealSearchResponseDto : dealSearchResponseDtoList) {
             System.out.println(">>>>"+dealSearchResponseDto.toString());

@@ -239,4 +239,31 @@ public class DealServiceImpl implements DealService {
         List<DealSearchResponseDto> dealSearchResponseDto = dealRepository.selectDealList(dealSearchRequestDto);
         return dealSearchResponseDto;
     }
+
+    @Override
+    public List<DealSearchResponseDto> searchMy(Long id) {
+        List<Deal> dealList = dealRepository.findByBuyer_Id(id);
+        List<DealSearchResponseDto> dealSearchResponseDtoList=new ArrayList<>();
+
+
+        for (Deal deal : dealList) {
+            List<Img> imgList = imgRepository.findByDeal_Id(deal.getId());
+
+
+            DealSearchResponseDto dealSearchResponseDto = DealSearchResponseDto.builder()
+                    .id(deal.getId())
+                    .name(deal.getCar().getName())
+                    .nickname(deal.getSeller().getNickname())
+                    .releasePrice(deal.getCar().getReleasePrice())
+                    .price(deal.getCar().getPrice())
+                    .title(deal.getTitle())
+                    .src(imgList.get(0).getSrc())
+                    .status(deal.getStatus())
+                    .build();
+
+            dealSearchResponseDtoList.add(dealSearchResponseDto);
+        }
+
+        return dealSearchResponseDtoList;
+    }
 }
