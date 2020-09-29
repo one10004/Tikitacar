@@ -6,7 +6,7 @@
         select
             d.id as id, c.name as name,u.nickname as nickname,
             c.release_price as releasePrice, c.price as price,
-            d.title as title, i.src as src
+            d.title as title, i.src as src, d.status as status
         from
             deal as d, car as c, user as u, img as i
         where

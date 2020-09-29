@@ -27,4 +27,7 @@ public class DealSearchResponseDto {
 
     //이미지
     String src;
+
+    //상태
+    String status;
 }
