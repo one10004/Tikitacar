@@ -35,7 +35,7 @@ public class UserController {
     private JwtService jwtService;
 
     @ApiOperation("회원가입")
-    @PostMapping("")
+    @PostMapping("/new")
     public Object signup(@RequestBody UserRegisterRequestDto userRegisterRequestDto){
         ResponseEntity response = null;
         Map<String, Object> map = new HashMap<>();
