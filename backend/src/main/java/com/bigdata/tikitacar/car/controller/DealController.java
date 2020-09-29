@@ -194,13 +194,22 @@ public class DealController {
 
     @ApiOperation("거래 조회")
     @GetMapping("/search/my")
-    public Object dealSearchMy(){
+    public Object dealSearchMy(@RequestHeader(value="Authorization") String token){
         ResponseEntity response = null;
         Map<String,Object> map = new HashMap<String, Object>();
 
+        String loginEmail = jwtService.getEmailFromToken(token);
+        Long id = userService.findUserByEmail(loginEmail).getId();
 
 
-        return null;
+        List<DealSearchResponseDto> dealSearchResponseDtoList  = dealService.searchMy(id);
+
+        map.put("msg","거래 완료 조회에 성공했습니다.");
+        map.put("status","success");
+        map.put("data", dealSearchResponseDtoList);
+        response = new ResponseEntity(map,HttpStatus.OK);
+
+        return response;
     }
 
 }
