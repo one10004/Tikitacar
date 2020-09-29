@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="deal">
-    <select id="selectDealList" resultType="car.dto.response.DealSearchResponseDto">
+    <select id="selectDealList" resultType="com.bigdata.tikitacar.car.dto.response.DealSearchResponseDto">
         <![CDATA[
         select
             d.id as id, c.name as name,u.nickname as nickname,
