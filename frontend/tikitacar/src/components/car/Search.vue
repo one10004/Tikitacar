@@ -9,45 +9,44 @@
           >
             <v-col cols="12" sm="2">
               <v-select
-                v-model="this.from"
+                v-model="this.searchInfo.from"
                 :items="this.fromOptions"
                 label="수입/국산"
-                :placeholder="this.from"
+                :placeholder="this.searchInfo.from"
                 solo
-                @change="selectFrom($event)"
               ></v-select>
             </v-col>
             <v-col cols="12" sm="2">
               <v-select
-                v-model="value"
+                v-model="this.searchInfo.manufacturer"
                 :items="this.manufacturerOptions"
                 label="제조사"
-                :placeholder="this.manufacturer"
+                :placeholder="this.searchInfo.manufacturer"
                 solo
+                @change="selectManufactuer($event)"
               ></v-select>
             </v-col>
             <v-col cols="12" sm="2">
               <v-select
-                v-model="value"
+                v-model="this.searchInfo.model"
                 :items="this.modelOptions"
                 label="모델"
-                :placeholder="this.model"
+                :placeholder="this.searchInfo.model"
                 solo
               ></v-select>
             </v-col>
             <v-col cols="12" sm="2">
-              <v-select
+              <v-text-field
                 v-model="value"
                 :items="items"
-                label="세부모델"
-                solo
-              ></v-select>
+                label="모델명"
+              ></v-text-field>
             </v-col>
             <v-col cols="12" sm="2">
               <div class="searchBtn">
                 <v-btn
                   color="primary"
-                  @click="search(searchInfo)"
+                  @click="search(this.searchInfo)"
                 >Search</v-btn>
               </div>
             </v-col>
@@ -99,23 +98,23 @@ import {mapActions} from "vuex";
     },
     data: () => ({
       searchInfo: {
-        from: "수입",
-        manufacturer: "Tesla",
-        model: 'Model 3',
+        from: "",
+        manufacturer: "",
+        model: "",
       },
-      from: "",
-      manufacturer: "",
-      model: "",
       cars: [],
-      fromOptions: ["국산", "수입"],
-      manufacturerOptions: [],
+      fromOptions: ["국산"],
+      manufacturerOptions: ["현대", "기아", "쉐보레", "르노삼성", "쌍용"],
       modelOptions: [],
     }),
     methods: {
-      ...mapActions(["fetchData", "search", "getMfrOptions"]),
-      selectFrom(event) {
-        this.getMfrOptions(event)
+      ...mapActions(["fetchData", "search", "getModels"]),
+      selectManufactuer(event) {
+        this.searchInfo.manufacturer = event;
+        alert(this.searchInfo.manufacturer);
+        this.getModels(event)
           .then((res) => {
+            this.modelOptions = res;
             console.log(res);
           })
           .catch((err) => {
@@ -124,9 +123,9 @@ import {mapActions} from "vuex";
       }
     },
     created() {
-      this.from = this.$route.query.from;
-      this.manufacturer = this.$route.query.manufacturer;
-      this.model = this.$route.query.model;
+      this.searchInfo.from = this.$route.query.from;
+      this.searchInfo.manufacturer = this.$route.query.manufacturer;
+      this.searchInfo.model = this.$route.query.model;
       this.fetchData()
         .then((res) => {
           this.cars = res;

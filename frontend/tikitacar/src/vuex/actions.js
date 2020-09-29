@@ -91,7 +91,6 @@ export default {
   },
   search({getters}, searchInfo) {
     console.log(searchInfo);
-    alert("search " + searchInfo.manufacturer + " " + searchInfo.model);
     router.push({
       name: "Search",
       query: { from: searchInfo.from, manufacturer: searchInfo.manufacturer, model: searchInfo.model },
@@ -109,11 +108,16 @@ export default {
         })
     })
   },
-  getMfrOptions({getters}, option) {
+  getModels({getters}, option) {
     getters;
-    alert(option);
-    // return new Promise((resolve, reject) => {
-      
-    // })
+    return new Promise((resolve, reject) => {
+      axios.get(Api.ROOT_URL + Api.ROUTES.CAR.getModelURL + option)
+        .then((res) => {
+          resolve(res.data.modelList);
+        })
+        .catch((err) => {
+          reject(err);
+        })
+    })
   }
 }

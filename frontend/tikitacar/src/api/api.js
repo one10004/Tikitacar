@@ -20,6 +20,9 @@ export default {
             registerCarURL: "deal",
             searchResultURL: "deal/all/"
         },
+        CAR: {
+            getModelURL: "price/"
+        },
         IMG: {
             imgURL: "img"
         },
