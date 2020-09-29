@@ -31,13 +31,13 @@ class DealRepositoryImplTest {
                 .insurance(-1)
                 .price(-1)
                 .seat(-1)
-                .status("없음")
+                .status("판매완료")
                 .build();
 
         List<DealSearchResponseDto> dealSearchResponseDtoList = dealRepository.selectDealList(dealSearchRequestDto);
         System.out.println(dealSearchResponseDtoList.size());
         for (DealSearchResponseDto dealSearchResponseDto : dealSearchResponseDtoList) {
-            System.out.println(">>>>"+dealSearchResponseDto.getName());
+            System.out.println(">>>>"+dealSearchResponseDto.toString());
         }
     }
 

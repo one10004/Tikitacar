@@ -1,14 +1,12 @@
 package com.bigdata.tikitacar.car.dto.response;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString
 public class DealSearchResponseDto {
 
     Long id;
