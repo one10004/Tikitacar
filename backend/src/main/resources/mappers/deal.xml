@@ -60,6 +60,9 @@
             <if test="price!=-1">
                 and c.price <= #{price}
             </if>
+            <if test="status!='없음'">
+                and d.deal = #{status}
+            </if>
         group by
             d.id
         ]]>
