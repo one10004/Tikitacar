@@ -19,24 +19,25 @@ class DealRepositoryImplTest {
     @Test
     public void test(){
         DealSearchRequestDto dealSearchRequestDto = DealSearchRequestDto.builder()
-                .cc(-1)
-                .color("없음")
-                .distance(-1)
-                .flooding(-1)
-                .fuel("없음")
-                .gear("없음")
-                .insurance(-1)
                 .name("없음")
-                .price(-1)
-                .seat(-1)
-                .status("판매완료")
                 .year1(-1)
                 .year2(-1)
+                .cc(-1)
+                .distance(-1)
+                .color("없음")
+                .fuel("없음")
+                .gear("없음")
+                .flooding(-1)
+                .insurance(-1)
+                .price(-1)
+                .seat(-1)
+                .status("없음")
                 .build();
 
         List<DealSearchResponseDto> dealSearchResponseDtoList = dealRepository.selectDealList(dealSearchRequestDto);
+        System.out.println(dealSearchResponseDtoList.size());
         for (DealSearchResponseDto dealSearchResponseDto : dealSearchResponseDtoList) {
-            System.out.println(dealSearchRequestDto);
+            System.out.println(">>>>"+dealSearchResponseDto.getName());
         }
     }
 
