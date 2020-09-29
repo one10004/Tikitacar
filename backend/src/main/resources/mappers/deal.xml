@@ -15,19 +15,19 @@
             d.seller=u.id
             and
             d.id = i.deal
-            <if test="name!='없음'">
+            <if test='name!="없음"'>
                 and c.name like concat('%',#{name},'%')
             </if>
-            <if test="year1!=-1 and yaer2!=-1">
+            <if test="year1!=-1 and year2!=-1">
                 and #{year1} <= c.year and c.year <=#{year2}
             </if>
-            <if test="year1==-1 and yaer2!=-1">
+            <if test="year1==-1 and year2!=-1">
                  and 0 <= c.year and c.year <=#{year2}
             </if>
-            <if test="year1!=-1 and yaer2==-1">
+            <if test="year1!=-1 and year2==-1">
                  and #{year1} <= c.year and c.year <= 10000
             </if>
-            <if test="year1==-1 and yaer2==-1">
+            <if test="year1==-1 and year2==-1">
                  and 0 <= c.year and c.year <= 10000
             </if>
             <if test="cc!=-1">
@@ -36,13 +36,13 @@
             <if test="distance!=-1">
                 and c.distance <= #{distance}
             </if>
-            <if test="color!='없음'">
+            <if test='color!="없음"'>
                 and c.color = #{color}
             </if>
-            <if test="gear!='없음'">
+            <if test='gear!="없음"'>
                 and c.gear = #{gear}
             </if>
-            <if test="fuel!='없음'">
+            <if test='fuel!="없음"'>
                 and c.fuel = #{fuel}
             </if>
             <if test="seat!=-1">
@@ -54,13 +54,10 @@
             <if test="insurance!=-1">
                 and c.insurance <= #{insurance}
             </if>
-            <if test="releasePrice!=-1">
-                and c.release_price <= #{releasePrice}
-            </if>
             <if test="price!=-1">
                 and c.price <= #{price}
             </if>
-            <if test="status!='없음'">
+            <if test='status!="없음"'>
                 and d.deal = #{status}
             </if>
         group by
