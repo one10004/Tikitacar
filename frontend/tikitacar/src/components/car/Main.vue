@@ -9,31 +9,26 @@
           >
             <v-col cols="12" sm="2">
               <v-select
-                v-model="value"
-                :items="items"
-                chips
+                v-model="searchInfo.from"
+                :items="fromOptions"
                 label="수입/국산"
-                multiple
                 solo
+                @change="selectFrom($event)"
               ></v-select>
             </v-col>
             <v-col cols="12" sm="2">
               <v-select
-                v-model="value"
-                :items="items"
-                chips
+                v-model="searchInfo.manufacturer"
+                :items="manufacturerOptions"
                 label="제조사"
-                multiple
                 solo
               ></v-select>
             </v-col>
             <v-col cols="12" sm="2">
               <v-select
-                v-model="value"
-                :items="items"
-                chips
+                v-model="searchInfo.model"
+                :items="modelOptions"
                 label="모델"
-                multiple
                 solo
               ></v-select>
             </v-col>
@@ -41,9 +36,7 @@
               <v-select
                 v-model="value"
                 :items="items"
-                chips
                 label="세부모델"
-                multiple
                 solo
               ></v-select>
             </v-col>
@@ -59,23 +52,26 @@
         </v-container>
       </v-card>
     <h3>내차 알아보기</h3>
-    <v-container>
+    <v-container style="margin-left: 0px;">
       <v-row>
         <v-col cols="12" sm="4">
           <v-text-field
             solo
-            append-icon="mdi-magnify"
             label="차량 번호를 입력해주세요."
             clearable
             background-color="#C8E8F6"
           >
+            <v-icon 
+              slot="append"
+              @click="toSearch"
+            >mdi-magnify</v-icon>
           </v-text-field>
         </v-col>
       </v-row>
     </v-container>
 
     <h3>추천 차량</h3>
-    <v-container>
+    <v-container style="margin-left: 0px;">
       <v-row class="recommend">
         <v-col cols="12" sm="4">
           <router-link :to="{ name: 'Detail', params: { id: 1 } }" style="text-decoration: none;">
@@ -115,13 +111,28 @@ import {mapActions} from 'vuex';
     },
     data: () => ({
       searchInfo: {
-        from: "수입",
-        manufacturer: "Tesla",
-        model: 'Model 3',
-      }
+        from: "",
+        manufacturer: "",
+        model: "",
+      },
+      fromOptions: ["수입", "국산"],
+      manufacturerOptions: ["현대", "기아", "쌍용", "테슬라", "BMW", "벤츠", "아우디"],
+      modelOptions: ["제네시스 G80", "티볼리 아머", "모델 S", "이클래스", "A8"]
     }),
     methods: {
-      ...mapActions(["search"])
+      ...mapActions(["search", "getMfrOptions"]),
+      toSearch() {
+        this.$router.push({name: 'Search'});
+      },
+      selectFrom(event) {
+        this.getMfrOptions(event)
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+      }
     }
   }
 </script>
@@ -129,7 +140,7 @@ import {mapActions} from 'vuex';
 <style scoped>
   .carSearch {
     margin-top: 10px;
-    width: 90%;
+    width: 1100px;
     height: 100px;
     padding: 0px;
     margin-left: 10px;

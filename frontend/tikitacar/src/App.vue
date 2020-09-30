@@ -1,8 +1,11 @@
 <template>
   <v-app id="inspire">
     <v-navigation-drawer
+      absolute
+      permanent
       app
       left
+      style="width: 200px;"
     >
       <router-link :to="{name: 'Main'}" style="text-decoration: none;">
         <h1>tikitaCAR</h1>
@@ -27,29 +30,31 @@
         
       
       <v-list dense>
-        <v-list-item link>
-          <v-list-item-action>
-            <v-icon>mdi-home</v-icon>
-          </v-list-item-action>
+        <router-link :to="{name: 'Search'}" style="text-decoration: none;">
+          <v-list-item link>
+            <v-list-item-action>
+              <v-icon>mdi-magnify</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>검색</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </router-link>
 
-          <v-list-item-content>
-            <v-list-item-title>Home</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-
-        <v-list-item link>
-          <v-list-item-action>
-            <v-icon>mdi-email</v-icon>
-          </v-list-item-action>
-
-          <v-list-item-content>
-            <v-list-item-title>Contact</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
+        <router-link :to="{name: 'Register'}" style="text-decoration: none;">
+          <v-list-item link>
+            <v-list-item-action>
+              <v-icon color="blue">mdi-car</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>내 차 팔기</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </router-link>
       </v-list>
     </v-navigation-drawer>
 
-    <v-main>
+    <v-main style="padding-left: 180px;">
       <router-view :key="$route.fullPath" />
     </v-main>
 
@@ -98,7 +103,7 @@ export default {
 }
 h1 {
   margin-top:15px;
-  font-size:50px;
+  font-size:30px;
   padding-bottom:0px;
   text-align: center;
 }

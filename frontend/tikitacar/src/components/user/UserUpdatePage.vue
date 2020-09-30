@@ -62,7 +62,7 @@
 
                 <v-select
                     label="성별"
-                    :items="['남', '녀']"
+                    :items="['남', '여']"
                     id="gender"
                     v-model="userInfo.gender"
                     required
