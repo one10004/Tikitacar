@@ -12,6 +12,10 @@ import PwInquiry from '../components/user/UserPwInquiryPage'
 import UserDeletePage from "@/components/user/UserDeletePage";
 import UserUpdatePage from "@/components/user/UserUpdatePage"
 
+import Review from '@/components/review/Review'
+import ReviewDetail from '@/components/review/ReviewDetail'
+import CreateReview from '@/components/review/CreateReview'
+import ReviewUpdate  from "@/components/review/ReviewUpdate";
 //import App from '@/App.vue';
 Vue.use(VueRouter)
 
@@ -71,8 +75,28 @@ const routes = [
     path: '/register',
     name: 'Register',
     component: Register,
-  }
+  },
+  {
+    path : '/review',
+    name : 'Review',
+    component: Review
+  },
+  {
+    path : '/create',
+    name : 'CreateReview',
+    component: CreateReview
+  },
+  {
+    path : '/review/detail/:id',
+    name : 'ReviewDetail',
+    component: ReviewDetail
+  },
+  {
+    path : '/review/update/:id',
+    name : 'ReviewUpdate',
+    component : ReviewUpdate
 
+  }
 ]
 
 const router = new VueRouter({
