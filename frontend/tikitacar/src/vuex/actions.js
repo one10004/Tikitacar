@@ -119,14 +119,14 @@ export default {
     return new Promise((resolve, reject) => {
       axios.post(Api.ROOT_URL + Api.ROUTES.CAR.getPredictedPrice, info)
         .then((res) => {
-          console.log(res);
-          resolve(res.data);
+          resolve(res);
         })
         .catch((err) => {
           reject(err);
         })
     })
   },
+<<<<<<< HEAD
   getInfo({getters}, id) {
     getters;
     console.log(id);
@@ -140,4 +140,6 @@ export default {
         })
     }) 
   }
+=======
+>>>>>>> fa2ed2da627d705681327f28812625c95ed74b13
 }

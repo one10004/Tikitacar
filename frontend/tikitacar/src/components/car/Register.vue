@@ -81,27 +81,30 @@
         </v-col>
         <v-col cols="12" sm="2">
           <h5>색상</h5>
-          <v-text-field
+          <v-select
             placeholder="ex) 빨간색"
             style="width: 100%;"
             v-model="info.dealInfo.color"
-          ></v-text-field>
+            :items="colorOptions"
+          ></v-select>
         </v-col>
         <v-col cols="12" sm="2">
           <h5>기어</h5>
-          <v-text-field
+          <v-select
             placeholder="ex) 자동"
             style="width: 100%;"
             v-model="info.dealInfo.gear"
-          ></v-text-field>
+            :items="gearOptions"
+          ></v-select>
         </v-col>
         <v-col cols="12" sm="2">
           <h5>연료 타입</h5>
-          <v-text-field
+          <v-select
             placeholder="ex) 전기"
             style="width: 100%;"
             v-model="info.dealInfo.fuel"
-          ></v-text-field>
+            :items="fuelOptions"
+          ></v-select>
         </v-col>
         <v-col cols="12" sm="2">
           <h5>좌석 수</h5>
@@ -194,8 +197,10 @@ import {mapActions} from "vuex";
         },
         files: [],
       },
-
-      uploadImageIndex: 0
+      uploadImageIndex: 0,
+      colorOptions: ["없음","흰색","검정색","진회색","은색","진주색","회색","베이지색","빨간색","진청색","청색","파란색","하늘색","기타색상"],
+      gearOptions: ["없음", "자동", "수동"],
+      fuelOptions: ["없음", "가솔린", "디젤", "LPG", "전기"],
     }),
     methods: {
       ...mapActions(["registerCar"]),
@@ -220,6 +225,20 @@ import {mapActions} from "vuex";
         this.info.files = this.info.files.filter((data) => data.number !== Number(name));
       },
     },
+    created() {
+      this.info.dealInfo.cc = this.$route.query.info.cc;
+      this.info.dealInfo.color = this.$route.query.info.color;
+      this.info.dealInfo.distance = this.$route.query.info.distance;
+      this.info.dealInfo.flooding = this.$route.query.info.flooding;
+      this.info.dealInfo.fuel = this.$route.query.info.fuel;
+      this.info.dealInfo.gear = this.$route.query.info.gear;
+      this.info.dealInfo.insurance = this.$route.query.info.insurance;
+      this.info.dealInfo.name = this.$route.query.info.name;
+      this.info.dealInfo.releasePrice = this.$route.query.info.releasePrice;
+      this.info.dealInfo.seat = this.$route.query.info.seat;
+      this.info.dealInfo.year = this.$route.query.info.year;
+      this.info.dealInfo.price = this.$route.query.info.price;
+    }
   }
 </script>
 
