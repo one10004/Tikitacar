@@ -22,7 +22,8 @@ export default {
             searchDetailURL: "deal/search"
         },
         CAR: {
-            getModelURL: "price/"
+            getModelURL: "price/",
+            getPredictedPrice: "car/predict"
         },
         IMG: {
             imgURL: "img"

@@ -7,6 +7,7 @@ import MyPage from '../components/user/MyPage.vue'
 import Detail from '../components/car/Detail.vue'
 import Search from '../components/car/Search.vue'
 import Register from '../components/car/Register.vue'
+import Predict from '../components/car/Predict.vue'
 
 import PwInquiry from '../components/user/UserPwInquiryPage'
 import UserDeletePage from "@/components/user/UserDeletePage";
@@ -71,6 +72,11 @@ const routes = [
     path: '/register',
     name: 'Register',
     component: Register,
+  },
+  {
+    path: '/predict',
+    name: 'Predict',
+    component: Predict
   }
 
 ]

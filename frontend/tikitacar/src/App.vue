@@ -51,6 +51,17 @@
             </v-list-item-content>
           </v-list-item>
         </router-link>
+
+        <router-link :to="{name: 'Predict'}" style="text-decoration: none;">
+          <v-list-item link>
+            <v-list-item-action>
+              <v-icon color="yellow">mdi-currency-usd</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>내 차 가격 조회</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </router-link>
       </v-list>
     </v-navigation-drawer>
 

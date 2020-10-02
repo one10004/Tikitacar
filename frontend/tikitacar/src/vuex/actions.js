@@ -113,5 +113,18 @@ export default {
           reject(err);
         })
     })
+  },
+  predictPrice({getters}, info) {
+    getters;
+    return new Promise((resolve, reject) => {
+      axios.post(Api.ROOT_URL + Api.ROUTES.CAR.getPredictedPrice, info)
+        .then((res) => {
+          console.log(res);
+          resolve(res.data);
+        })
+        .catch((err) => {
+          reject(err);
+        })
+    })
   }
 }
