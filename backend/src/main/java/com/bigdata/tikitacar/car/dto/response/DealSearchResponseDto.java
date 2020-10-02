@@ -19,6 +19,10 @@ public class DealSearchResponseDto {
     String name;
     int releasePrice;
     int price;
+    int year;
+    int distance;
+    String color;
+
 
     //글정보
     String title;

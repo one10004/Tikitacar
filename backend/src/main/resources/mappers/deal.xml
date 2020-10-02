@@ -4,7 +4,7 @@
     <select id="selectDealList" resultType="com.bigdata.tikitacar.car.dto.response.DealSearchResponseDto">
         select
             d.id as id, c.name as name,u.nickname as nickname,
-            c.release_price as releasePrice, c.price as price,
+            c.release_price as releasePrice, c.price as price, c.year as year, c.distance as distance, c.color as color,
             d.title as title, i.src as src, d.status as status
         from
             deal as d, car as c, user as u, img as i
