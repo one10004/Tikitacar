@@ -119,12 +119,11 @@ export default {
     return new Promise((resolve, reject) => {
       axios.post(Api.ROOT_URL + Api.ROUTES.CAR.getPredictedPrice, info)
         .then((res) => {
-          console.log(res);
-          resolve(res.data);
+          resolve(res);
         })
         .catch((err) => {
           reject(err);
         })
     })
-  }
+  },
 }
