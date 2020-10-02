@@ -37,7 +37,6 @@ public class CrawlingServiceImpl implements CrawlingService {
                 int page = car[2];
 
 //                System.out.println(no);
-                System.out.println("page : " + page);
 //                url = "https://www.bobaedream.co.kr/mycar/mycar_view.php?no=" + no;
                 url="https://www.bobaedream.co.kr/cyber/CyberCar_view.php?no="+no;
                 document = Jsoup.connect(url).get();
@@ -191,7 +190,6 @@ public class CrawlingServiceImpl implements CrawlingService {
         String info = null;
 
         for(int i=240; i<=250; i++){
-            System.out.println(i);
 //            String url_ko = "https://www.bobaedream.co.kr/mycar/mycar_list.php?gubun=K&page=" + Integer.toString(i) + "&order=S11&view_size=20";
 //            String url_for = "https://www.bobaedream.co.kr/mycar/mycar_list.php?gubun=I&page=" + Integer.toString(i) + "&order=S11&view_size=20";
             String url_cyber = "https://www.bobaedream.co.kr/cyber/CyberCar.php?gubun=K&page=" + Integer.toString(i) + "&order=S11&view_size=70";
