@@ -31,7 +31,8 @@ export default {
         CAR: {
             getModelURL: "price/",
             getPredictedPrice: "car/predict",
-            dealSearchMyURL : "deal/search/my"
+            dealSearchMyURL : "deal/search/my",
+            getInfoURL: "deal/view/"
         },
         IMG: {
             imgURL: "img"

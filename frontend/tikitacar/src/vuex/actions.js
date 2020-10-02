@@ -126,5 +126,18 @@ export default {
           reject(err);
         })
     })
+  },
+  getInfo({getters}, id) {
+    getters;
+    console.log(id);
+    return new Promise((resolve, reject) => {
+      axios.get(Api.ROOT_URL + Api.ROUTES.DEAL.getInfoURL + id)
+        .then((res) => {
+          resolve(res);
+        })
+        .catch((err) => {
+          reject(err);
+        })
+    }) 
   }
 }
