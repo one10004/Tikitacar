@@ -1,10 +1,11 @@
 package com.bigdata.tikitacar.car.service;
 
 import com.bigdata.tikitacar.car.dto.request.DealRegisterRequestDto;
+import com.bigdata.tikitacar.car.dto.request.DealSearchRequestDto;
 import com.bigdata.tikitacar.car.dto.request.DealUpdateRequestDto;
 import com.bigdata.tikitacar.car.dto.request.DealUpdateStatusRequestDto;
+import com.bigdata.tikitacar.car.dto.response.DealDetailResponseDto;
 import com.bigdata.tikitacar.car.dto.response.DealSearchResponseDto;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public interface DealService {
     public void registerDeal(DealRegisterRequestDto dealRegisterRequestDto);
 
     //Read
-    public DealSearchResponseDto searchDeal(Long id);
+    public DealDetailResponseDto searchDeal(Long id);
 //    public List<DealSearchResponseDto> searchAllDeal();
 
     //Update
@@ -27,5 +28,7 @@ public interface DealService {
     public void removeDeal(Long id);
 
     //List
-    List<DealSearchResponseDto> searchAll(Pageable pageable);
+    List<DealDetailResponseDto> searchAll(Pageable pageable);
+    List<DealSearchResponseDto> searchDetail(DealSearchRequestDto dealSearchRequestDto);
+    List<DealSearchResponseDto> searchMy(Long id);
 }

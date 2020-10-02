@@ -19,7 +19,7 @@ public interface ReviewService {
     public ReviewSearchResponseDto searchReview(Long id);
 
     //Update
-    public void updateReview(ReviewUpdateRequestDto reviewUpdateRequestDto);
+    public void updateReview(ReviewUpdateRequestDto reviewUpdateRequestDto, Long id);
 
     //Delete
     public void removeReview(Long id);
