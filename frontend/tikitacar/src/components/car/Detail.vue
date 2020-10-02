@@ -76,19 +76,17 @@
             <p>차량정보: {{this.info.data.name}}</p>
             <p>주행거리: {{this.info.data.distance}}km</p>
             <p>변속기: {{this.info.data.gear}}</p>
-            <p>차종: 중형차</p>
+            <p>출시가격: {{this.info.data.releasePrice}}</p>
           </v-col>
           <v-col cols="12" sm="4">
             <p>색상: {{this.info.data.color}}</p>
             <p>연식: {{this.info.data.year}}</p>
-            <p>연료: {{this.info.data.fuel}}</p>
-            <p>연비: 8.1km</p>
+            <p>인승: {{this.info.data.seat}} 인승</p>
           </v-col>
           <v-col cols="12" sm="4">
-            <p>전손이력: 없음</p>
             <p>침수이력: {{this.info.data.flooding}} 회</p>
-            <p>용도이력: 있음</p>
-            <p>소유자변경: 없음</p>
+            <p>보험: {{this.info.data.insurance}} 개</p>
+            <p>연료: {{this.info.data.fuel}}</p>
           </v-col>
         </v-row>
       </div>
@@ -107,6 +105,9 @@
       </div>
       <div>
         <h3>판매자 정보</h3>
+        <p>판매자: {{this.info.data.nickname}}</p>
+        <p>전화번호: {{this.info.data.phone}}</p>
+        <p>지역: {{this.info.data.address}}</p>
       </div>
       <div>
         <h3>동급 차량 추천</h3>
