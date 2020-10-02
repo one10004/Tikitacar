@@ -142,7 +142,7 @@
                 <router-link :to="{ name: 'Detail', params: { id: car.id } }" style="text-decoration: none;">
                   <v-card style="height: 500px;">
                     <v-card-title><div class="headerClass">{{car.name}}</div></v-card-title>
-                    <v-img src="http://j3a106.p.ssafy.io/img/20201002206026_taycan1.jpg"></v-img>
+                    <img :src="getImageUrl(car.src)" />
                     <p><span style="font-size: 30px; color: blue;">{{car.price}}</span>만원</p>
                   </v-card>
                 </router-link>
@@ -157,6 +157,7 @@
 
 <script>
 import {mapActions} from "vuex";
+import api from "@/api/api.js";
 
   export default {
     props: {
@@ -208,6 +209,9 @@ import {mapActions} from "vuex";
         .catch((err) => {
           console.log(err);
         });
+      },
+      getImageUrl(src) {
+        return api.ROUTES.IMG.getUrl + src;
       },
     },
     created() {

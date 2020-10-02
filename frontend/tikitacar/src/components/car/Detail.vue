@@ -5,19 +5,18 @@
       <hr>
       <div class="carInfo">
         <div>
-          <!-- <div class="mainImage"> -->
-            <v-img 
-              height="350px"
-              width="450"
-              src="file:///C:/images/202009231237962_tesla1.jpg"></v-img>
-          <!-- </div> -->
-          <div class="subImages">
-            <div class="subImage1">sub image1</div>
-            <div class="subImage1">sub image2</div>
-            <div class="subImage1">sub image3</div>
-            <div class="subImage1" style="margin-right: 0px;">sub image4</div>
-          </div>
+          <v-carousel style="width: 500px; height: 450px;">
+            <v-carousel-item
+              v-for="(item,i) in info.data.src"
+              :key="i"
+              :src="getImageUrl(i)"
+              reverse-transition="fade-transition"
+              transition="fade-transition"
+              contain
+            ></v-carousel-item>
+          </v-carousel>
         </div>
+        
         <div>
           <div>
             <div class="spec">
@@ -80,14 +79,14 @@
             <p>차종: 중형차</p>
           </v-col>
           <v-col cols="12" sm="4">
-            <p>색상: 하얀색</p>
-            <p>연식: 19년형</p>
-            <p>연료: 전기</p>
+            <p>색상: {{this.info.data.color}}</p>
+            <p>연식: {{this.info.data.year}}</p>
+            <p>연료: {{this.info.data.fuel}}</p>
             <p>연비: 8.1km</p>
           </v-col>
           <v-col cols="12" sm="4">
             <p>전손이력: 없음</p>
-            <p>침수이력: 없음</p>
+            <p>침수이력: {{this.info.data.flooding}} 회</p>
             <p>용도이력: 있음</p>
             <p>소유자변경: 없음</p>
           </v-col>
@@ -145,6 +144,7 @@
 
 <script>
 import {mapActions} from "vuex";
+import api from "@/api/api.js";
 
   export default {
     props: {
@@ -167,7 +167,10 @@ import {mapActions} from "vuex";
         })
     },
     methods: {
-      ...mapActions(["buyCar", "getInfo"])
+      ...mapActions(["buyCar", "getInfo"]),
+      getImageUrl(i){
+        return api.ROUTES.IMG.getUrl + this.info.data.src[i];
+      }
     }
   }
 </script>
