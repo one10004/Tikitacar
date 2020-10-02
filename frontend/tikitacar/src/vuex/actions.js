@@ -126,7 +126,6 @@ export default {
         })
     })
   },
-<<<<<<< HEAD
   getInfo({getters}, id) {
     getters;
     console.log(id);
@@ -140,6 +139,4 @@ export default {
         })
     }) 
   }
-=======
->>>>>>> fa2ed2da627d705681327f28812625c95ed74b13
 }
