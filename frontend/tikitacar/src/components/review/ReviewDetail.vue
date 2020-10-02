@@ -22,7 +22,7 @@
             <v-textarea filled name="context" readonly  v-model="reviewDetail.content"
                         ></v-textarea>
           </v-row>
-          <v-row>
+          <v-row v-if="equal">
             <v-btn @click="reviewDelete">리뷰 삭제</v-btn>
             <v-btn @click="reviewUpdate">리뷰 수정</v-btn>
           </v-row>
@@ -49,7 +49,7 @@ export default {
     reviewDetail : {
 
     },
-
+    equal : false
   }),
   created(){
     let review_id = this.$route.params.id;
@@ -57,7 +57,12 @@ export default {
     let config = this.$store.getters.config;
     axios.get(URL,config).then((res)=>{
       this.reviewDetail = res.data.data;
-      console.dir(this.reviewDetail);
+     // console.dir(this.reviewDetail);
+     // console.log(this.reviewDetail.nickname+ " 111" + this.$store.getters.currentUserNickname)
+      if(this.reviewDetail.nickname==this.$store.getters.currentUserNickname){
+        console.log("일치")
+        this.equal = true;
+      }
     }).catch((err) =>{
       swal('X', err.response.data.msg, 'error');
     })
