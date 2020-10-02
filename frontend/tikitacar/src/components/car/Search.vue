@@ -211,7 +211,6 @@ import api from "@/api/api.js";
         });
       },
       getImageUrl(src) {
-        console.log(api.ROUTES.IMG.getUrl + src);
         return api.ROUTES.IMG.getUrl + src;
       },
     },
