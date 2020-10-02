@@ -30,4 +30,16 @@ public class ReviewSearchResponseDto {
     private String content;
     private LocalDateTime date;
     private int rating;
+
+    // 차 정보
+    int year;
+    int cc;
+    int distance;
+    String color;
+    String gear;
+    String fuel;
+    int seat;
+    int flooding;
+    int insurance;
+    String src;
 }
