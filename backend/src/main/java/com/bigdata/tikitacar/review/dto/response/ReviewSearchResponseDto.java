@@ -18,6 +18,7 @@ public class ReviewSearchResponseDto {
     String nickname;
     
     //거래정보
+    Long dealId;
     String sellerEmail;
     String sellerNickname;
     String carName;
