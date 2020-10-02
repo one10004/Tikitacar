@@ -8,8 +8,10 @@ export default {
         let now = new Date();
         now.setSeconds(now.getSeconds() + res.data.validTime/1000);
         cookies.config('auth-token', now);
+        console.dir(res.data);
         state.userInfo.authToken=res.data.token;
         state.userInfo.nickname = res.data.nickname;
+
         //cookies.set('auth-token', res.data.validTime/1000);
         // state.userInfo.authToken = res.headers.authorization
         // state.userInfo.userNickname = res.data.loginUser.nickName
@@ -19,5 +21,6 @@ export default {
     DEL_USER(state) {
         cookies.set('auth-token', "");
         state.userInfo.authToken="";
+        state.userInfo.nickname="";
     },
 }
