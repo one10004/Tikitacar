@@ -72,7 +72,6 @@ public class ReviewServiceImpl implements ReviewService {
         List<ReviewSearchResponseDto> reviewSearchResponseDtoList = new ArrayList<>();
 
         Page<Review> list = reviewRepository.findAll(pageable);
-        System.out.println(list.getTotalPages());
         for(Review review : list) {
             reviewSearchResponseDtoList.add(ReviewSearchResponseDto.builder()
                     .id(review.getId())
