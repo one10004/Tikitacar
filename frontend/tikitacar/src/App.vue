@@ -47,6 +47,17 @@
               <v-list-item-title>내 차 팔기</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
+
+        </router-link>
+        <router-link router-link :to="{name  : 'Review'}">
+          <v-list-item link>
+            <v-list-item-action >
+              <v-icon color="blue">mdi-car</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>차량 후기</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
         </router-link>
       </v-list>
     </v-navigation-drawer>

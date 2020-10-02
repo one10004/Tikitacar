@@ -11,13 +11,21 @@ export default {
             deleteUserURL : "user",
             checkPasswordURL : "/user/check"
         },
+        REVIEW :{
+            createReviewURL : "review",
+            updateReviewURL : "review",
+            deleteReviewURL : "review",
+            getReviewListURL : "review/all",
+            getReviewDetailURL : "/review/view"
+        },
         AUTH : {
-            loginURL : "auth/login/",
+            loginURL : "auth/login",
             logoutURL : "auth/logout",
             pwInquiryURL : "auth/password"
         },
         DEAL: {
-            registerCarURL: "deal"
+            registerCarURL: "deal",
+            dealSearchMyURL : "deal/search/my"
         },
         IMG: {
             imgURL: "img"
