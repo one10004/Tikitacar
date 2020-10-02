@@ -6,6 +6,9 @@ import router from './router'
 import store from './vuex/store'
 import VueCookies from 'vue-cookies'
 import VueDaumPostcode from "vue-daum-postcode"
+import StarRating from 'vue-star-rating'
+
+Vue.component('star-rating', StarRating);
 
 Vue.use(VueDaumPostcode)
 Vue.use(VueCookies)
