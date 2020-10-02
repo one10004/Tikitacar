@@ -89,23 +89,17 @@ export default {
       });
     getters;
   },
-  search({getters}, searchInfo) {
-    console.log(searchInfo);
-    router.push({
-      name: "Search",
-      query: { from: searchInfo.from, manufacturer: searchInfo.manufacturer, model: searchInfo.model },
-    });
-    getters;
-  },
-  fetchData() {
+  fetchData({getters}, searchInfo) {
     return new Promise((resolve, reject) => {
-      axios.get(Api.ROOT_URL + Api.ROUTES.DEAL.searchResultURL + 0)
+      axios.post(Api.ROOT_URL + Api.ROUTES.DEAL.searchDetailURL, searchInfo)
         .then((res) => {
+          console.log(res);
           resolve(res.data.data);
         })
         .catch((err) => {
           reject(err);
         })
+        getters;
     })
   },
   getModels({getters}, option) {
