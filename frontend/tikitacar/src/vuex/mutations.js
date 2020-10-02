@@ -9,6 +9,7 @@ export default {
         now.setSeconds(now.getSeconds() + res.data.validTime/1000);
         cookies.config('auth-token', now);
         state.userInfo.authToken=res.data.token;
+        state.userInfo.nickname = res.data.nickname;
         //cookies.set('auth-token', res.data.validTime/1000);
         // state.userInfo.authToken = res.headers.authorization
         // state.userInfo.userNickname = res.data.loginUser.nickName

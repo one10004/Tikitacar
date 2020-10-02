@@ -11,8 +11,15 @@ export default {
             deleteUserURL : "user",
             checkPasswordURL : "/user/check"
         },
+        REVIEW :{
+            createReviewURL : "review",
+            updateReviewURL : "review",
+            deleteReviewURL : "review",
+            getReviewListURL : "review/all",
+            getReviewDetailURL : "/review/view"
+        },
         AUTH : {
-            loginURL : "auth/login/",
+            loginURL : "auth/login",
             logoutURL : "auth/logout",
             pwInquiryURL : "auth/password"
         },
@@ -23,7 +30,8 @@ export default {
         },
         CAR: {
             getModelURL: "price/",
-            getPredictedPrice: "car/predict"
+            getPredictedPrice: "car/predict",
+            dealSearchMyURL : "deal/search/my"
         },
         IMG: {
             imgURL: "img"
