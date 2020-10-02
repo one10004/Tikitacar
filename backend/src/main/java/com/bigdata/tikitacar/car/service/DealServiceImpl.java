@@ -105,6 +105,12 @@ public class DealServiceImpl implements DealService {
         Deal deal = Optional.of(dealRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("거래가 존재하지 않음."))).get();
 
+        List<Img> imgList = imgRepository.findByDeal_Id(id);
+        List<String> srcList = new ArrayList<>();
+        for (Img img : imgList) {
+            srcList.add(img.getSrc());
+        }
+
         DealDetailResponseDto dealDetailResponseDto = DealDetailResponseDto.builder()
                 .email(deal.getSeller().getEmail())
                 .nickname(deal.getSeller().getEmail())
@@ -124,6 +130,7 @@ public class DealServiceImpl implements DealService {
                 .price(deal.getCar().getPrice())
                 .title(deal.getTitle())
                 .content(deal.getContent())
+                .src(srcList)
                 .build();
 
         return dealDetailResponseDto;
