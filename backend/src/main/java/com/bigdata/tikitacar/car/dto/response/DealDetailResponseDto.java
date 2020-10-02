@@ -2,6 +2,8 @@ package com.bigdata.tikitacar.car.dto.response;
 
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -34,4 +36,7 @@ public class DealDetailResponseDto {
     //글정보
     String title;
     String content;
+
+    List<String> src;
+
 }
