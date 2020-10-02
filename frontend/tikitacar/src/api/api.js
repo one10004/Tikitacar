@@ -26,16 +26,17 @@ export default {
         DEAL: {
             registerCarURL: "deal",
             searchResultURL: "deal/all/",
-            searchDetailURL: "deal/search"
+            searchDetailURL: "deal/search",
+            getInfoURL: "deal/view/"
         },
         CAR: {
             getModelURL: "price/",
             getPredictedPrice: "car/predict",
             dealSearchMyURL : "deal/search/my",
-            getInfoURL: "deal/view/"
         },
         IMG: {
-            imgURL: "img"
+            imgURL: "img",
+            getUrl: "http://j3a106.p.ssafy.io/img/"
         },
         HOMEURL : ""
     }
