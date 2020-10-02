@@ -56,7 +56,7 @@ export default {
     completeDealList: [],
   }),
   mounted() {
-    let URL = api.ROOT_URL + api.ROUTES.DEAL.dealSearchMyURL;
+    let URL = api.ROOT_URL + api.ROUTES.CAR.dealSearchMyURL;
     let config = this.$store.getters.config;
 
     axios.get(URL, config).then((res) => {
