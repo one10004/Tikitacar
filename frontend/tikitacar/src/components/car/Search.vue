@@ -142,7 +142,7 @@
                 <router-link :to="{ name: 'Detail', params: { id: car.id } }" style="text-decoration: none;">
                   <v-card style="height: 500px;">
                     <v-card-title><div class="headerClass">{{car.name}}</div></v-card-title>
-                    <v-img src="https://cdn.top-rider.com/news/photo/201702/25357_71125_2125.JPG"></v-img>
+                    <v-img src="http://j3a106.p.ssafy.io/img/20201002206026_taycan1.jpg"></v-img>
                     <p><span style="font-size: 30px; color: blue;">{{car.price}}</span>만원</p>
                   </v-card>
                 </router-link>
