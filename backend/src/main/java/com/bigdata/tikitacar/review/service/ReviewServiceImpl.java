@@ -106,6 +106,7 @@ public class ReviewServiceImpl implements ReviewService {
                 .id(review.getId())
                 .email(review.getWriter().getEmail())
                 .nickname(review.getWriter().getNickname())
+                .dealId(review.getDeal().getId())
                 .sellerEmail(review.getDeal().getSeller().getEmail())
                 .sellerNickname(review.getDeal().getSeller().getNickname())
                 .carName(review.getDeal().getCar().getName())
