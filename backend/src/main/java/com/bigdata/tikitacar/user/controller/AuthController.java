@@ -53,6 +53,7 @@ public class AuthController {
             map.put("msg", "로그인 성공");
             map.put("status", "success");
             map.put("email", email);
+            map.put("nickname", userLoginResponseDto.getNickname());
             map.put("validTime", jwtService.getValidTime());
             String token = jwtService.generateToken(email);
             map.put("token", token);
