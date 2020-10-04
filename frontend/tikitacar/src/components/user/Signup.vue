@@ -4,7 +4,7 @@
       <v-container class="fill-height" fluid>
         <v-row justify="start">
 
-          <v-col offset="4">
+          <v-col offset="2" md="6">
             <v-card class="elevation-20">
               <v-card-title>
                 TIKITACAR LOGO
@@ -138,7 +138,7 @@
               </v-form>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="cyan" @click="userCreateSubmit">회원가입</v-btn>
+                <v-btn color="primary" @click="userCreateSubmit">회원가입</v-btn>
                 <v-dialog
                 v-model="addressModal">
                   <vue-daum-postcode @complete="handleAddress"></vue-daum-postcode>
