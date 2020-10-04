@@ -7,7 +7,7 @@
     <img src="https://img.shields.io/badge/platform-web-green">
     <img src="https://img.shields.io/static/v1.svg?label=&message=Vue&style=flat-square&logo=Vue.js&logoColor=white&color=42b883">
     <img src="https://img.shields.io/badge/framework-spring boot-blue">
-    <img src="https://img.shields.io/badge/database-MariaDB-9cf">
+    <img src="https://img.shields.io/badge/database-MySQL-9cf">
     <img src="https://img.shields.io/badge/server-AWS-yellow">
     <img src="https://img.shields.io/badge/language-java%2C javascript-yellowgreen">
     <img src="https://img.shields.io/badge/swagger-valid-brightgreen">
