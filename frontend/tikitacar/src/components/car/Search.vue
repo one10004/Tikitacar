@@ -1,57 +1,53 @@
 <template>
-  <v-app id="inspire">
-    <v-main style="padding-left: 5%; margin-top: 50px;">
-      <h3>시세 검색</h3>
+  <v-app id="app">
+    <v-main style="padding-left: 10%; margin-top: 50px; font-family: 'Do Hyeon', sans-serif;">
+      <h3>빠른 시세 검색</h3>
       <v-card class="carSearch">
         <v-container fluid>
           <v-row
             align="center"
           >
-            <v-col cols="12" sm="2">
+            <v-col cols="12" sm="3">
               <v-select
-                v-model="searchInfo.from"
                 :items="fromOptions"
                 label="수입/국산"
-                :placeholder="searchInfo.from"
                 solo
               ></v-select>
             </v-col>
-            <v-col cols="12" sm="2">
+            <v-col cols="12" sm="3">
               <v-select
-                v-model="searchInfo.manufacturer"
                 :items="manufacturerOptions"
                 label="제조사"
-                :placeholder="searchInfo.manufacturer"
                 solo
                 @change="selectManufactuer($event)"
               ></v-select>
             </v-col>
-            <v-col cols="12" sm="2">
+            <v-col cols="12" sm="3">
               <v-select
-                v-model="searchInfo.model"
+                v-model="model"
                 :items="modelOptions"
                 label="모델"
-                :placeholder="searchInfo.model"
                 solo
               ></v-select>
-            </v-col>
-            <v-col cols="12" sm="2">
-              <v-text-field
-                v-model="searchInfo.name"
-                label="모델명"
-              ></v-text-field>
             </v-col>
             <v-col cols="12" sm="2">
               <div class="searchBtn">
                 <v-btn
                   color="primary"
-                  @click="search(searchInfo)"
+                  @click="quickSearch()"
                 >Search</v-btn>
               </div>
             </v-col>
           </v-row>
         </v-container>
       </v-card>
+      <div style="display: none" v-if="result === -1">
+      </div>
+      <div class="result" v-else>
+        <p class="resultSentence">{{model}}의 시세 가격은</p>
+        <p class="price">{{priceLow}} 만원 <span class="resultSentence">~</span> {{priceHigh}} 만원</p>
+        <p class="resultSentence">입니다.</p>
+      </div>
 
       <div style="display: flex;">
         <div style="width : 250px;">
@@ -142,7 +138,12 @@
                 <router-link :to="{ name: 'Detail', params: { id: car.id } }" style="text-decoration: none;">
                   <v-card style="height: 500px;">
                     <v-card-title><div class="headerClass">{{car.name}}</div></v-card-title>
-                    <img :src="getImageUrl(car.src)" />
+                    <img class="thumbnail" :src="getImageUrl(car.src)" />
+                    <p>연식: {{car.year}}</p>
+                    <p>주행거리: {{car.distance}} km</p>
+                    <p>출시가격: {{car.releasePrice}}</p>
+                    <p>색상: {{car.color}}</p>
+                    <p>판매자: {{car.nickname}}</p>
                     <p><span style="font-size: 30px; color: blue;">{{car.price}}</span>만원</p>
                   </v-card>
                 </router-link>
@@ -179,6 +180,10 @@ import api from "@/api/api.js";
         year1: -1,
         year2: -1
       },
+      model: "",
+      priceLow: 0,
+      priceHigh: 0,
+      result: -1,
       name: "",
       cars: [],
       fromOptions: ["국산"],
@@ -190,7 +195,7 @@ import api from "@/api/api.js";
       statusOptions: ["없음", "판매중", "판매완료"],
     }),
     methods: {
-      ...mapActions(["fetchData", "getModels"]),
+      ...mapActions(["fetchData", "getModels", "getMinMax"]),
       selectManufactuer(event) {
         this.getModels(event)
           .then((res) => {
@@ -213,6 +218,17 @@ import api from "@/api/api.js";
       getImageUrl(src) {
         return api.ROUTES.IMG.getUrl + src;
       },
+      quickSearch() {
+        this.result = this.result * -1;
+        this.getMinMax(this.model)
+          .then((res) => {
+            this.priceLow = res.priceLow;
+            this.priceHigh = res.priceHigh;
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+      },
     },
     created() {
       this.search();
@@ -221,6 +237,9 @@ import api from "@/api/api.js";
 </script>
 
 <style scoped>
+  #app {
+    font-family: 'Do Hyeon', sans-serif;
+  }
   h3 {
     margin-top: 50px;
   }
@@ -244,5 +263,21 @@ import api from "@/api/api.js";
     word-break: normal;
     overflow: hidden ;
     text-overflow: ellipsis;
-}
+  }
+  .thumbnail {
+    width: 100%;
+    height: 200px;
+  }
+  .result {
+    margin-top: 25px;
+    margin-left: 10px;
+  }
+  .resultSentence {
+    font-size: 40px;
+  }
+  .price {
+    font-size: 60px;
+    font-weight: bold;
+    color: #10A5F5;
+  }
 </style>

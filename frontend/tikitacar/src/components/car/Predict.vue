@@ -120,7 +120,7 @@
         @click="predict()"
       >조회</v-btn>
 
-      <div style="display: none" v-if="result === 0">
+      <div style="display: none" v-if="result === -1">
       </div>
       <div class="result" v-else>
         <p class="resultSentence">차량의 예상 금액은</p>
@@ -164,7 +164,7 @@ import {mapActions} from "vuex";
         this.predictPrice(this.info)
           .then((res) => {
             this.info.price = res.data.price;
-            this.result = 1;
+            this.result = this.result * -1;
           })
           .catch((err) => {
             console.log(err);

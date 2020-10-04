@@ -1,11 +1,11 @@
 <template>
-  <v-app id="inspire">
+  <v-app id="app">
     <v-navigation-drawer
       absolute
       permanent
       app
       left
-      style="width: 200px;"
+      style="width: 250px;"
     >
       <router-link :to="{name: 'Main'}" style="text-decoration: none;">
         <h1>tikitaCAR</h1>
@@ -116,12 +116,12 @@ export default {
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Do Hyeon', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #6DCEF5;
-  margin-top: 60px;
+  /* text-align: center; */
+  /* color: #6DCEF5; */
+  /* margin-top: 60px; */
 }
 h1 {
   margin-top:15px;

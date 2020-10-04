@@ -90,6 +90,12 @@ export default {
     getters;
   },
   fetchData({getters}, searchInfo) {
+    for(var prop in searchInfo) {
+      if(searchInfo[prop] === "" || searchInfo[prop] === "0") {
+        searchInfo[prop] = "없음";
+        console.log(searchInfo[prop]);
+      }
+    }
     return new Promise((resolve, reject) => {
       axios.post(Api.ROOT_URL + Api.ROUTES.DEAL.searchDetailURL, searchInfo)
         .then((res) => {
@@ -128,7 +134,6 @@ export default {
   },
   getInfo({getters}, id) {
     getters;
-    console.log(id);
     return new Promise((resolve, reject) => {
       axios.get(Api.ROOT_URL + Api.ROUTES.DEAL.getInfoURL + id)
         .then((res) => {
@@ -138,5 +143,17 @@ export default {
           reject(err);
         })
     }) 
+  },
+  getMinMax({getters}, model) {
+    getters;
+    return new Promise((resolve, reject) => {
+      axios.get(Api.ROOT_URL + Api.ROUTES.CAR.getModelPriceURL + model)
+        .then((res) => {
+          resolve(res.data);
+        })
+        .catch((err) => {
+          reject(err);
+        })
+    })
   }
 }
