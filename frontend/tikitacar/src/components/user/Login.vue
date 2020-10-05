@@ -28,6 +28,7 @@
                     v-model="loginRequest.email"
                     prepend-icon="mdi-account-circle"
                     type="text"
+                    height="50"
                   ></v-text-field>
 
                   <v-text-field
@@ -39,6 +40,7 @@
                     :append-icon="showPassword? 'mdi-eye' : 'mdi-eye-off'"
                     :type="showPassword? 'text' : 'password'"
                     @click:append="showPassword = ! showPassword"
+                    height="50"
                   ></v-text-field>
                 </v-form>
               </v-card-text>
@@ -57,15 +59,16 @@
             <v-card class="elevation-0">
 
               <v-card-text>
-
+                <br><br><br>
                 TIKITACAR 회원으로 가입하시면<br>
                 TIKITACAR의 모든 서비스를<br>
                 이용하실 수 있습니다.
-
+                <br>
+                <br>
+                <br>
 
               </v-card-text>
               <v-card-actions>
-
                 <v-btn width = "40%" color="primary" router-link :to="{name  : 'SignUp'}">회원 가입</v-btn>
               </v-card-actions>
             </v-card>

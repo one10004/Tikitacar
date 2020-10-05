@@ -43,7 +43,8 @@ export default {
     headers: [{text: '번호', align: 'left', sortable: false, value: 'id',}, {
       text: '제목',
       value: 'title'
-    }, {text : '글쓴이', value : 'nickname'},{text: '작성일', value: 'date'}],
+    }, {text : '글쓴이', value : 'nickname'},{text: '작성일', value: 'date'},
+    {test : "점수 ", value : 'rating'}],
 
     totalPage: ""
   }),
