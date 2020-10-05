@@ -11,8 +11,8 @@ import java.util.List;
 public interface DealRepository extends JpaRepository<Deal,Long> , DealRepositoryMybatis {
 
     //리스트 페이징
-    Page<Deal> findAllOrderByIdDesc(Pageable pageable);
+    Page<Deal> findAll(Pageable pageable);
 
-    List<Deal> findByBuyer_IdOrderByIdDesc(Long id);
+    List<Deal> findByBuyer_Id(Long id);
 
 }
