@@ -212,7 +212,7 @@ public class DealServiceImpl implements DealService {
     public List<DealDetailResponseDto> searchAll(Pageable pageable) {
         List<DealDetailResponseDto> dealDetailResponseDtoList = new ArrayList<>();
 
-        Page<Deal> list = dealRepository.findAll(pageable);
+        Page<Deal> list = dealRepository.findAllOrderByIdDesc(pageable);
 
         for(Deal deal : list) {
             dealDetailResponseDtoList.add(DealDetailResponseDto.builder()
@@ -249,7 +249,7 @@ public class DealServiceImpl implements DealService {
 
     @Override
     public List<DealSearchResponseDto> searchMy(Long id) {
-        List<Deal> dealList = dealRepository.findByBuyer_Id(id);
+        List<Deal> dealList = dealRepository.findByBuyer_IdOrderByIdDesc(id);
         List<DealSearchResponseDto> dealSearchResponseDtoList=new ArrayList<>();
 
 
