@@ -6,8 +6,8 @@
 
           <v-col offset="2" md="6">
             <v-card class="elevation-20">
-              <v-card-title>
-                TIKITACAR LOGO
+              <v-card-title class="justify-center">
+                <img src="@/assets/images/logo.png" class="logo">
               </v-card-title>
               <v-form>
                 <v-text-field
@@ -309,4 +309,9 @@ export default{
     color : green;
   }
 
+  .logo {
+    width : 150px;
+    heigth : 150px;
+
+  }
 </style>
