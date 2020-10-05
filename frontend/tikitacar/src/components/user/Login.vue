@@ -5,9 +5,10 @@
           class="fill-height"
         fluid
       >
-
+        <v-spacer></v-spacer>
+        <v-spacer>
+        </v-spacer>
         <v-row
-
         >
 
           <v-col lg7>
