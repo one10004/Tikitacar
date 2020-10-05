@@ -18,7 +18,7 @@
                 <td width="10%">{{props.item.id}}</td>
                 <td width="50%">{{props.item.title}}</td>
                 <td width="10%">{{props.item.nickname}}</td>
-                <td width="10%"><star-rating star-size="25" v-model="props.item.rating" show-rating="false"  read-only></star-rating></td>
+                <td width="10%"><star-rating star-size="25" v-model="props.item.rating" :show-rating=false  read-only></star-rating></td>
                 <td width="10%">{{props.item.date}}</td>
               </tr>
             </template>
