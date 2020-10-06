@@ -5,7 +5,7 @@
         <v-container fluid>
           <v-row> 제목</v-row>
           <v-row>
-            <v-text-field readonly v-model="reviewDetail.title" name="title" ></v-text-field>
+            <v-text-field readonly v-model="reviewDetail.title"></v-text-field>
           </v-row>
           <v-row> 거래 선택</v-row>
           <v-row>
@@ -63,12 +63,12 @@
           </v-row>
           <v-row> 내용</v-row>
           <v-row>
-            <v-textarea filled name="context" readonly  v-model="reviewDetail.content"
+            <v-textarea filled readonly  v-model="reviewDetail.content"
                         ></v-textarea>
           </v-row>
           <v-row v-if="equal">
-            <v-btn @click="reviewDelete">리뷰 삭제</v-btn>
-            <v-btn @click="reviewUpdate">리뷰 수정</v-btn>
+            <v-btn color="red" dark @click="reviewDelete">리뷰 삭제</v-btn>
+            <v-btn color="primary" @click="reviewUpdate">리뷰 수정</v-btn>
           </v-row>
         </v-container>
       </v-form>
@@ -106,6 +106,7 @@ export default {
      // console.dir(this.reviewDetail);
      // console.log(this.reviewDetail.nickname+ " 111" + this.$store.getters.currentUserNickname)
       console.dir(this.reviewDetail)
+      console.log(this.$store.getters.currentUserNickname)
       if(this.reviewDetail.nickname==this.$store.getters.currentUserNickname){
         console.log("일치")
         this.equal = true;
@@ -114,6 +115,8 @@ export default {
       this.getInfo(this.reviewDetail.dealId)
           .then((res) => {
             this.info = res.data;
+            console.log("??")
+            console.dir(this.info);
             if(this.info.data.distance > 50000) this.status = "많음";
             else if(this.info.data.distance > 20000) this.status = "보통";
             else this.status = "적음";
