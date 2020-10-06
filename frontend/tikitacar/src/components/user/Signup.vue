@@ -208,24 +208,24 @@ export default{
         return;
       }
       //this.checking.email = false;
-      console.dir(this.checking);
-      console.log("before axios");
+      //console.dir(this.checking);
+      //console.log("before axios");
       let URL = api.ROOT_URL + api.ROUTES.USERS.emailDuplicateCheckURL + "/" + this.signupData.email;
 
       axios.get(URL, {}).then((response) =>{
-        console.dir(response.data.msg);
+        //console.dir(response.data.msg);
         event.target.style.color="green";
         this.checking.email = true;
         swal('O', response.data.msg, 'success');
       }).catch((error) =>{
-        console.dir(error);
+        //console.dir(error);
         alert(error.response.data.msg);
         event.target.style.color="red";
 
         this.checking.email = false;
         return;
       }).finally(()=>{
-        console.dir(this.checking);
+        //console.dir(this.checking);
       });
 
 
@@ -243,17 +243,17 @@ export default{
         alert(response.data.msg);
         event.target.style.color="green";
         this.checking.nickname = true;
-        //console.dir(this.checking.email);
-        console.log("통과");
+        ////console.dir(this.checking.email);
+        //console.log("통과");
       }).catch((error) =>{
         alert(error.response.data.msg);
         event.target.style.color="red";
         this.checking.nickname = false;
         return;
       }).finally(()=>{
-        console.dir(this.checking);
+        //console.dir(this.checking);
       });
-    console.log("중복 X");
+    //console.log("중복 X");
 
 
 
@@ -262,7 +262,7 @@ export default{
     },
     userCreateSubmit : function(){
       if(!this.checking.email || !this.checking.nickname){
-        console.log(this.checking.email + " " + this.checking.nickname);
+        //console.log(this.checking.email + " " + this.checking.nickname);
         swal('X', "중복 확인을 해주세요", 'error');
 
         return;

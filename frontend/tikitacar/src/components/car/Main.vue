@@ -62,10 +62,10 @@ import {mapActions} from 'vuex';
       selectFrom(event) {
         this.getMfrOptions(event)
           .then((res) => {
-            console.log(res);
+            //console.log(res);
           })
           .catch((err) => {
-            console.log(err);
+            //console.log(err);
           })
       }
     },

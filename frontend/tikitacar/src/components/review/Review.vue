@@ -72,10 +72,10 @@ export default {
   created() {
     let URL = api.ROOT_URL + api.ROUTES.REVIEW.getReviewListURL + "/" + "0";
     let config = this.$store.getters.config;
-    console.log(URL + " " + config);
+    //console.log(URL + " " + config);
     axios.get(URL, config).then((res) => {
       this.reviewList = res.data.reviewSearchResponseDtoList;
-      console.dir(this.reviewList);
+      //console.dir(this.reviewList);
       this.totalPage = res.data.totalPage;
     }).catch((err) => {
       swal("X", err.response.data.msg, 'error');
@@ -88,10 +88,10 @@ export default {
     getnext(page){
       let URL = api.ROOT_URL + api.ROUTES.REVIEW.getReviewListURL + "/" + (page-1);
       let config = this.$store.getters.config;
-      console.log(URL + " " + config);
+      //console.log(URL + " " + config);
       axios.get(URL, config).then((res) => {
         this.reviewList = res.data.reviewSearchResponseDtoList;
-        console.dir(this.reviewList);
+        //console.dir(this.reviewList);
         this.totalPage = res.data.totalPage;
       }).catch((err) => {
         swal("X", err.response.data.msg, 'error');

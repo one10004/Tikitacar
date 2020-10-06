@@ -168,7 +168,7 @@ import api from "@/api/api.js";
           else this.status = "적음";
         })
         .catch((err) => {
-          console.log(err);
+          //console.log(err);
         })
     },
     methods: {

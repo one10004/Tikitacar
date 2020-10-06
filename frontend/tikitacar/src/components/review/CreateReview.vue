@@ -61,7 +61,7 @@ export default {
 
     axios.get(URL, config).then((res) => {
       this.completeDealList = res.data.data;
-      console.dir(res);
+      //console.dir(res);
     }).catch((err) => {
       swal('X', err.response.data.msg, 'error');
     })
