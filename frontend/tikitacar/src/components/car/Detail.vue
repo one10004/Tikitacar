@@ -1,6 +1,6 @@
 <template>
-  <v-app id="inspire">
-    <v-main style="padding-left: 5%; margin-top: 50px;">
+  <v-app id="app">
+    <v-main style="padding-left: 10%; margin-top: 40px;">
       <h2>{{this.info.data.title}}</h2>
       <hr>
       <div class="carInfo">
@@ -70,6 +70,7 @@
         </div>
       </div>
       <div class="detailInfo">
+        <hr>
         <h3>차량 정보</h3>
         <v-row>
           <v-col cols="12" sm="4">
@@ -91,10 +92,12 @@
         </v-row>
       </div>
       <div>
+        <hr>
         <h3>주행거리 분석</h3>
         <p>주행 거리는 총 <span style="font-size: 30px; color: blue; padding-left: 8px;">{{this.info.data.distance}} km</span> 로 일반적인 연평균 주행거리 대비 [<span style="color: green; font-weight: bold;">{{this.status}}</span>] 입니다.</p>
       </div>
       <div>
+        <hr>
         <h3>주요옵션</h3>
         <div style="display: flex;">
           <v-icon size="60px" style="margin-right: 30px;">mdi-map-marker</v-icon>
@@ -104,6 +107,7 @@
         </div>
       </div>
       <div>
+        <hr>
         <h3>판매자 정보</h3>
         <p>판매자: {{this.info.data.nickname}}</p>
         <p>전화번호: {{this.info.data.phone}}</p>
@@ -177,6 +181,9 @@ import api from "@/api/api.js";
 </script>
 
 <style scoped>
+  #app {
+    font-family: 'Do Hyeon', sans-serif;
+  }
   hr {
     margin-top: 10px;
     margin-bottom: 40px;

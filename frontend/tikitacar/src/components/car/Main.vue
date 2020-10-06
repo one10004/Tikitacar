@@ -1,9 +1,11 @@
 <template>
-  <v-app id="inspire">
+  <v-app id="app">
     <span class="background"></span>
-    <v-main style="padding-left: 250px;">
+    <v-main style="padding-left: 10%;">
+      <p style="font-size: 90px; margin-top: 100px;">더이상 <span style="color: blue;">티키타카</span> 하지 마세요,</p>
+      <p style="font-size: 90px; margin-left: 250px;">이제 <span style="color: blue;">티키타Car</span> 하세요.</p>
 
-    <h3>추천 차량</h3>
+    <h2>추천 차량</h2>
     <v-container style="margin-left: 0px;">
       <v-row class="recommend">
         <v-col cols="12" sm="4">
@@ -66,18 +68,25 @@ import {mapActions} from 'vuex';
             console.log(err);
           })
       }
+    },
+    created() {
+
     }
   }
 </script>
 
 <style scoped>
+  #app {
+    font-family: 'Do Hyeon', sans-serif;
+  }
   .background {
     background: url("../../assets/background.jpg");
     width: 100%;
     height: 100%;
     position: absolute;
     top: 0;
-    left: 0;
+    left: 60px;
+    opacity: 0.4;
   }
   .carSearch {
     margin-top: 10px;
@@ -91,7 +100,7 @@ import {mapActions} from 'vuex';
     top: 30%; 
     right: 5%;
   }
-  h3 {
+  h2 {
     margin-top: 50px;
     margin-left: 8px;
   }

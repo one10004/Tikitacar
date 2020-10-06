@@ -1,6 +1,6 @@
 <template>
   <v-app id="inspire">
-    <v-main style="padding-left: 5%; margin-top: 50px;">
+    <v-main style="padding-left: 10%; margin-top: 50px;">
       <h3>내 차 가격 조회</h3>
       <v-row style="margin-right: 100px;">
         <v-col cols="12" sm="2">
@@ -153,7 +153,7 @@ import {mapActions} from "vuex";
         releasePrice: 0,
         option: 0,
       },
-      result: 0,
+      result: -1,
       colorOptions: ["없음","흰색","검정색","진회색","은색","진주색","회색","베이지색","빨간색","진청색","청색","파란색","하늘색","기타색상"],
       gearOptions: ["없음", "자동", "수동"],
       fuelOptions: ["없음", "가솔린", "디젤", "LPG", "전기"],

@@ -1,6 +1,6 @@
 <template>
   <v-app id="app">
-    <v-main style="padding-left: 10%; margin-top: 50px; font-family: 'Do Hyeon', sans-serif;">
+    <v-main style="padding-left: 10%; margin-top: 10px; font-family: 'Do Hyeon', sans-serif;">
       <h3>빠른 시세 검색</h3>
       <v-card class="carSearch">
         <v-container fluid>
@@ -267,6 +267,7 @@ import api from "@/api/api.js";
   .thumbnail {
     width: 100%;
     height: 200px;
+    margin-bottom: 10px;
   }
   .result {
     margin-top: 25px;
@@ -279,5 +280,11 @@ import api from "@/api/api.js";
     font-size: 60px;
     font-weight: bold;
     color: #10A5F5;
+  }
+  .recommend p {
+    margin-top: 5px;
+    margin-left: 20px;
+    margin-bottom: 0px;
+    opacity: 0.7;
   }
 </style>

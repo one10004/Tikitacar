@@ -90,10 +90,11 @@ export default {
     getters;
   },
   fetchData({getters}, searchInfo) {
+    var nums = ["cc", "distance", "flooding", "insurance", "price", "seat", "year1", "year2"];
     for(var prop in searchInfo) {
       if(searchInfo[prop] === "" || searchInfo[prop] === "0") {
-        searchInfo[prop] = "없음";
-        console.log(searchInfo[prop]);
+        if(nums.includes(prop)) searchInfo[prop] = -1;
+        else searchInfo[prop] = "없음"
       }
     }
     return new Promise((resolve, reject) => {

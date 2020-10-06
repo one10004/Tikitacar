@@ -7,16 +7,15 @@
       left
       style="width: 250px;"
     >
-      <router-link :to="{name: 'Main'}" style="text-decoration: none;">
-        <h1>tikitaCAR</h1>
-      </router-link>
-
-      
+        <router-link :to="{name: 'Main'}" style="text-decoration: none;">
+          <v-img style="left: 20%;" width="150px" height="150px" :src="image" />
+        </router-link>
         <div style="text-align: center;" v-if="!isLoggedin">
           <router-link :to="{name: 'Login'}" style="text-decoration: none;">
             <v-icon
               style="margin-top:15px;font-size:65px;padding-bottom:0px;"
             >mdi-account-circle</v-icon>
+            <p>로그인 해주세요!</p>
           </router-link>
         </div>
         <div v-else>
@@ -36,7 +35,7 @@
               <v-icon>mdi-magnify</v-icon>
             </v-list-item-action>
             <v-list-item-content>
-              <v-list-item-title>검색</v-list-item-title>
+              <v-list-item-title style="font-size: 15px;">내 차 사기</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </router-link>
@@ -47,18 +46,18 @@
               <v-icon color="blue">mdi-car</v-icon>
             </v-list-item-action>
             <v-list-item-content>
-              <v-list-item-title>내 차 팔기</v-list-item-title>
+              <v-list-item-title style="font-size: 15px;">내 차 팔기</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
 
         </router-link>
-        <router-link router-link :to="{name  : 'Review'}">
+        <router-link router-link :to="{name  : 'Review'}" style="text-decoration: none;">
           <v-list-item link>
             <v-list-item-action >
               <v-icon color="blue">mdi-car</v-icon>
             </v-list-item-action>
             <v-list-item-content>
-              <v-list-item-title>차량 후기</v-list-item-title>
+              <v-list-item-title style="font-size: 15px;">차량 후기</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </router-link>
@@ -69,7 +68,7 @@
               <v-icon color="yellow">mdi-currency-usd</v-icon>
             </v-list-item-action>
             <v-list-item-content>
-              <v-list-item-title>내 차 가격 조회</v-list-item-title>
+              <v-list-item-title style="font-size: 15px;">내 차 가격 조회</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </router-link>
@@ -98,6 +97,7 @@ export default {
       source: String,
   },
   data: () => ({
+    image: require('@/assets/TIKITACAR_LOGO_2.jpg')
   }),
   created : function(){
    // this.isloggedIn=this.;
