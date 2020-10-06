@@ -237,6 +237,7 @@ import api from "@/api/api.js";
   }
   .detailInfo {
     margin-top: 100px;
+    color : black
   }
   .recommend {
     margin-right: 60px;

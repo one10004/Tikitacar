@@ -21,7 +21,7 @@
 
         </div>
       </v-container>
-      <v-row>
+      <v-row v-if="$store.getters.isLoggedIn">
         <v-btn outlined color="blue" router-link :to="{name  : 'CreateReview'}">후기 작성</v-btn>
       </v-row>
     </v-main>
