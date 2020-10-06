@@ -12,19 +12,22 @@
         </router-link>
         <div style="text-align: center;" v-if="!isLoggedin">
           <router-link :to="{name: 'Login'}" style="text-decoration: none;">
+            <div style="border: 1px solid; width: 100px; margin: 0 auto; border-radius: 2px; display: flex;">
+              <v-icon
+                style="margin: 6px 0px 5px 8px; font-size:30px;"
+              >mdi-account-circle</v-icon>
+              <p style="margin: 8px 0px 0px 10px;">로그인</p>
+            </div>
+          </router-link>
+        </div>
+        <div style="text-align: center;" v-else>
+          <router-link :to="{name  : 'MyPage'}" style="text-decoration: none;">
             <v-icon
               style="margin-top:15px;font-size:65px;padding-bottom:0px;"
             >mdi-account-circle</v-icon>
-            <p>로그인 해주세요!</p>
+            <p style="margin-bottom: 0px; color: black;">님 반갑습니다!</p>
           </router-link>
-        </div>
-        <div v-else>
-          <v-card>
-            <v-card-actions>
-              <v-btn router-link :to="{name  : 'MyPage'}">마이 페이지</v-btn>
-              <v-btn @click="logout">로그 아웃</v-btn>
-            </v-card-actions>
-          </v-card>
+          <p style="text-decoration: none; color: blue; font-size: 13px; cursor: pointer;" @click="logout">로그 아웃</p>
         </div>
         
       
