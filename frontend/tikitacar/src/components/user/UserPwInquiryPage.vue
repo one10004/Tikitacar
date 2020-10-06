@@ -2,12 +2,13 @@
   <v-app id="app">
     <v-main>
       <v-row>
-        <v-col>
+
+        <v-col offset-md="2" md="5">
           <v-card>
             <v-card-title>
-              <v-toolbar color="cyan"
+              <v-toolbar color="primary"
               dark
-              flat>>
+              >
                 비밀번호 찾기
               </v-toolbar>
             </v-card-title>
@@ -23,7 +24,7 @@
               </v-form>
             </v-card-text>
             <v-card-actions>
-              <v-btn color="cyan" dark @click="findPassword(UserFindPasswordRequest)">
+              <v-btn color="primary" @click="findPassword(UserFindPasswordRequest)">
                 비밀번호 찾기
               </v-btn>
             </v-card-actions>

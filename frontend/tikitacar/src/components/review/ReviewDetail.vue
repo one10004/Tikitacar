@@ -2,10 +2,10 @@
   <v-app id="app">
     <v-main>
       <v-form>
-        <v-container>
+        <v-container fluid>
           <v-row> 제목</v-row>
           <v-row>
-            <v-text-field readonly v-model="reviewDetail.title" :counter="50" label="제목" name="title" required maxlength="50"></v-text-field>
+            <v-text-field readonly v-model="reviewDetail.title" name="title" ></v-text-field>
           </v-row>
           <v-row> 거래 선택</v-row>
           <v-row>
@@ -152,7 +152,10 @@ export default {
 
 </script>
 
-<style>
+<style scoped>
+*{
+  padding: 3px;
+}
 .detailInfo {
   margin-top: 100px;
 }
