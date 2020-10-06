@@ -16,7 +16,7 @@ export default {
 
           commit('SET_USER', res)
           router.push({ name: 'Home' })
-         // router.go()
+          router.go()
         })
         .catch((err) => {
          // console.log(err)
