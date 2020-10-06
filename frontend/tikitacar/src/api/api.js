@@ -1,6 +1,6 @@
 
 export default {
-    ROOT_URL : process.env.NODE_ENV=="local"?"http://localhost:8081/" :"http://j3a106.p.ssafy.io/",
+    ROOT_URL : process.env.NODE_ENV=="local"?"http://localhost:8081/" :"http://j3a106.p.ssafy.io/api/",
     ROUTES : {
         USERS: {
             emailDuplicateCheckURL: "user/email",
@@ -16,7 +16,7 @@ export default {
             updateReviewURL : "review",
             deleteReviewURL : "review",
             getReviewListURL : "review/all",
-            getReviewDetailURL : "/review/view"
+            getReviewDetailURL : "review/view"
         },
         AUTH : {
             loginURL : "auth/login",
