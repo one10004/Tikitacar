@@ -41,11 +41,6 @@ const routes = [
     component: MyPage
   },
   {
-    path: '/main',
-    name: 'Main',
-    component: Main
-  },
-  {
     path: '/detail/:id',
     name: 'Detail',
     component: Detail,
@@ -54,8 +49,8 @@ const routes = [
     })
   },{
     path : '/',
-    name : "Home",
-
+    name : "Main",
+    component: Main,
   },
   {
     path: '/search',

@@ -31,6 +31,7 @@ export default {
         },
         CAR: {
             getModelURL: "price/",
+            getModelPriceURL: "price/model/",
             getPredictedPrice: "car/predict",
             dealSearchMyURL : "deal/search/my",
         },

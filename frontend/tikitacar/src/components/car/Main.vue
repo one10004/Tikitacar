@@ -1,76 +1,11 @@
 <template>
-  <v-app id="inspire">
-    <v-main style="padding-left: 5%;">
-      <h3>시세 검색</h3>
-      <v-card class="carSearch">
-        <v-container fluid>
-          <v-row
-            align="center"
-          >
-            <v-col cols="12" sm="2">
-              <v-select
-                v-model="searchInfo.from"
-                :items="fromOptions"
-                label="수입/국산"
-                solo
-                @change="selectFrom($event)"
-              ></v-select>
-            </v-col>
-            <v-col cols="12" sm="2">
-              <v-select
-                v-model="searchInfo.manufacturer"
-                :items="manufacturerOptions"
-                label="제조사"
-                solo
-              ></v-select>
-            </v-col>
-            <v-col cols="12" sm="2">
-              <v-select
-                v-model="searchInfo.model"
-                :items="modelOptions"
-                label="모델"
-                solo
-              ></v-select>
-            </v-col>
-            <v-col cols="12" sm="2">
-              <v-select
-                v-model="value"
-                :items="items"
-                label="세부모델"
-                solo
-              ></v-select>
-            </v-col>
-            <v-col cols="12" sm="2">
-              <div class="searchBtn">
-                <v-btn
-                  color="primary"
-                  @click="search(searchInfo)"
-                >Search</v-btn>
-              </div>
-            </v-col>
-          </v-row>
-        </v-container>
-      </v-card>
-    <h3>내차 알아보기</h3>
-    <v-container style="margin-left: 0px;">
-      <v-row>
-        <v-col cols="12" sm="4">
-          <v-text-field
-            solo
-            label="차량 번호를 입력해주세요."
-            clearable
-            background-color="#C8E8F6"
-          >
-            <v-icon 
-              slot="append"
-              @click="toSearch"
-            >mdi-magnify</v-icon>
-          </v-text-field>
-        </v-col>
-      </v-row>
-    </v-container>
+  <v-app id="app">
+    <span class="background"></span>
+    <v-main style="padding-left: 10%;">
+      <p style="font-size: 90px; margin-top: 100px;">더이상 <span style="color: blue;">티키타카</span> 하지 마세요,</p>
+      <p style="font-size: 90px; margin-left: 250px;">이제 <span style="color: blue;">티키타Car</span> 하세요.</p>
 
-    <h3>추천 차량</h3>
+    <h2>추천 차량</h2>
     <v-container style="margin-left: 0px;">
       <v-row class="recommend">
         <v-col cols="12" sm="4">
@@ -133,11 +68,26 @@ import {mapActions} from 'vuex';
             console.log(err);
           })
       }
+    },
+    created() {
+
     }
   }
 </script>
 
 <style scoped>
+  #app {
+    font-family: 'Do Hyeon', sans-serif;
+  }
+  .background {
+    background: url("../../assets/background.jpg");
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 60px;
+    opacity: 0.4;
+  }
   .carSearch {
     margin-top: 10px;
     width: 1100px;
@@ -150,7 +100,7 @@ import {mapActions} from 'vuex';
     top: 30%; 
     right: 5%;
   }
-  h3 {
+  h2 {
     margin-top: 50px;
     margin-left: 8px;
   }

@@ -1,7 +1,57 @@
 <template>
-  <v-app id="inspire">
-    <v-main style="padding-left: 5%; margin-top: 50px;">
-      <h3>차량 등록</h3>
+  <v-app id="app">
+    <v-main style="padding-left: 10%; margin-top: 10px;">
+      <h2>빠른 시세 검색</h2>
+      <v-card class="carSearch">
+        <v-container fluid>
+          <v-row
+            align="center"
+          >
+            <v-col cols="12" sm="3">
+              <v-select
+                :items="fromOptions"
+                label="수입/국산"
+                solo
+              ></v-select>
+            </v-col>
+            <v-col cols="12" sm="3">
+              <v-select
+                :items="manufacturerOptions"
+                label="제조사"
+                solo
+                @change="selectManufactuer($event)"
+              ></v-select>
+            </v-col>
+            <v-col cols="12" sm="3">
+              <v-select
+                v-model="model"
+                :items="modelOptions"
+                label="모델"
+                solo
+              ></v-select>
+            </v-col>
+            <v-col cols="12" sm="2">
+              <div class="searchBtn">
+                <v-btn
+                  color="primary"
+                  @click="quickSearch()"
+                >Search</v-btn>
+              </div>
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-card>
+      <div style="display: none" v-if="result === -1">
+      </div>
+      <div class="result" v-else>
+        <p class="resultSentence">{{model}}의 시세 가격은</p>
+        <p class="price">{{priceLow}} 만원 <span class="resultSentence">~</span> {{priceHigh}} 만원</p>
+        <p class="resultSentence">입니다.</p>
+      </div>
+
+
+
+      <h2>차량 등록</h2>
       <h5>제목</h5>
       <v-text-field
         style="width: 80%;"
@@ -198,12 +248,16 @@ import {mapActions} from "vuex";
         files: [],
       },
       uploadImageIndex: 0,
+      model: "",
+      priceLow: 0,
+      priceHigh: 0,
+      result: -1,
       colorOptions: ["없음","흰색","검정색","진회색","은색","진주색","회색","베이지색","빨간색","진청색","청색","파란색","하늘색","기타색상"],
       gearOptions: ["없음", "자동", "수동"],
       fuelOptions: ["없음", "가솔린", "디젤", "LPG", "전기"],
     }),
     methods: {
-      ...mapActions(["registerCar"]),
+      ...mapActions(["registerCar", "getMinMax"]),
       imageSelection() {
         let num = -1;
         for (let i = 0; i < this.$refs.images.files.length; i++) {
@@ -224,6 +278,27 @@ import {mapActions} from "vuex";
         const name = e.target.getAttribute("name");
         this.info.files = this.info.files.filter((data) => data.number !== Number(name));
       },
+      selectManufactuer(event) {
+        this.getModels(event)
+          .then((res) => {
+            this.modelOptions = res;
+            console.log(res);
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+      },
+      quickSearch() {
+        this.result = this.result * -1;
+        this.getMinMax(this.model)
+          .then((res) => {
+            this.priceLow = res.priceLow;
+            this.priceHigh = res.priceHigh;
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+      },
     },
     created() {
       this.info.dealInfo.cc = this.$route.query.info.cc;
@@ -243,7 +318,10 @@ import {mapActions} from "vuex";
 </script>
 
 <style scoped>
-  h3 {
+  #app {
+    font-family: 'Do Hyeon', sans-serif;
+  }
+  h2 {
     margin-top: 50px;
   }
   h5 {
