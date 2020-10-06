@@ -2,14 +2,14 @@
   <v-app id="app">
     <v-main>
 
-      <v-container>
+      <v-container fluid>
 
        <v-row>
 
-        <v-col offset="2">
+        <v-col offset="2" md="6">
           <v-card id = "myinfo">
             <v-toolbar
-                color="cyan"
+                color="primary"
                 dark
                 flat>
               <v-toolbar-title>내 회원 정보</v-toolbar-title>
@@ -79,8 +79,8 @@
               </v-text-field>
             </v-form>
             <v-card-actions>
-              <v-btn router-link :to="{name  : 'UserDeletePage'}">회원 탈퇴</v-btn>
-              <v-btn router-link :to="{name  : 'UserUpdatePage'}">회원 정보 수정</v-btn>
+              <v-btn color="red" dark router-link :to="{name  : 'UserDeletePage'}">회원 탈퇴</v-btn>
+              <v-btn color="primary" router-link :to="{name  : 'UserUpdatePage'}">회원 정보 수정</v-btn>
             </v-card-actions>
 
           </v-card>
@@ -91,37 +91,7 @@
       <v-divider> </v-divider>
         <v-spacer></v-spacer>
 
-        <v-row >
-        <v-col offset="2">
-          <v-card id ="mysales">
-            <v-toolbar
-                color="cyan"
-                dark
-                flat>
-              <v-toolbar-title>내 게시물 목록</v-toolbar-title>
-              <v-spacer></v-spacer>
-            </v-toolbar>
-            <v-row>
-              <v-col>
-                <v-card>
-                  게시물 1
-                </v-card>
 
-              </v-col>
-              <v-col>
-                <v-card>
-                  게시물 2
-                </v-card>
-              </v-col>
-              <v-col>
-                <v-card>
-                  게시물 3
-                </v-card>
-              </v-col>
-            </v-row>
-          </v-card>
-        </v-col>
-      </v-row>
       </v-container>
     </v-main>
 
