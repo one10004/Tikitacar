@@ -187,6 +187,7 @@ public class DealServiceImpl implements DealService {
 
 
     @Override
+    @Transactional
     public void updateDealStatus(Long dealId, String email) {
         Deal deal = Optional.of(dealRepository.findById(dealId))
                 .orElseThrow(() -> new NoSuchElementException("거래가 존재하지 않음.")).get();
