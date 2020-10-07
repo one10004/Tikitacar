@@ -2,19 +2,19 @@
   <v-app id="login">
     <v-main>
       <v-container
-        class="fill-height"
+          class="fill-height"
         fluid
-
       >
+        <v-spacer></v-spacer>
+        <v-spacer>
+        </v-spacer>
         <v-row
-            align="end"
-          justify="center"
         >
-          <v-spacer></v-spacer>
+
           <v-col lg7>
-            <v-card class="elevation-0">
+            <v-card height="600" class="elevation-0">
               <v-toolbar
-                color="cyan"
+                color="primary"
                 dark
                 flat>
                 <v-toolbar-title>로그인</v-toolbar-title>
@@ -29,6 +29,7 @@
                     v-model="loginRequest.email"
                     prepend-icon="mdi-account-circle"
                     type="text"
+                    height="50"
                   ></v-text-field>
 
                   <v-text-field
@@ -40,13 +41,14 @@
                     :append-icon="showPassword? 'mdi-eye' : 'mdi-eye-off'"
                     :type="showPassword? 'text' : 'password'"
                     @click:append="showPassword = ! showPassword"
+                    height="50"
                   ></v-text-field>
                 </v-form>
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn dark color="info" @click="login(loginRequest)">로그인</v-btn>
-                <v-btn dark color="info" router-link :to="{name  : 'PwInquiry'}">비밀번호 찾기</v-btn>
+                <v-btn color="primary" @click="login(loginRequest)">로그인</v-btn>
+                <v-btn color="primary" router-link :to="{name  : 'PwInquiry'}">비밀번호 찾기</v-btn>
               </v-card-actions>
             </v-card>
 
@@ -58,16 +60,17 @@
             <v-card class="elevation-0">
 
               <v-card-text>
-
+                <br><br><br>
                 TIKITACAR 회원으로 가입하시면<br>
                 TIKITACAR의 모든 서비스를<br>
                 이용하실 수 있습니다.
-
+                <br>
+                <br>
+                <br>
 
               </v-card-text>
               <v-card-actions>
-
-                <v-btn dark width = "40%" color="cyan" router-link :to="{name  : 'SignUp'}">회원 가입</v-btn>
+                <v-btn width = "40%" color="primary" router-link :to="{name  : 'SignUp'}">회원 가입</v-btn>
               </v-card-actions>
             </v-card>
           </v-col>
@@ -98,7 +101,7 @@ import swal from "sweetalert";
     ,
     created : function() {
       this.isloggedIn = this.$store.getters.isLoggedIn;
-      console.dir(this.isloggedIn);
+      //console.dir(this.isloggedIn);
       if (this.isloggedIn) {
 
         swal('X', '이미 로그인 되있는 상태입니다', 'warning');

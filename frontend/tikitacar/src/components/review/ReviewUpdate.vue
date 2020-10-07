@@ -62,7 +62,7 @@ export default {
 
     axios.get(URL, config).then((res) => {
       this.completeDealList = res.data.data;
-      console.dir(res);
+      //console.dir(res);
     }).catch((err) => {
       swal('X', err.response.data.msg, 'error');
     })
@@ -90,7 +90,7 @@ export default {
       let config = this.$store.getters.config;
       axios.get(URL,config).then((res)=>{
         this.updateReviewRequestData = res.data.data;
-        console.dir(this.updateReviewRequestData);
+        //console.dir(this.updateReviewRequestData);
       }).catch((err) =>{
         swal('X', err.response.data.msg, 'error');
       })
