@@ -25,7 +25,7 @@
             <v-icon
               style="margin-top:15px;font-size:65px;padding-bottom:0px;"
             >mdi-account-circle</v-icon>
-            <p style="margin-bottom: 0px; color: black;">님 반갑습니다!</p>
+            <p style="margin-bottom: 0px; color: black;">{{this.nickname}}님 반갑습니다!</p>
           </router-link>
           <p style="text-decoration: none; color: blue; font-size: 13px; cursor: pointer;" @click="logout">로그 아웃</p>
         </div>
@@ -100,17 +100,19 @@ export default {
       source: String,
   },
   data: () => ({
-    image: require('@/assets/TIKITACAR_LOGO_2.jpg')
+    image: require('@/assets/TIKITACAR_LOGO_2.jpg'),
+    nickname: "",
   }),
-  created : function(){
-   // this.isloggedIn=this.;
-
+  updated() {
+    this.nickname = this.$store.getters.currentUserNickname;
   },
+
   methods : {
     ...mapActions(["logout"]),
 
   }, computed : {
-    isLoggedin (){ return this.$store.getters.isLoggedIn}
+    isLoggedin (){ return this.$store.getters.isLoggedIn},
+    // currentUserNickname() {return this.$store.getters.currentUserNickname}
   },
   name: 'App',
   components: {}
