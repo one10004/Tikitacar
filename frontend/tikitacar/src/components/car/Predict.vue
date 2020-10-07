@@ -152,46 +152,65 @@
       </v-row>
       <v-btn
         color="primary"
-        @click="predict()"
-      >조회</v-btn>
-      <v-dialog hide-overlay
-          v-model="result" scrollable origin="top center">
+        :loading="loading"
+        :disabled="loading"
+        width="150px"
+        height="40px"
+        @click="loader='loading'; predict()"
+      >빅데이터 분석
+        <template v-slot:loader>
+          <span>빅데이터 분석 중...</span>
+        </template>
+      </v-btn>
+      <v-dialog
+          v-model="result" width="750" origin="top center">
           <v-card>
-          <v-card-title>
-            차량 정보
-          </v-card-title>
-          <hr>
-          <v-row>
-            <v-col cols="12" sm="3">
-              <p>모델명: {{model}} {{this.info.name}}</p>
-              <p>주행거리: {{this.info.distance}}km</p>
-              <p>변속기: {{this.info.gear}}</p>
-              <p>출시가격: {{this.info.releasePrice}}</p>
-            </v-col>
-            <v-col cols="12" sm="3">
-              <p>색상: {{this.info.color}}</p>
-              <p>연식: {{this.info.year}}</p>
-              <p>인승: {{this.info.seat}} 인승</p>
-            </v-col>
-            <v-col cols="12" sm="3">
-              <p>침수이력: {{this.info.flooding}} 회</p>
-              <p>보험: {{this.info.insurance}} 개</p>
-              <p>연료: {{this.info.fuel}}</p>
-            </v-col>
-          </v-row>
-        <hr>
-          <p><span style="font-weight: bold">TIKITACAR</span>가 예측한 고객님의 {{model}} {{info.name}} 예상 금액은
-          <p style="color : blue; font-weight: bold; font-size: 30px;"> {{this.info.price}}만원
-          <p>입니다.
-          <v-card-actions>
-            <v-btn color="primary" @click="sellMyCar()">내 차 팔러 가기</v-btn>
-          </v-card-actions>
-        </v-card>
+            <v-card-title style="background-color: lightgrey;">
+              차량 정보
+            </v-card-title>
+            <v-card-text>
+              <v-row class="infoList">
+                <v-col cols="12" sm="3">
+                  <p>모델명: {{model}} {{this.info.name}}</p>
+                  <p>주행거리: {{this.info.distance}}km</p>
+                  <p>변속기: {{this.info.gear}}</p>
+                </v-col>
+                <v-col cols="12" sm="3">
+                  <p>색상: {{this.info.color}}</p>
+                  <p>연식: {{this.info.year}}</p>
+                  <p>인승: {{this.info.seat}} 인승</p>
+                </v-col>
+                <v-col cols="12" sm="3">
+                  <p>침수이력: {{this.info.flooding}} 회</p>
+                  <p>보험: {{this.info.insurance}} 개</p>
+                  <p>연료: {{this.info.fuel}}</p>
+                </v-col>
+                <v-col cols="12" sm="3">
+                  <p>옵션: {{this.info.option}} 개</p>
+                  <p>출시가격: {{this.info.releasePrice}}</p>
+                </v-col>
+              </v-row>
+              <p style="font-weight: bold; font-size: 25px; margin-bottom: 40px; margin-top: 20px; color: black"><span style="color: blue;">TIKITACAR</span>가 예측한 고객님의 {{model}} {{info.name}} 예상 금액은
+              <p style="color: blue; font-weight: bold; font-size: 50px; margin-bottom: 40px;"> {{this.info.price}} 만원
+              <p style="font-weight: bold; font-size: 25px; color:black;">입니다.
+            </v-card-text>
+            <v-card-actions>
+              <v-btn 
+                color="primary" 
+                @click="sellMyCar()"
+                style="margin-left: 20px; margin-bottom: 15px;"
+              >내 차 팔러 가기</v-btn>
+              <v-btn
+                color="blue darken-1"
+                text
+                @click="result = false"
+                style="margin-bottom: 15px;"
+              >
+                취소
+              </v-btn>
+            </v-card-actions>
+          </v-card>
       </v-dialog>
-      <div style="display: none" v-if="result === -1">
-      </div>
-      <div class="result" v-else>
-      </div>
     </v-main>
   </v-app>
 </template>
@@ -219,6 +238,8 @@ import {mapActions} from "vuex";
         year: Number
       },
       result: false,
+      loader: null,
+      loading: false,
       model: "",
       colorOptions: ["없음","흰색","검정색","진회색","은색","진주색","회색","베이지색","빨간색","진청색","청색","파란색","하늘색","기타색상"],
       gearOptions: ["없음", "자동", "수동"],
@@ -231,6 +252,8 @@ import {mapActions} from "vuex";
       predict() {
         this.predictPrice(this.info)
           .then((res) => {
+            this[this.loader] = false;
+            this.loader = null;
             this.info.price = res.data.price;
             this.result = !this.result;
           })
@@ -256,7 +279,16 @@ import {mapActions} from "vuex";
           })
       },
     },
+    watch: {
+      loader () {
+        const l = this.loader
+        this[l] = !this[l]
+
+        setTimeout(() => (this[l] = true))
+
+    }
   }
+};
 </script>
 
 <style scoped>
