@@ -235,6 +235,7 @@ public class DealServiceImpl implements DealService {
                     .price(deal.getCar().getPrice())
                     .title(deal.getTitle())
                     .content(deal.getContent())
+                    .status(deal.getStatus())
                     .build());
         }
 
