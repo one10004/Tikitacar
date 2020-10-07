@@ -165,38 +165,6 @@
       <v-dialog
           v-model="result" width="750" origin="top center">
           <v-card>
-<<<<<<< HEAD
-          <v-card-title>
-            차량 정보
-          </v-card-title>
-          <hr>
-          <v-row>
-            <v-col cols="12" sm="3">
-              <p>모델명: {{model}} {{this.info.name}}</p>
-              <p>주행거리: {{this.info.distance}}km</p>
-              <p>변속기: {{this.info.gear}}</p>
-              <p>출시가격: {{this.info.releasePrice}}</p>
-            </v-col>
-            <v-col cols="12" sm="3">
-              <p>색상: {{this.info.color}}</p>
-              <p>연식: {{this.info.year}}</p>
-              <p>인승: {{this.info.seat}} 인승</p>
-            </v-col>
-            <v-col cols="12" sm="3">
-              <p>침수이력: {{this.info.flooding}} 회</p>
-              <p>보험: {{this.info.insurance}} 개</p>
-              <p>연료: {{this.info.fuel}}</p>
-            </v-col>
-          </v-row>
-        <hr>
-          <p><span style="font-weight: bold">TIKITACAR</span>가 예측한 고객님의 {{model}} {{info.name}} 예상 금액은
-          <p style="color : blue; font-weight: bold; font-size: 30px;"> {{this.info.price}}만원
-            <p>입니다.</p>
-          <v-card-actions>
-            <v-btn color="primary" @click="sellMyCar()">내 차 팔러 가기</v-btn>
-          </v-card-actions>
-        </v-card>
-=======
             <v-card-title style="background-color: lightgrey;">
               차량 정보
             </v-card-title>
@@ -222,9 +190,9 @@
                   <p>출시가격: {{this.info.releasePrice}}</p>
                 </v-col>
               </v-row>
-              <p style="font-weight: bold; font-size: 25px; margin-bottom: 40px; margin-top: 20px; color: black"><span style="color: blue;">TIKITACAR</span>가 예측한 고객님의 {{model}} {{info.name}} 예상 금액은
-              <p style="color: blue; font-weight: bold; font-size: 50px; margin-bottom: 40px;"> {{this.info.price}} 만원
-              <p style="font-weight: bold; font-size: 25px; color:black;">입니다.
+              <p style="font-weight: bold; font-size: 25px; margin-bottom: 40px; margin-top: 20px; color: black"><span style="color: blue;">TIKITACAR</span>가 예측한 고객님의 {{model}} {{info.name}} 예상 금액은</p></p>
+              <p style="color: blue; font-weight: bold; font-size: 50px; margin-bottom: 40px;"> {{this.info.price}} 만원</p>
+              <p style="font-weight: bold; font-size: 25px; color:black;">입니다.</p>
             </v-card-text>
             <v-card-actions>
               <v-btn 
@@ -242,7 +210,6 @@
               </v-btn>
             </v-card-actions>
           </v-card>
->>>>>>> develop
       </v-dialog>
     </v-main>
   </v-app>

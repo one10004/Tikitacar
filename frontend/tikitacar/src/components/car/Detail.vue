@@ -1,7 +1,7 @@
 <template>
   <v-app id="app">
     <v-main style="padding-left: 10%; margin-top: 40px; font-family: 'Do Hyeon', sans-serif;">
-      <h2>{{this.info.data.title}}</h2>
+      <h2>{{info.data.title}}</h2>
       <hr>
       <div class="carInfo">
         <div>
