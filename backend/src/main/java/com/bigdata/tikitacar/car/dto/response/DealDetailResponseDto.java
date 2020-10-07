@@ -36,6 +36,7 @@ public class DealDetailResponseDto {
     //글정보
     String title;
     String content;
+    String status;
 
     List<String> src;
 
