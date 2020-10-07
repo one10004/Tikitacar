@@ -11,15 +11,15 @@ export default {
       let URL = api.ROOT_URL + api.ROUTES.AUTH.loginURL;
     axios.post(URL, loginData)
         .then((res) => {
-           //console.dir(res);
+           ////console.dir(res);
             swal('로그인 성공', '환영합니다 :)', 'success')
 
           commit('SET_USER', res)
           router.push({ name: 'Home' })
-         // router.go()
+          router.go()
         })
         .catch((err) => {
-         // console.log(err)
+         // //console.log(err)
           swal('실패', err.response.data.msg, 'error');
         });
   },
@@ -38,7 +38,7 @@ export default {
   deleteUser({commit}, userDeleteRequest){
     let checkURL = api.ROOT_URL + api.ROUTES.USERS.checkPasswordURL;
     let deleteURL = api.ROOT_URL + api.ROUTES.USERS.deleteUserURL;
-    //console.dir(this.getters.getAuthToken);
+    ////console.dir(this.getters.getAuthToken);
         let config = {
           headers : {
               "Authorization" : "Bearer" + " " + this.getters.getAuthToken
@@ -73,19 +73,19 @@ export default {
     })
       .then((res) => {
         info.dealInfo.src = res.data.src;
-        console.log(getters.config);
-        console.log(this.getters.config);
+        //console.log(getters.config);
+        //console.log(this.getters.config);
         axios.post(Api.ROOT_URL + Api.ROUTES.DEAL.registerCarURL, info.dealInfo, this.getters.config)
           .then((res) => {
-            console.log(res);
+            //console.log(res);
             alert("등록 성공");
           })
           .catch((err) => {
-            console.log(err);
+            //console.log(err);
           });
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
       });
     getters;
   },
@@ -100,7 +100,7 @@ export default {
     return new Promise((resolve, reject) => {
       axios.post(Api.ROOT_URL + Api.ROUTES.DEAL.searchDetailURL, searchInfo)
         .then((res) => {
-          console.log(res);
+          //console.log(res);
           resolve(res.data.data);
         })
         .catch((err) => {
@@ -156,5 +156,5 @@ export default {
           reject(err);
         })
     })
-  }
+  },
 }

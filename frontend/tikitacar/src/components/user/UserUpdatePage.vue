@@ -158,7 +158,7 @@ export default {
         "Authorization" : "Bearer" + " " + this.$store.getters.getAuthToken
       }
     };
-    //console.log(config);
+    ////console.log(config);
     axios.get(URL,config).then((res) => {
 
       this.userInfo = res.data.user;
@@ -186,13 +186,13 @@ export default {
           }
         };
         axios.put(URL,request,config).then((res) =>{
-          console.dir(res);
-          console.dir(res.data)
+          //console.dir(res);
+          //console.dir(res.data)
           alert(res.data.msg);
           router.push({name : "MyPage"});
         //  router.push({name : "Home"});
         }).catch((err) => {
-          console.dir(err);
+          //console.dir(err);
           swal('X', err.response.data.msg, 'warning');
         })
 

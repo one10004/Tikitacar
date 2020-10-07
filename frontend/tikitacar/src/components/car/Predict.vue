@@ -1,10 +1,10 @@
 <template>
-  <v-app id="inspire">
+  <v-app id="app">
     <v-main style="padding-left: 10%; margin-top: 50px;">
       <h3>내 차 가격 조회</h3>
       <v-row style="margin-right: 100px;">
         <v-col cols="12" sm="2">
-          <h5>모델명</h5>
+          <h4>모델명</h4>
           <v-text-field
             placeholder="ex) 테슬라 모델 S"
             style="width: 100%;"
@@ -12,7 +12,7 @@
           ></v-text-field>
         </v-col>
         <v-col cols="12" sm="2">
-          <h5>연식</h5>
+          <h4>연식</h4>
           <v-text-field
             placeholder="ex) 2018"
             style="width: 100%;"
@@ -21,7 +21,7 @@
           ></v-text-field>
         </v-col>
         <v-col cols="12" sm="2">
-          <h5>배기량(cc)</h5>
+          <h4>배기량(cc)</h4>
           <v-text-field
             placeholder="ex) 5000"
             style="width: 100%;"
@@ -30,7 +30,7 @@
           ></v-text-field>
         </v-col>
         <v-col cols="12" sm="2">
-          <h5>주행거리</h5>
+          <h4>주행거리</h4>
           <v-text-field
             placeholder="ex) 20000"
             style="width: 100%;"
@@ -40,7 +40,7 @@
           ></v-text-field>
         </v-col>
         <v-col cols="12" sm="2">
-          <h5>색상</h5>
+          <h4>색상</h4>
           <v-select
             placeholder="ex) 빨간색"
             style="width: 100%;"
@@ -49,7 +49,7 @@
           ></v-select>
         </v-col>
         <v-col cols="12" sm="2">
-          <h5>기어</h5>
+          <h4>기어</h4>
           <v-select
             placeholder="ex) 자동"
             style="width: 100%;"
@@ -58,7 +58,7 @@
           ></v-select>
         </v-col>
         <v-col cols="12" sm="2">
-          <h5>연료 타입</h5>
+          <h4>연료 타입</h4>
           <v-select
             placeholder="ex) 전기"
             style="width: 100%;"
@@ -67,7 +67,7 @@
           ></v-select>
         </v-col>
         <v-col cols="12" sm="2">
-          <h5>좌석 수</h5>
+          <h4>좌석 수</h4>
           <v-text-field
             placeholder="ex) 5"
             style="width: 100%;"
@@ -76,7 +76,7 @@
           ></v-text-field>
         </v-col>
         <v-col cols="12" sm="2">
-          <h5>옵션</h5>
+          <h4>옵션</h4>
           <v-text-field
             placeholder="ex) 1"
             style="width: 100%;"
@@ -86,7 +86,7 @@
           ></v-text-field>
         </v-col>
         <v-col cols="12" sm="2">
-          <h5>침수</h5>
+          <h4>침수</h4>
           <v-text-field
             placeholder="ex) 1"
             style="width: 100%;"
@@ -96,7 +96,7 @@
           ></v-text-field>
         </v-col>
         <v-col cols="12" sm="2">
-          <h5>보험</h5>
+          <h4>보험</h4>
           <v-text-field
             placeholder="ex) 2"
             style="width: 100%;"
@@ -105,7 +105,7 @@
           ></v-text-field>
         </v-col>
         <v-col cols="12" sm="2">
-          <h5>출고 가격</h5>
+          <h4>출고 가격</h4>
           <v-text-field
             placeholder="ex) 12000"
             style="width: 100%;"
@@ -142,16 +142,17 @@ import {mapActions} from "vuex";
     data: () => ({
       info: {
         name: "",
-        cc: 0,
-        distance: 0,
+        cc: Number,
+        distance: Number,
         color: "",
         gear: "",
         fuel: "",
-        seat: 0,
-        flooding: 0,
-        insurance: 0,
-        releasePrice: 0,
-        option: 0,
+        seat: Number,
+        flooding: Number,
+        insurance: Number,
+        releasePrice: Number,
+        option: Number,
+        year: Number
       },
       result: -1,
       colorOptions: ["없음","흰색","검정색","진회색","은색","진주색","회색","베이지색","빨간색","진청색","청색","파란색","하늘색","기타색상"],
@@ -167,7 +168,7 @@ import {mapActions} from "vuex";
             this.result = this.result * -1;
           })
           .catch((err) => {
-            console.log(err);
+            //console.log(err);
           })
       },
       sellMyCar() {
@@ -183,10 +184,13 @@ import {mapActions} from "vuex";
 </script>
 
 <style scoped>
+  #app {
+    font-family: 'Do Hyeon', sans-serif;
+  }
   h3 {
     margin-top: 50px;
   }
-  h5 {
+  h4 {
     margin-top: 20px;
   }
   .carSearch {
@@ -224,5 +228,12 @@ import {mapActions} from "vuex";
     font-size: 60px;
     font-weight: bold;
     color: #10A5F5;
+  } 
+</style>
+<style>
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
   }
 </style>

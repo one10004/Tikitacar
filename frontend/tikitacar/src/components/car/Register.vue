@@ -1,7 +1,7 @@
 <template>
   <v-app id="app">
     <v-main style="padding-left: 10%; margin-top: 10px;">
-      <h2>빠른 시세 검색</h2>
+      <h3>빠른 시세 검색</h3>
       <v-card class="carSearch">
         <v-container fluid>
           <v-row
@@ -51,8 +51,8 @@
 
 
 
-      <h2>차량 등록</h2>
-      <h5>제목</h5>
+      <h3>차량 등록</h3>
+      <h4>제목</h4>
       <v-text-field
         style="width: 80%;"
         v-model="info.dealInfo.title"
@@ -63,7 +63,7 @@
           <label for="file-input">
             <v-icon style="font-size:60px;">mdi-image-plus</v-icon>
           </label>
-          <h4>이미지 업로드</h4>
+          <h4 style="margin-top: 0px;">이미지 업로드</h4>
           <input
             id="file-input"
             style="display:none;"
@@ -94,7 +94,7 @@
       </form>
       <v-row style="margin-right: 100px;">
         <v-col cols="12" sm="2">
-          <h5>모델명</h5>
+          <h4>모델명</h4>
           <v-text-field
             placeholder="ex) 테슬라 모델 S"
             style="width: 100%;"
@@ -102,7 +102,7 @@
           ></v-text-field>
         </v-col>
         <v-col cols="12" sm="2">
-          <h5>연식</h5>
+          <h4>연식</h4>
           <v-text-field
             placeholder="ex) 2018"
             style="width: 100%;"
@@ -111,7 +111,7 @@
           ></v-text-field>
         </v-col>
         <v-col cols="12" sm="2">
-          <h5>배기량(cc)</h5>
+          <h4>배기량(cc)</h4>
           <v-text-field
             placeholder="ex) 5000"
             style="width: 100%;"
@@ -120,7 +120,7 @@
           ></v-text-field>
         </v-col>
         <v-col cols="12" sm="2">
-          <h5>주행거리</h5>
+          <h4>주행거리</h4>
           <v-text-field
             placeholder="ex) 20000"
             style="width: 100%;"
@@ -130,7 +130,7 @@
           ></v-text-field>
         </v-col>
         <v-col cols="12" sm="2">
-          <h5>색상</h5>
+          <h4>색상</h4>
           <v-select
             placeholder="ex) 빨간색"
             style="width: 100%;"
@@ -139,7 +139,7 @@
           ></v-select>
         </v-col>
         <v-col cols="12" sm="2">
-          <h5>기어</h5>
+          <h4>기어</h4>
           <v-select
             placeholder="ex) 자동"
             style="width: 100%;"
@@ -148,7 +148,7 @@
           ></v-select>
         </v-col>
         <v-col cols="12" sm="2">
-          <h5>연료 타입</h5>
+          <h4>연료 타입</h4>
           <v-select
             placeholder="ex) 전기"
             style="width: 100%;"
@@ -157,7 +157,7 @@
           ></v-select>
         </v-col>
         <v-col cols="12" sm="2">
-          <h5>좌석 수</h5>
+          <h4>좌석 수</h4>
           <v-text-field
             placeholder="ex) 5"
             style="width: 100%;"
@@ -166,7 +166,7 @@
           ></v-text-field>
         </v-col>
         <v-col cols="12" sm="2">
-          <h5>침수</h5>
+          <h4>침수</h4>
           <v-text-field
             placeholder="ex) 1"
             style="width: 100%;"
@@ -176,7 +176,7 @@
           ></v-text-field>
         </v-col>
         <v-col cols="12" sm="2">
-          <h5>보험</h5>
+          <h4>보험</h4>
           <v-text-field
             placeholder="ex) 2"
             style="width: 100%;"
@@ -185,7 +185,7 @@
           ></v-text-field>
         </v-col>
         <v-col cols="12" sm="2">
-          <h5>출고 가격</h5>
+          <h4>출고 가격</h4>
           <v-text-field
             placeholder="ex) 12000"
             style="width: 100%;"
@@ -195,7 +195,7 @@
           ></v-text-field>
         </v-col>
         <v-col cols="12" sm="2">
-          <h5>판매 가격</h5>
+          <h4>판매 가격</h4>
           <v-text-field
             placeholder="ex) 6000"
             style="width: 100%;"
@@ -255,9 +255,12 @@ import {mapActions} from "vuex";
       colorOptions: ["없음","흰색","검정색","진회색","은색","진주색","회색","베이지색","빨간색","진청색","청색","파란색","하늘색","기타색상"],
       gearOptions: ["없음", "자동", "수동"],
       fuelOptions: ["없음", "가솔린", "디젤", "LPG", "전기"],
+      fromOptions: ["국산"],
+      manufacturerOptions: ["현대", "기아", "쉐보레", "르노삼성", "쌍용"],
+      modelOptions: [],
     }),
     methods: {
-      ...mapActions(["registerCar", "getMinMax"]),
+      ...mapActions(["registerCar", "getMinMax", "getModels"]),
       imageSelection() {
         let num = -1;
         for (let i = 0; i < this.$refs.images.files.length; i++) {
@@ -282,7 +285,6 @@ import {mapActions} from "vuex";
         this.getModels(event)
           .then((res) => {
             this.modelOptions = res;
-            console.log(res);
           })
           .catch((err) => {
             console.log(err);
@@ -321,10 +323,10 @@ import {mapActions} from "vuex";
   #app {
     font-family: 'Do Hyeon', sans-serif;
   }
-  h2 {
+  h3 {
     margin-top: 50px;
   }
-  h5 {
+  h4 {
     margin-top: 20px;
   }
   .carSearch {
@@ -350,5 +352,17 @@ import {mapActions} from "vuex";
     padding: 5px;
     height: 80px;
     width: 80px;
+  }
+  .result {
+    margin-top: 25px;
+    margin-left: 10px;
+  }
+  .resultSentence {
+    font-size: 40px;
+  }
+  .price {
+    font-size: 60px;
+    font-weight: bold;
+    color: #10A5F5;
   }
 </style>
