@@ -116,8 +116,9 @@ public class DealController {
 
         //현재 로그인한 아이디
         String loginEmail = jwtService.getEmailFromToken(token);
+        DealDetailResponseDto dealDetailResponseDto = dealService.searchDeal(dealId);
 
-        if(loginEmail != null){
+        if(loginEmail != null && !loginEmail.equals(dealDetailResponseDto.getEmail())){
             dealService.updateDealStatus(dealId, loginEmail);
             map.put("msg","거래 완료에 성공했습니다.");
             map.put("status","success");
