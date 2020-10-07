@@ -21,7 +21,7 @@ public interface DealService {
 
     //Update
     public void updateDeal(DealUpdateRequestDto dealUpdateRequestDto);
-    public void updateDealStatus(Long dealId, DealUpdateStatusRequestDto dealUpdateStatusRequestDto);
+    public void updateDealStatus(Long dealId, String email);
 
 
     //Delete
