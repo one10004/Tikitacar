@@ -6,7 +6,7 @@ export default {
             emailDuplicateCheckURL: "user/email",
             nicknameDuplicateCheckURL: "user/nickname",
             getUserInfoURL : "user",
-            createUserURL : "user",
+            createUserURL : "user/new",
             updateUserURL : "user",
             deleteUserURL : "user",
             checkPasswordURL : "/user/check"
