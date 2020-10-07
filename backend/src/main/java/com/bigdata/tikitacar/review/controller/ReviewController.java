@@ -9,6 +9,7 @@ import com.bigdata.tikitacar.util.JwtService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -54,7 +55,7 @@ public class ReviewController {
         ResponseEntity response = null;
         Map<String,Object> map = new HashMap<String, Object>();
 
-        Map<String, Object> resultData = reviewService.searchAllReview(PageRequest.of(page, 10));
+        Map<String, Object> resultData = reviewService.searchAllReview(PageRequest.of(page, 10, Sort.by("id").descending()));
 
         map.put("msg","후기 리스트 조회에 성공했습니다.");
         map.put("status","success");
@@ -84,14 +85,14 @@ public class ReviewController {
 
     //Update
     @ApiOperation("후기 수정")
-    @PutMapping("")
+    @PutMapping("/{id}")
     public Object reviewUpdate(@RequestHeader(value="Authorization") String token,
-                                 @RequestBody ReviewUpdateRequestDto reviewUpdateRequestDto){
+                                 @RequestBody ReviewUpdateRequestDto reviewUpdateRequestDto, @PathVariable Long id){
         ResponseEntity response = null;
         Map<String,Object> map = new HashMap<String, Object>();
 
         reviewUpdateRequestDto.updateWriter(userService.findUserByEmail(jwtService.getEmailFromToken(token)).getId());
-        reviewService.updateReview(reviewUpdateRequestDto);
+        reviewService.updateReview(reviewUpdateRequestDto, id);
 
         map.put("msg","후기 수정에 성공했습니다.");
         map.put("status","success");

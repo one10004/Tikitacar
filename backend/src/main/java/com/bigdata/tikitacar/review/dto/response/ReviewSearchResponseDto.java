@@ -18,6 +18,7 @@ public class ReviewSearchResponseDto {
     String nickname;
     
     //거래정보
+    Long dealId;
     String sellerEmail;
     String sellerNickname;
     String carName;
@@ -30,4 +31,16 @@ public class ReviewSearchResponseDto {
     private String content;
     private LocalDateTime date;
     private int rating;
+
+    // 차 정보
+    int year;
+    int cc;
+    int distance;
+    String color;
+    String gear;
+    String fuel;
+    int seat;
+    int flooding;
+    int insurance;
+    String src;
 }

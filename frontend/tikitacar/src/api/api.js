@@ -16,7 +16,7 @@ export default {
             updateReviewURL : "review",
             deleteReviewURL : "review",
             getReviewListURL : "review/all",
-            getReviewDetailURL : "/review/view"
+            getReviewDetailURL : "review/view"
         },
         AUTH : {
             loginURL : "auth/login",

@@ -2,6 +2,8 @@ package com.bigdata.tikitacar.review.service;
 
 import com.bigdata.tikitacar.car.entity.Deal;
 import com.bigdata.tikitacar.car.repository.DealRepository;
+import com.bigdata.tikitacar.img.entity.Img;
+import com.bigdata.tikitacar.img.repository.ImgRepository;
 import com.bigdata.tikitacar.review.dto.request.ReviewRegisterRequestDto;
 import com.bigdata.tikitacar.review.dto.request.ReviewUpdateRequestDto;
 import com.bigdata.tikitacar.review.dto.response.ReviewSearchResponseDto;
@@ -29,6 +31,9 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    ImgRepository imgRepository;
 
     @Override
     @Transactional
@@ -67,7 +72,6 @@ public class ReviewServiceImpl implements ReviewService {
         List<ReviewSearchResponseDto> reviewSearchResponseDtoList = new ArrayList<>();
 
         Page<Review> list = reviewRepository.findAll(pageable);
-        System.out.println(list.getTotalPages());
         for(Review review : list) {
             reviewSearchResponseDtoList.add(ReviewSearchResponseDto.builder()
                     .id(review.getId())
@@ -96,11 +100,13 @@ public class ReviewServiceImpl implements ReviewService {
     public ReviewSearchResponseDto searchReview(Long id) {
         Review review = Optional.of(reviewRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("후기가 존재하지 않음."))).get();
+        List<Img> img = imgRepository.findByDeal_Id(review.getDeal().getId());
 
         ReviewSearchResponseDto reviewSearchResponseDto = ReviewSearchResponseDto.builder()
                 .id(review.getId())
                 .email(review.getWriter().getEmail())
                 .nickname(review.getWriter().getNickname())
+                .dealId(review.getDeal().getId())
                 .sellerEmail(review.getDeal().getSeller().getEmail())
                 .sellerNickname(review.getDeal().getSeller().getNickname())
                 .carName(review.getDeal().getCar().getName())
@@ -111,6 +117,16 @@ public class ReviewServiceImpl implements ReviewService {
                 .content(review.getContent())
                 .date(review.getDate())
                 .rating(review.getRating())
+                .year(review.getDeal().getCar().getYear())
+                .cc(review.getDeal().getCar().getCc())
+                .distance(review.getDeal().getCar().getDistance())
+                .color(review.getDeal().getCar().getColor())
+                .gear(review.getDeal().getCar().getGear())
+                .fuel(review.getDeal().getCar().getFuel())
+                .seat(review.getDeal().getCar().getSeat())
+                .flooding(review.getDeal().getCar().getFlooding())
+                .insurance(review.getDeal().getCar().getInsurance())
+                .src(img.get(0).getSrc())
                 .build();
 
         return reviewSearchResponseDto;
@@ -119,14 +135,14 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     @Transactional
-    public void updateReview(ReviewUpdateRequestDto reviewUpdateRequestDto) {
-        Review review = Optional.of(reviewRepository.findById(reviewUpdateRequestDto.getId())
+    public void updateReview(ReviewUpdateRequestDto reviewUpdateRequestDto, Long id) {
+        Review review = Optional.of(reviewRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("후기가 존재하지 않음."))).get();
 
         User writer = Optional.of(userRepository.findById(reviewUpdateRequestDto.getWriter())
                 .orElseThrow(() -> new NoSuchElementException("작성자가 존재하지 않음"))).get();
 
-        if(writer.getId() != reviewRepository.findById(reviewUpdateRequestDto.getId()).get().getWriter().getId()) throw new NoSuchElementException("리뷰 수정의 권한이 없음");
+        if(writer.getId() != reviewRepository.findById(id).get().getWriter().getId()) throw new NoSuchElementException("리뷰 수정의 권한이 없음");
 
         review.updateReview(reviewUpdateRequestDto.getTitle(),
                 reviewUpdateRequestDto.getContent(),

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="deal">
+    <select id="selectDealList" resultType="com.bigdata.tikitacar.car.dto.response.DealSearchResponseDto">
+        select
+            d.id as id, c.name as name,u.nickname as nickname,
+            c.release_price as releasePrice, c.price as price, c.year as year, c.distance as distance, c.color as color,
+            d.title as title, i.src as src, d.status as status
+        from
+            deal as d, car as c, user as u, img as i
+        where
+            d.car = c.id
+            and
+            d.seller=u.id
+            and
+            d.id = i.deal
+            <if test='name!="없음"'>
+                and c.name like concat('%',#{name},'%')
+            </if>
+            <if test='year1!=-1 and year2!=-1'>
+                <![CDATA[
+                and #{year1} <= c.year and c.year <=#{year2}
+                ]]>
+            </if>
+            <if test='year1==-1 and year2!=-1'>
+                <![CDATA[
+                 and 0 <= c.year and c.year <=#{year2}
+                ]]>
+            </if>
+            <if test='year1!=-1 and year2==-1'>
+                <![CDATA[
+                 and #{year1} <= c.year and c.year <= 10000
+                ]]>
+            </if>
+            <if test='year1==-1 and year2==-1'>
+                <![CDATA[
+                 and 0 <= c.year and c.year <= 10000
+                ]]>
+            </if>
+            <if test='cc!=-1'>
+                <![CDATA[
+                and c.cc <= #{cc}
+                ]]>
+            </if>
+            <if test='distance!=-1'>
+                <![CDATA[
+                and c.distance <= #{distance}
+                ]]>
+            </if>
+            <if test='color!="없음"'>
+                and c.color = #{color}
+            </if>
+            <if test='gear!="없음"'>
+                and c.gear = #{gear}
+            </if>
+            <if test='fuel!="없음"'>
+                and c.fuel = #{fuel}
+            </if>
+            <if test='seat!=-1'>
+                <![CDATA[
+                and c.seat <= #{seat}
+                ]]>
+            </if>
+            <if test='flooding!=-1'>
+                <![CDATA[
+                and c.flooding <= #{flooding}
+                ]]>
+            </if>
+            <if test='insurance!=-1'>
+                <![CDATA[
+                and c.insurance <= #{insurance}
+                ]]>
+            </if>
+            <if test='price!=-1'>
+                <![CDATA[
+                and c.price <= #{price}
+                ]]>
+            </if>
+            <if test='status!="없음"'>
+                and d.status = #{status}
+            </if>
+        group by
+            d.id
+        order by
+            d.id desc
+    </select>
+</mapper>

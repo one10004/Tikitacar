@@ -1,8 +1,10 @@
 package com.bigdata.tikitacar.car.service;
 
 import com.bigdata.tikitacar.car.dto.request.DealRegisterRequestDto;
+import com.bigdata.tikitacar.car.dto.request.DealSearchRequestDto;
 import com.bigdata.tikitacar.car.dto.request.DealUpdateRequestDto;
 import com.bigdata.tikitacar.car.dto.request.DealUpdateStatusRequestDto;
+import com.bigdata.tikitacar.car.dto.response.DealDetailResponseDto;
 import com.bigdata.tikitacar.car.dto.response.DealSearchResponseDto;
 import com.bigdata.tikitacar.car.entity.Car;
 import com.bigdata.tikitacar.car.entity.Deal;
@@ -99,11 +101,17 @@ public class DealServiceImpl implements DealService {
 
     //Read
     @Override
-    public DealSearchResponseDto searchDeal(Long id) {
+    public DealDetailResponseDto searchDeal(Long id) {
         Deal deal = Optional.of(dealRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("거래가 존재하지 않음."))).get();
 
-        DealSearchResponseDto dealSearchResponseDto = DealSearchResponseDto.builder()
+        List<Img> imgList = imgRepository.findByDeal_Id(id);
+        List<String> srcList = new ArrayList<>();
+        for (Img img : imgList) {
+            srcList.add(img.getSrc());
+        }
+
+        DealDetailResponseDto dealDetailResponseDto = DealDetailResponseDto.builder()
                 .email(deal.getSeller().getEmail())
                 .nickname(deal.getSeller().getEmail())
                 .phone(deal.getSeller().getPhone())
@@ -122,9 +130,10 @@ public class DealServiceImpl implements DealService {
                 .price(deal.getCar().getPrice())
                 .title(deal.getTitle())
                 .content(deal.getContent())
+                .src(srcList)
                 .build();
 
-        return dealSearchResponseDto;
+        return dealDetailResponseDto;
     }
 
     //Update
@@ -200,13 +209,14 @@ public class DealServiceImpl implements DealService {
 
     //List
     @Override
-    public List<DealSearchResponseDto> searchAll(Pageable pageable) {
-        List<DealSearchResponseDto> dealSearchResponseDtoList = new ArrayList<>();
+    public List<DealDetailResponseDto> searchAll(Pageable pageable) {
+        List<DealDetailResponseDto> dealDetailResponseDtoList = new ArrayList<>();
 
         Page<Deal> list = dealRepository.findAll(pageable);
 
         for(Deal deal : list) {
-            dealSearchResponseDtoList.add(DealSearchResponseDto.builder()
+            dealDetailResponseDtoList.add(DealDetailResponseDto.builder()
+                    .id(deal.getId())
                     .email(deal.getSeller().getEmail())
                     .nickname(deal.getSeller().getEmail())
                     .phone(deal.getSeller().getPhone())
@@ -226,6 +236,39 @@ public class DealServiceImpl implements DealService {
                     .title(deal.getTitle())
                     .content(deal.getContent())
                     .build());
+        }
+
+        return dealDetailResponseDtoList;
+    }
+
+    @Override
+    public List<DealSearchResponseDto> searchDetail(DealSearchRequestDto dealSearchRequestDto) {
+        List<DealSearchResponseDto> dealSearchResponseDto = dealRepository.selectDealList(dealSearchRequestDto);
+        return dealSearchResponseDto;
+    }
+
+    @Override
+    public List<DealSearchResponseDto> searchMy(Long id) {
+        List<Deal> dealList = dealRepository.findByBuyer_Id(id);
+        List<DealSearchResponseDto> dealSearchResponseDtoList=new ArrayList<>();
+
+
+        for (Deal deal : dealList) {
+            List<Img> imgList = imgRepository.findByDeal_Id(deal.getId());
+
+
+            DealSearchResponseDto dealSearchResponseDto = DealSearchResponseDto.builder()
+                    .id(deal.getId())
+                    .name(deal.getCar().getName())
+                    .nickname(deal.getSeller().getNickname())
+                    .releasePrice(deal.getCar().getReleasePrice())
+                    .price(deal.getCar().getPrice())
+                    .title(deal.getTitle())
+                    .src(imgList.get(0).getSrc())
+                    .status(deal.getStatus())
+                    .build();
+
+            dealSearchResponseDtoList.add(dealSearchResponseDto);
         }
 
         return dealSearchResponseDtoList;

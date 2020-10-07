@@ -1,16 +1,18 @@
 package com.bigdata.tikitacar.car.controller;
 
 import com.bigdata.tikitacar.car.dto.request.DealRegisterRequestDto;
+import com.bigdata.tikitacar.car.dto.request.DealSearchRequestDto;
 import com.bigdata.tikitacar.car.dto.request.DealUpdateRequestDto;
 import com.bigdata.tikitacar.car.dto.request.DealUpdateStatusRequestDto;
+import com.bigdata.tikitacar.car.dto.response.DealDetailResponseDto;
 import com.bigdata.tikitacar.car.dto.response.DealSearchResponseDto;
 import com.bigdata.tikitacar.car.service.DealService;
-import com.bigdata.tikitacar.user.dto.response.UserFindResponseDto;
 import com.bigdata.tikitacar.user.service.UserService;
 import com.bigdata.tikitacar.util.JwtService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -41,11 +43,11 @@ public class DealController {
         ResponseEntity response = null;
         Map<String,Object> map = new HashMap<String, Object>();
 
-        String loginEamil = jwtService.getEmailFromToken(token);
+        String loginEmail = jwtService.getEmailFromToken(token);
 
-        if(loginEamil!=null){
+        if(loginEmail!=null){
             //유저정보 dto에 등록
-            dealRegisterRequestDto.updateSellerId(userService.findUserByEmail(loginEamil).getId());
+            dealRegisterRequestDto.updateSellerId(userService.findUserByEmail(loginEmail).getId());
             dealService.registerDeal(dealRegisterRequestDto);
 
             map.put("msg","거래 등록에 성공했습니다.");
@@ -69,11 +71,11 @@ public class DealController {
         ResponseEntity response = null;
         Map<String,Object> map = new HashMap<String, Object>();
 
-        DealSearchResponseDto dealSearchResponseDto = dealService.searchDeal(id);
+        DealDetailResponseDto dealDetailResponseDto = dealService.searchDeal(id);
 
         map.put("msg","거래 조회에 성공했습니다.");
         map.put("status","success");
-        map.put("data",dealSearchResponseDto);
+        map.put("data", dealDetailResponseDto);
         response = new ResponseEntity(map,HttpStatus.OK);
 
         return response;
@@ -89,9 +91,9 @@ public class DealController {
         Map<String,Object> map = new HashMap<String, Object>();
 
         String loginEmail = jwtService.getEmailFromToken(token);
-        DealSearchResponseDto dealSearchResponseDto = dealService.searchDeal(dealUpdateRequestDto.getId());
+        DealDetailResponseDto dealDetailResponseDto = dealService.searchDeal(dealUpdateRequestDto.getId());
 
-        if(loginEmail!= null && loginEmail.equals(dealSearchResponseDto.getEmail())){
+        if(loginEmail!= null && loginEmail.equals(dealDetailResponseDto.getEmail())){
             dealService.updateDeal(dealUpdateRequestDto);
             map.put("msg","거래 수정에 성공했습니다.");
             map.put("status","success");
@@ -115,9 +117,9 @@ public class DealController {
 
         //현재 로그인한 아이디
         String loginEmail = jwtService.getEmailFromToken(token);
-        DealSearchResponseDto dealSearchResponseDto = dealService.searchDeal(dealId);
+        DealDetailResponseDto dealDetailResponseDto = dealService.searchDeal(dealId);
 
-        if(loginEmail!=null && loginEmail.equals(dealSearchResponseDto.getEmail())){
+        if(loginEmail!=null && loginEmail.equals(dealDetailResponseDto.getEmail())){
             dealService.updateDealStatus(dealId,dealUpdateStatusRequestDto);
             map.put("msg","거래 완료에 성공했습니다.");
             map.put("status","success");
@@ -140,9 +142,9 @@ public class DealController {
         Map<String,Object> map = new HashMap<String, Object>();
 
         String loginEmail = jwtService.getEmailFromToken(token);
-        DealSearchResponseDto dealSearchResponseDto = dealService.searchDeal(id);
+        DealDetailResponseDto dealDetailResponseDto = dealService.searchDeal(id);
 
-        if(loginEmail!= null && loginEmail.equals(dealSearchResponseDto.getEmail())){
+        if(loginEmail!= null && loginEmail.equals(dealDetailResponseDto.getEmail())){
             dealService.removeDeal(id);
             map.put("msg","거래 삭제에 성공했습니다.");
             map.put("status","success");
@@ -164,9 +166,48 @@ public class DealController {
         ResponseEntity response = null;
         Map<String,Object> map = new HashMap<String, Object>();
 
-        List<DealSearchResponseDto> dealSearchResponseDtoList = dealService.searchAll(PageRequest.of(page, 10));
+        List<DealDetailResponseDto> dealDetailResponseDtoList = dealService.searchAll(PageRequest.of(page, 10, Sort.by("id").descending()));
 
-        map.put("data",dealSearchResponseDtoList);
+        map.put("msg","거래 리스트 조회에 성공했습니다.");
+        map.put("status","success");
+        map.put("data", dealDetailResponseDtoList);
+        response = new ResponseEntity(map,HttpStatus.OK);
+
+        return response;
+    }
+
+    //Search
+    @ApiOperation("거래 상세 조회")
+    @PostMapping("/search")
+    public Object dealSearch(@RequestBody DealSearchRequestDto dealSearchRequestDto){
+        ResponseEntity response = null;
+        Map<String,Object> map = new HashMap<String, Object>();
+
+        List<DealSearchResponseDto> dealSearchResponseDtoList  = dealService.searchDetail(dealSearchRequestDto);
+
+        map.put("msg","거래 상세 조회에 성공했습니다.");
+        map.put("status","success");
+        map.put("data", dealSearchResponseDtoList);
+        response = new ResponseEntity(map,HttpStatus.OK);
+
+        return response;
+    }
+
+    @ApiOperation("거래 조회")
+    @GetMapping("/search/my")
+    public Object dealSearchMy(@RequestHeader(value="Authorization") String token){
+        ResponseEntity response = null;
+        Map<String,Object> map = new HashMap<String, Object>();
+
+        String loginEmail = jwtService.getEmailFromToken(token);
+        Long id = userService.findUserByEmail(loginEmail).getId();
+
+
+        List<DealSearchResponseDto> dealSearchResponseDtoList  = dealService.searchMy(id);
+
+        map.put("msg","거래 완료 조회에 성공했습니다.");
+        map.put("status","success");
+        map.put("data", dealSearchResponseDtoList);
         response = new ResponseEntity(map,HttpStatus.OK);
 
         return response;

@@ -1,13 +1,11 @@
 package com.bigdata.tikitacar.car.controller;
 
-import com.bigdata.tikitacar.car.dto.request.DealRegisterRequestDto;
-import com.bigdata.tikitacar.car.dto.response.DealSearchResponseDto;
+import com.bigdata.tikitacar.car.dto.response.DealDetailResponseDto;
 import com.bigdata.tikitacar.car.dto.response.WaitingUserResponseDto;
 import com.bigdata.tikitacar.car.service.DealService;
 import com.bigdata.tikitacar.car.service.WaitingService;
 import com.bigdata.tikitacar.user.service.UserService;
 import com.bigdata.tikitacar.util.JwtService;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -65,12 +63,12 @@ public class WaitingController {
         ResponseEntity response = null;
         Map<String,Object> map = new HashMap<String, Object>();
 
-        DealSearchResponseDto dealSearchResponseDto = dealService.searchDeal(dealId);
+        DealDetailResponseDto dealDetailResponseDto = dealService.searchDeal(dealId);
         String loginEmail=jwtService.getEmailFromToken(token);
 
 
         //현재로그인한의 이메일과 글의 작성자 이메일과 같은 경우만 가능
-        if(loginEmail!= null && dealSearchResponseDto.getEmail().equals(loginEmail)){
+        if(loginEmail!= null && dealDetailResponseDto.getEmail().equals(loginEmail)){
             List<WaitingUserResponseDto> list = waitingService.searchWaitingUser(dealId);
             map.put("msg","대기 유저 조회에 성공했습니다.");
             map.put("status","success");
@@ -91,7 +89,7 @@ public class WaitingController {
         ResponseEntity response = null;
         Map<String,Object> map = new HashMap<String, Object>();
 
-        DealSearchResponseDto dealSearchResponseDto = dealService.searchDeal(dealId);
+        DealDetailResponseDto dealDetailResponseDto = dealService.searchDeal(dealId);
         String loginEmail=jwtService.getEmailFromToken(token);
         if(loginEmail!=null){
             waitingService.deleteWaiting(dealId,userService.findUserByEmail(loginEmail).getId());

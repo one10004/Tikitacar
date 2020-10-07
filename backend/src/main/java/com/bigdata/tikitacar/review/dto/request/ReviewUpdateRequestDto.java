@@ -9,7 +9,6 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 public class ReviewUpdateRequestDto {
-    private Long id;
     private Long writer;
     private String title;
     private String content;
