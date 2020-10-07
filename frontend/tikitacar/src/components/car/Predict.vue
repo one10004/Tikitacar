@@ -182,7 +182,7 @@
         <hr>
           <p><span style="font-weight: bold">TIKITACAR</span>가 예측한 고객님의 {{model}} {{info.name}} 예상 금액은
           <p style="color : blue; font-weight: bold; font-size: 30px;"> {{this.info.price}}만원
-          <p>입니다.
+            <p>입니다.</p>
           <v-card-actions>
             <v-btn color="primary" @click="sellMyCar()">내 차 팔러 가기</v-btn>
           </v-card-actions>

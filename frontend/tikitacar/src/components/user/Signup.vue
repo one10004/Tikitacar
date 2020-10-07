@@ -34,7 +34,7 @@
                     id ="nickname"
                     type="text"
                     v-model="signupData.nickname"
-                    v-on:change="checking.nickname=false, color='red'"
+
 
                     prepend-icon="mdi-check-bold"
 
@@ -213,16 +213,17 @@ export default{
       let URL = api.ROOT_URL + api.ROUTES.USERS.emailDuplicateCheckURL + "/" + this.signupData.email;
 
       axios.get(URL, {}).then((response) =>{
+        this.checking.email = true;
         //console.dir(response.data.msg);
         event.target.style.color="green";
-        this.checking.email = true;
+
         swal('O', response.data.msg, 'success');
       }).catch((error) =>{
         //console.dir(error);
         alert(error.response.data.msg);
         event.target.style.color="red";
 
-        this.checking.email = false;
+       // this.checking.email = false;
         return;
       }).finally(()=>{
         //console.dir(this.checking);
@@ -240,9 +241,10 @@ export default{
       let URL = api.ROOT_URL + api.ROUTES.USERS.nicknameDuplicateCheckURL + "/" + this.signupData.nickname;
 
       axios.get(URL, {}).then((response) =>{
-        alert(response.data.msg);
-        event.target.style.color="green";
         this.checking.nickname = true;
+        swal('O', response.data.msg, 'success');
+        event.target.style.color="green";
+
         ////console.dir(this.checking.email);
         //console.log("통과");
       }).catch((error) =>{
