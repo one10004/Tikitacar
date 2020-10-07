@@ -1,6 +1,6 @@
 
 export default {
-    ROOT_URL : process.env.NODE_ENV=="local"?"http://localhost:8081/" :"http://j3a106.p.ssafy.io/",
+    ROOT_URL : process.env.NODE_ENV=="local"?"http://localhost:8081/" :"http://j3a106.p.ssafy.io/api/",
     ROUTES : {
         USERS: {
             emailDuplicateCheckURL: "user/email",
@@ -27,7 +27,8 @@ export default {
             registerCarURL: "deal",
             searchResultURL: "deal/all/",
             searchDetailURL: "deal/search",
-            getInfoURL: "deal/view/"
+            getInfoURL: "deal/view/",
+            buyCarURL: "deal/status/"
         },
         CAR: {
             getModelURL: "price/",
