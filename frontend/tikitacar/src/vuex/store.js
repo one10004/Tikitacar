@@ -24,7 +24,8 @@ const state = {
   },
   userInfo: {
       authToken: cookies.get('auth-token'),
-      nickname : ""
+      nickname : cookies.get('nickname'),
+      email: cookies.get('email')
   },
 }
 

@@ -10,7 +10,8 @@ export default {
         cookies.config('auth-token', now);
         //console.dir(res.data);
         state.userInfo.authToken=res.data.token;
-        state.userInfo.nickname = res.data.nickname;
+        cookies.set('nickname', res.data.nickname);
+        cookies.set('email', res.data.email);
 
         //cookies.set('auth-token', res.data.validTime/1000);
         // state.userInfo.authToken = res.headers.authorization
@@ -20,7 +21,10 @@ export default {
     },
     DEL_USER(state) {
         cookies.set('auth-token', "");
+        cookies.set('nickname', "");
+        cookies.set('email', "");
         state.userInfo.authToken="";
         state.userInfo.nickname="";
+        state.userInfo.email="";
     },
 }

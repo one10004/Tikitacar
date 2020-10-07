@@ -27,7 +27,8 @@ export default {
             registerCarURL: "deal",
             searchResultURL: "deal/all/",
             searchDetailURL: "deal/search",
-            getInfoURL: "deal/view/"
+            getInfoURL: "deal/view/",
+            buyCarURL: "deal/status/"
         },
         CAR: {
             getModelURL: "price/",
