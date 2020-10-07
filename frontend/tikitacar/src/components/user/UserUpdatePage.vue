@@ -3,15 +3,15 @@
     <v-main>
       <v-container fluid>
 
-        <v-row>
+        <v-row justify="start">
 
-          <v-col offset="2">
+          <v-col offset="2" md="6">
             <v-card id = "myinfo">
               <v-toolbar
-                  color="cyan"
+                  color="primary"
                   dark
                   flat>
-                <v-toolbar-title>내 회원 정보 수정`</v-toolbar-title>
+                <v-toolbar-title> 회원 정보 수정</v-toolbar-title>
                 <v-spacer></v-spacer>
               </v-toolbar>
               <v-form>
@@ -106,7 +106,7 @@
                 </v-text-field>
               </v-form>
               <v-card-actions>
-                <v-btn @click="updateUserInfo(userInfo)">수정 제출</v-btn>
+                <v-btn color="primary" @click="updateUserInfo(userInfo)">수정 제출</v-btn>
                 <v-dialog
                     v-model="addressModal">
                   <vue-daum-postcode @complete="handleAddress"></vue-daum-postcode>
@@ -158,7 +158,7 @@ export default {
         "Authorization" : "Bearer" + " " + this.$store.getters.getAuthToken
       }
     };
-    //console.log(config);
+    ////console.log(config);
     axios.get(URL,config).then((res) => {
 
       this.userInfo = res.data.user;
@@ -186,13 +186,13 @@ export default {
           }
         };
         axios.put(URL,request,config).then((res) =>{
-          console.dir(res);
-          console.dir(res.data)
+          //console.dir(res);
+          //console.dir(res.data)
           alert(res.data.msg);
           router.push({name : "MyPage"});
         //  router.push({name : "Home"});
         }).catch((err) => {
-          console.dir(err);
+          //console.dir(err);
           swal('X', err.response.data.msg, 'warning');
         })
 

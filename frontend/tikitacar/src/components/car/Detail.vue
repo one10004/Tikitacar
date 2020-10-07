@@ -221,9 +221,8 @@ import api from "@/api/api.js";
             })
         })
         .catch((err) => {
-          console.log(err);
-        });
-      
+          err;
+        })
     },
     methods: {
       ...mapActions(["buyCar", "getInfo", "fetchData"]),

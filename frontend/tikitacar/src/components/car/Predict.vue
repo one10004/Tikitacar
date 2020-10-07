@@ -168,7 +168,7 @@ import {mapActions} from "vuex";
             this.result = this.result * -1;
           })
           .catch((err) => {
-            console.log(err);
+            //console.log(err);
           })
       },
       sellMyCar() {
