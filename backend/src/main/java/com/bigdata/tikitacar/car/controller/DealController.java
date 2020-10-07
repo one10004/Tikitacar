@@ -110,8 +110,7 @@ public class DealController {
     @ApiOperation("거래 완료처리")
     @PutMapping("/status/{id}")
     public Object dealDone(@RequestHeader(value="Authorization") String token,
-                           @PathVariable("id") Long dealId,
-                           @RequestBody DealUpdateStatusRequestDto dealUpdateStatusRequestDto){
+                           @PathVariable("id") Long dealId){
         ResponseEntity response = null;
         Map<String,Object> map = new HashMap<String, Object>();
 
@@ -119,8 +118,8 @@ public class DealController {
         String loginEmail = jwtService.getEmailFromToken(token);
         DealDetailResponseDto dealDetailResponseDto = dealService.searchDeal(dealId);
 
-        if(loginEmail!=null && loginEmail.equals(dealDetailResponseDto.getEmail())){
-            dealService.updateDealStatus(dealId,dealUpdateStatusRequestDto);
+        if(loginEmail != null && !loginEmail.equals(dealDetailResponseDto.getEmail())){
+            dealService.updateDealStatus(dealId, loginEmail);
             map.put("msg","거래 완료에 성공했습니다.");
             map.put("status","success");
             response = new ResponseEntity(map,HttpStatus.OK);
