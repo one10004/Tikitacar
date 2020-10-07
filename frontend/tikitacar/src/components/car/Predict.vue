@@ -291,7 +291,7 @@ import {mapActions} from "vuex";
             this.result = !this.result;
           })
           .catch((err) => {
-            //console.log(err);
+            ////console.log(err);
           })
       },
       sellMyCar() {
@@ -308,7 +308,7 @@ import {mapActions} from "vuex";
             this.modelOptions = res;
           })
           .catch((err) => {
-            console.log(err);
+            //console.log(err);
           })
       },
     },

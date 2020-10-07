@@ -204,10 +204,10 @@ import api from "@/api/api.js";
         this.getModels(event)
           .then((res) => {
             this.modelOptions = res;
-            //console.log(res);
+            ////console.log(res);
           })
           .catch((err) => {
-            //console.log(err);
+            ////console.log(err);
           })
       },
       search() {
@@ -216,7 +216,7 @@ import api from "@/api/api.js";
           this.cars = res;
         })
         .catch((err) => {
-          //console.log(err);
+          ////console.log(err);
         });
       },
       getImageUrl(src) {
@@ -230,7 +230,7 @@ import api from "@/api/api.js";
             this.priceHigh = res.priceHigh;
           })
           .catch((err) => {
-            //console.log(err);
+            ////console.log(err);
           })
       },
     },

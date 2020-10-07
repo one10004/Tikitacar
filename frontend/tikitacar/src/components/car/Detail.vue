@@ -212,12 +212,12 @@ import api from "@/api/api.js";
     created() {
       this.getInfo(this.$route.params.id)
         .then((res) => {
-          console.log(res);
+          //console.log(res);
           this.info = res.data;
           if(this.info.data.distance > 50000) this.status = "많음";
           else if(this.info.data.distance > 20000) this.status = "보통";
           else this.status = "적음";
-          console.log(this.info.data.status);
+          //console.log(this.info.data.status);
           this.fetchData(this.searchInfo)
             .then((res) => {
               var index = 0;
@@ -254,7 +254,7 @@ import api from "@/api/api.js";
         this.buyInfo.buyer.nickname = this.$store.getters.currentUserNickname;
         this.buyInfo.id = this.$route.params.id;
         this.buyInfo.name = this.info.data.name;
-        console.log(this.buyInfo);
+        //console.log(this.buyInfo);
         this.buyCar(this.buyInfo);
       }
     }

@@ -8,7 +8,7 @@ export default {
         let now = new Date();
         now.setSeconds(now.getSeconds() + res.data.validTime/1000);
         cookies.config('auth-token', now);
-        //console.dir(res.data);
+        ////console.dir(res.data);
         state.userInfo.authToken=res.data.token;
         cookies.set('nickname', res.data.nickname);
         cookies.set('email', res.data.email);

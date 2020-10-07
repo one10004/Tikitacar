@@ -101,7 +101,7 @@ import swal from "sweetalert";
     ,
     created : function() {
       this.isloggedIn = this.$store.getters.isLoggedIn;
-      //console.dir(this.isloggedIn);
+      ////console.dir(this.isloggedIn);
       if (this.isloggedIn) {
 
         swal('X', '이미 로그인 되있는 상태입니다', 'warning');
