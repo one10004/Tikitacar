@@ -124,7 +124,7 @@ router;
             "Authorization" : "Bearer" + " " + this.$store.getters.getAuthToken
           }
         };
-       // console.log(config);
+       // //console.log(config);
         axios.get(URL,config).then((res) => {
 
           this.userInfo = res.data.user;

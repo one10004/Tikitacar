@@ -103,26 +103,26 @@ export default {
     let config = this.$store.getters.config;
     axios.get(URL,config).then((res)=>{
       this.reviewDetail = res.data.data;
-     // console.dir(this.reviewDetail);
-     // console.log(this.reviewDetail.nickname+ " 111" + this.$store.getters.currentUserNickname)
-      console.dir(this.reviewDetail)
-      console.log(this.$store.getters.currentUserNickname)
+     // //console.dir(this.reviewDetail);
+     // //console.log(this.reviewDetail.nickname+ " 111" + this.$store.getters.currentUserNickname)
+      //console.dir(this.reviewDetail)
+      //console.log(this.$store.getters.currentUserNickname)
       if(this.reviewDetail.nickname==this.$store.getters.currentUserNickname){
-        console.log("일치")
+        //console.log("일치")
         this.equal = true;
       }
 
       this.getInfo(this.reviewDetail.dealId)
           .then((res) => {
             this.info = res.data;
-            console.log("??")
-            console.dir(this.info);
+            //console.log("??")
+            //console.dir(this.info);
             if(this.info.data.distance > 50000) this.status = "많음";
             else if(this.info.data.distance > 20000) this.status = "보통";
             else this.status = "적음";
           })
           .catch((err) => {
-            console.log(err);
+            //console.log(err);
           })
     }).catch((err) =>{
       swal('X', err.response.data.msg, 'error');
