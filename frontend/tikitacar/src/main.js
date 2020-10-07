@@ -21,4 +21,4 @@ new Vue({
   store : store,
   render: h => h(App)
 }).$mount('#app')
-Vue.config.devtools = true;
+//Vue.config.devtools = true;
