@@ -25,9 +25,14 @@
             <v-icon
               style="margin-top:15px;font-size:65px;padding-bottom:0px;"
             >mdi-account-circle</v-icon>
-            <p style="margin-bottom: 0px; color: black;">{{this.nickname}}님 반갑습니다!</p>
+            <p style="margin-bottom: 0px; color: black;">{{this.$store.getters.currentUserNickname}}님 반갑습니다!</p>
           </router-link>
-          <p style="text-decoration: none; color: blue; font-size: 13px; cursor: pointer;" @click="logout">로그 아웃</p>
+          <div style="display: flex; text-align: center;">
+            <router-link :to="{name  : 'MyPage'}" style="text-decoration: none;">
+              <p style="text-decoration: none; color: blue; font-size: 13px; cursor: pointer; margin-left: 70px;">마이페이지</p>
+            </router-link>
+            <p style="text-decoration: none; color: blue; font-size: 13px; cursor: pointer; margin-left: 15px;" @click="logout">로그 아웃</p>
+          </div>
         </div>
         
       
@@ -57,7 +62,7 @@
         <router-link router-link :to="{name  : 'Review'}" style="text-decoration: none;">
           <v-list-item link>
             <v-list-item-action >
-              <v-icon color="blue">mdi-car</v-icon>
+              <v-icon color="orange">mdi-message-draw</v-icon>
             </v-list-item-action>
             <v-list-item-content>
               <v-list-item-title style="font-size: 15px;">차량 후기</v-list-item-title>
@@ -68,7 +73,7 @@
         <router-link :to="{name: 'Predict'}" style="text-decoration: none;">
           <v-list-item link>
             <v-list-item-action>
-              <v-icon color="yellow">mdi-currency-usd</v-icon>
+              <v-icon color="#F5D80E">mdi-currency-usd</v-icon>
             </v-list-item-action>
             <v-list-item-content>
               <v-list-item-title style="font-size: 15px;">내 차 가격 조회</v-list-item-title>
@@ -103,10 +108,6 @@ export default {
     image: require('@/assets/TIKITACAR_LOGO_2.jpg'),
     nickname: "",
   }),
-  updated() {
-    this.nickname = this.$store.getters.currentUserNickname;
-  },
-
   methods : {
     ...mapActions(["logout"]),
 

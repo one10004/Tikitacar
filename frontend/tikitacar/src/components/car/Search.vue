@@ -144,7 +144,11 @@
                     <p>출시가격: {{car.releasePrice}}</p>
                     <p>색상: {{car.color}}</p>
                     <p>판매자: {{car.nickname}}</p>
-                    <p><span style="font-size: 30px; color: blue;">{{car.price}}</span>만원</p>
+                    <div style="display: flex;">
+                      <p><span style="font-size: 30px; color: blue;">{{car.price}}</span>만원</p>
+                      <p v-if="car.status === '판매완료'" 
+                        style="color: gray; float: right; margin-top: 20px; margin-left: 120px; font-size: 18px; color: red;">판매완료</p>
+                    </div>
                   </v-card>
                 </router-link>
               </v-col>         
@@ -200,10 +204,10 @@ import api from "@/api/api.js";
         this.getModels(event)
           .then((res) => {
             this.modelOptions = res;
-            //console.log(res);
+            ////console.log(res);
           })
           .catch((err) => {
-            //console.log(err);
+            ////console.log(err);
           })
       },
       search() {
@@ -212,7 +216,7 @@ import api from "@/api/api.js";
           this.cars = res;
         })
         .catch((err) => {
-          //console.log(err);
+          ////console.log(err);
         });
       },
       getImageUrl(src) {
@@ -226,7 +230,7 @@ import api from "@/api/api.js";
             this.priceHigh = res.priceHigh;
           })
           .catch((err) => {
-            //console.log(err);
+            ////console.log(err);
           })
       },
     },

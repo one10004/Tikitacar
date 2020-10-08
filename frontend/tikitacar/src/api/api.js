@@ -6,7 +6,7 @@ export default {
             emailDuplicateCheckURL: "user/email",
             nicknameDuplicateCheckURL: "user/nickname",
             getUserInfoURL : "user",
-            createUserURL : "user",
+            createUserURL : "user/new",
             updateUserURL : "user",
             deleteUserURL : "user",
             checkPasswordURL : "/user/check"
@@ -27,7 +27,8 @@ export default {
             registerCarURL: "deal",
             searchResultURL: "deal/all/",
             searchDetailURL: "deal/search",
-            getInfoURL: "deal/view/"
+            getInfoURL: "deal/view/",
+            buyCarURL: "deal/status/"
         },
         CAR: {
             getModelURL: "price/",

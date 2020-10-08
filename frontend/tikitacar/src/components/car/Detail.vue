@@ -1,7 +1,7 @@
 <template>
   <v-app id="app">
     <v-main style="padding-left: 10%; margin-top: 40px; font-family: 'Do Hyeon', sans-serif;">
-      <h2>{{this.info.data.title}}</h2>
+      <h2>{{info.data.title}}</h2>
       <hr>
       <div class="carInfo">
         <div>
@@ -60,11 +60,18 @@
                 <b>만원</b>
               </div>
               <v-btn
+                v-if="info.data.status === '판매중'"
                 large
                 color="primary"
                 style="position: absolute; bottom: 0; margin-left: 430px;"
-                @click="buyCar(this.info.data.name)"
+                @click="buyCarInfo()"
               >구매</v-btn>
+              <v-btn
+                v-else
+                large
+                color="gray"
+                style="position: absolute; bottom: 0; margin-left: 430px;"
+              >판매완료</v-btn>
             </div>
           </div>
         </div>
@@ -175,6 +182,14 @@ import api from "@/api/api.js";
       source: String,
     },
     data: () => ({
+      buyInfo: {
+        buyer: {
+          email: "",
+          nickname: ""
+        },
+        id: 0,
+        name: ""
+      },
       info: {},
       status: "",
       cars: [],
@@ -197,10 +212,12 @@ import api from "@/api/api.js";
     created() {
       this.getInfo(this.$route.params.id)
         .then((res) => {
+          //console.log(res);
           this.info = res.data;
           if(this.info.data.distance > 50000) this.status = "많음";
           else if(this.info.data.distance > 20000) this.status = "보통";
           else this.status = "적음";
+          //console.log(this.info.data.status);
           this.fetchData(this.searchInfo)
             .then((res) => {
               var index = 0;
@@ -225,12 +242,20 @@ import api from "@/api/api.js";
         })
     },
     methods: {
-      ...mapActions(["buyCar", "getInfo", "fetchData"]),
+      ...mapActions(["buyCar", "getInfo", "fetchData", "buyCar"]),
       getImagesUrl(i) {
         return api.ROUTES.IMG.getUrl + this.info.data.src[i];
       },
       getImageUrl(src) {
         return api.ROUTES.IMG.getUrl + src;
+      },
+      buyCarInfo() {
+        this.buyInfo.buyer.email = this.$store.getters.currentUserEmail;
+        this.buyInfo.buyer.nickname = this.$store.getters.currentUserNickname;
+        this.buyInfo.id = this.$route.params.id;
+        this.buyInfo.name = this.info.data.name;
+        //console.log(this.buyInfo);
+        this.buyCar(this.buyInfo);
       }
     }
   }

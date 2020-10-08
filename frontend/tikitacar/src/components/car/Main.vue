@@ -80,7 +80,7 @@ import api from '@/api/api.js'
           }
         })
         .catch((err) => {
-          console.log(err);
+          //console.log(err);
         });
       },
       getImageUrl(src) {

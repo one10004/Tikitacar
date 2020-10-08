@@ -130,6 +130,7 @@ public class DealServiceImpl implements DealService {
                 .price(deal.getCar().getPrice())
                 .title(deal.getTitle())
                 .content(deal.getContent())
+                .status(deal.getStatus())
                 .src(srcList)
                 .build();
 
@@ -186,10 +187,11 @@ public class DealServiceImpl implements DealService {
 
 
     @Override
-    public void updateDealStatus(Long dealId, DealUpdateStatusRequestDto dealUpdateStatusRequestDto) {
+    @Transactional
+    public void updateDealStatus(Long dealId, String email) {
         Deal deal = Optional.of(dealRepository.findById(dealId))
                 .orElseThrow(() -> new NoSuchElementException("거래가 존재하지 않음.")).get();
-        User buyer = Optional.of(userRepository.findByEmail(dealUpdateStatusRequestDto.getEmail()))
+        User buyer = Optional.of(userRepository.findByEmail(email))
                 .orElseThrow(() -> new NoSuchElementException("유저가 존재하지 않음.")).get();
         try{
             deal.updateDealStatus("판매완료", buyer);
@@ -235,6 +237,7 @@ public class DealServiceImpl implements DealService {
                     .price(deal.getCar().getPrice())
                     .title(deal.getTitle())
                     .content(deal.getContent())
+                    .status(deal.getStatus())
                     .build());
         }
 

@@ -12,11 +12,9 @@ export default {
     axios.post(URL, loginData)
         .then((res) => {
            ////console.dir(res);
-            swal('로그인 성공', '환영합니다 :)', 'success')
-
           commit('SET_USER', res)
-          router.push({ name: 'Home' })
-          router.go()
+          router.push({ name: 'Main' })
+          router.go();
         })
         .catch((err) => {
          // //console.log(err)
@@ -27,10 +25,9 @@ export default {
     let URL = api.ROOT_URL + api.ROUTES.AUTH.logoutURL;
     axios.post(URL)
         .then(() => {
-        swal('로그아웃 성공','success');
         commit('DEL_USER')
-      router.push({ name: 'Home' });
-      //router.go();
+      router.push({ name: 'Main' });
+      router.go();
     }).catch((err) => {
           swal('실패', err.response.data.msg, 'error');
       });
@@ -157,4 +154,11 @@ export default {
         })
     })
   },
+  buyCar({getters}, info) {
+    axios.put(Api.ROOT_URL + Api.ROUTES.DEAL.buyCarURL + info.id, info.buyer, getters.config)
+      .then((res) => {
+        res;
+        swal('구매 되었습니다!', info.name+"가 정상적으로 구매 완료 되었습니다.", 'success');
+      })
+  }
 }

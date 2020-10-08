@@ -287,7 +287,7 @@ import {mapActions} from "vuex";
             this.modelOptions = res;
           })
           .catch((err) => {
-            console.log(err);
+            //console.log(err);
           })
       },
       quickSearch() {
@@ -298,7 +298,7 @@ import {mapActions} from "vuex";
             this.priceHigh = res.priceHigh;
           })
           .catch((err) => {
-            console.log(err);
+            //console.log(err);
           })
       },
     },
